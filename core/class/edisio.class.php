@@ -253,7 +253,6 @@ class edisio extends eqLogic {
 			}
 		}
 		$edisio_path = realpath(dirname(__FILE__) . '/../../ressources/edisiocmd/edisiocmd.py');
-		exec("kill -9 `ps ax | grep '$edisio_path' | awk '{print $1}'` > /dev/null 2>&1");
 		exec('fuser -k ' . config::byKey('socketport', 'edisio', 55000) . '/tcp > /dev/null 2>&1');
 		exec('sudo fuser -k ' . config::byKey('socketport', 'edisio', 55000) . '/tcp > /dev/null 2>&1');
 		return self::deamonRunning();

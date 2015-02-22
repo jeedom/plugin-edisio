@@ -38,22 +38,25 @@ if (config::byKey('jeeNetwork::mode') == 'master') {
 
 <form class="form-horizontal">
     <fieldset>
-        <div class="alert alert-info"><strong style="color : #31708f">{{Statut du démon : }}</strong><br/>
-            <?php
+<?php
+echo '<div class="form-group">';
+echo '<label class="col-sm-4 control-label">{{Démon local}}</label>';
 if (!$deamonRunningMaster) {
-	echo '{{En local :}} <strong style="color : #a94442" class="tooltips" title="{{Normale si vous etes en deporté}}">NOK</strong>';
+	echo '<div class="col-sm-1"><span class="label label-danger tooltips" title="{{Peut être normale si vous etes en deporté}}">NOK</span></div>';
 } else {
-	echo '{{En local :}} <strong style="color : #3c763d;">OK</strong>';
+	echo '<div class="col-sm-1"><span class="label label-success">OK</span></div>';
 }
+echo '</div>';
 foreach ($deamonRunningSlave as $name => $status) {
+	echo ' <div class="form-group"><label class="col-sm-4 control-label">{{Sur l\'esclave}} ' . $name . '</label>';
 	if (!$status) {
-		echo '<br/>{{Sur l\'esclave}} ' . $name . ' : <strong style="color : #a94442" >NOK</strong>';
+		echo '<div class="col-sm-1"><span class="label label-danger">NOK</span></div>';
 	} else {
-		echo '<br/>{{Sur l\'esclave}} ' . $name . ' : <strong style="color : #3c763d;">OK</strong>';
+		echo '<div class="col-sm-1"><span class="label label-success">OK</span></div>';
 	}
+	echo '</div>';
 }
 ?>
-    </div>
        <div class="form-group">
         <label class="col-lg-4 control-label">{{Port EDISIO}}</label>
         <div class="col-lg-4">
