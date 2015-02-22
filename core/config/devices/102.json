@@ -1,0 +1,14 @@
+{
+    "102": {
+        "name": "Interrupteur 1 bouton (toggle)",
+        "commands": [
+            {
+                "name": "Toggle",
+                "type": "action",
+                "subtype": "ohter",
+                "isVisible": 0,
+                "logicalId" : "6C7663#ID#03011E010003640D0A"
+            }
+        ]
+    }
+}

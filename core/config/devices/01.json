@@ -1,0 +1,17 @@
+{
+    "01": {
+        "name": "Emitter Channel 1 (Button)",
+        "commands": [
+            {
+                "name": "Batterie",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 0,
+                "isHistorized": 0,
+                "unite": "",
+                "eventOnly": 1,
+                "logicalId": "battery"
+            }
+        ]
+    }
+}

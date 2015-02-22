@@ -1,0 +1,17 @@
+{
+    "09": {
+        "name": "Door Sensor (On/Off/Pulse)",
+        "commands": [
+            {
+                "name": "Batterie",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 0,
+                "isHistorized": 0,
+                "unite": "",
+                "eventOnly": 1,
+                "logicalId": "battery"
+            }
+        ]
+    }
+}

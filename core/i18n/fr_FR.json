@@ -1,0 +1,45 @@
+{
+    "plugins\/edisio\/desktop\/php\/edisio.php": {
+        "Récupérer du market": "Récupérer du market",
+        "Market": "Market",
+        "Ajouter": "Ajouter",
+        "Mes équipement EDISIO": "Mes équipement EDISIO",
+        "Général": "Général",
+        "Dupliquer": "Dupliquer",
+        "Ne pas verifier la batterie": "Ne pas verifier la batterie",
+        "Commentaire": "Commentaire",
+        "Date de création": "Date de création",
+        "Partager": "Partager",
+        "Envoyer une configuration": "Envoyer une configuration",
+        "Délai maximum autorisé entre 2 messages (min)": "Délai maximum autorisé entre 2 messages (min)"
+    },
+    "plugins\/edisio\/desktop\/js\/edisio.js": {
+        "Partager sur le market": "Partager sur le market",
+        "Vous devez d\\'abord sélectionner une configuration à partager": "Vous devez d\\'abord sélectionner une configuration à partager",
+        "Valeur retour d\\'état": "Valeur retour d\\'état",
+        "Durée avant retour d\\'état (min)": "Durée avant retour d\\'état (min)"
+    },
+    "plugins\/edisio\/plugin_info\/configuration.php": {
+        "Le démon EDISIO ne tourne pas": "Le démon EDISIO ne tourne pas",
+        "Port EDISIO": "Port EDISIO",
+        "Aucun": "Aucun",
+        "Auto": "Auto",
+        "Enregistrer tous les messages, cela peut ralentir le système (tout changement nécéssite un redémarrage du démon edisio)": "Enregistrer tous les messages, cela peut ralentir le système (tout changement nécéssite un redémarrage du démon edisio)",
+        "Voir les messages": "Voir les messages",
+        "Créer automatiquement les nouveaux équipements": "Créer automatiquement les nouveaux équipements",
+        "Bannir les IDs": "Bannir les IDs",
+        "Port socket interne (modification dangereuse, doit etre le meme surtout les esclaves)": "Port socket interne (modification dangereuse, doit etre le meme surtout les esclaves)",
+        "Traiter la répétition des messages": "Traiter la répétition des messages",
+        "Forcer la répétition des messages toutes les (min)": "Forcer la répétition des messages toutes les (min)",
+        "Gestion du démon": "Gestion du démon",
+        "(Re)démarrer": "(Re)démarrer",
+        "Arrêter": "Arrêter",
+        "Lancer en mode debug": "Lancer en mode debug",
+        "Le démon a été correctement (re)démarré": "Le démon a été correctement (re)démarré",
+        "Le démon a été correctement arrêté": "Le démon a été correctement arrêté",
+        "Gestion des protocoles EDISIO": "Gestion des protocoles EDISIO",
+        "Log des messages EDISIO": "Log des messages EDISIO",
+        "Etes-vous sur de vouloir lancer le démon en mode debug ? N\\'oubliez pas d\\arrêter\/redemarrer le démon une fois terminé": "Etes-vous sur de vouloir lancer le démon en mode debug ? N\\'oubliez pas d\\arrêter\/redemarrer le démon une fois terminé",
+        "EDISIO en mode debug": "EDISIO en mode debug"
+    }
+}

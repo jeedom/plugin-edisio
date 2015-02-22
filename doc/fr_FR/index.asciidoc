@@ -1,0 +1,16 @@
+== Edisio
+
+=== Description
+Plugin permetant d'utiliser le protocole Edisio
+
+'''
+=== FAQ
+include::faq.asciidoc[]
+
+'''
+=== Troubleshoting
+include::troubleshoting.asciidoc[]
+
+'''
+=== Changelog
+include::changelog.asciidoc[]
