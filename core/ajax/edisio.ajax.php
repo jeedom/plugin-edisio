@@ -47,6 +47,28 @@ try {
 		ajax::success();
 	}
 
+	if (init('action') == 'restartSlaveDeamon') {
+		if (config::byKey('jeeNetwork::mode') == 'master') {
+			$jeeNetwork = jeeNetwork::byId(init('id'));
+			if (!is_object($jeeNetwork)) {
+				throw new Exception(__('Impossible de trouver l\'esclave : ', __FILE__) . init('id'));
+			}
+			$jeeNetwork->sendRawRequest('restartDeamon', array('plugin' => 'edisio'));
+		}
+		ajax::success();
+	}
+
+	if (init('action') == 'stopSlaveDeamon') {
+		if (config::byKey('jeeNetwork::mode') == 'master') {
+			$jeeNetwork = jeeNetwork::byId(init('id'));
+			if (!is_object($jeeNetwork)) {
+				throw new Exception(__('Impossible de trouver l\'esclave : ', __FILE__) . init('id'));
+			}
+			$jeeNetwork->sendRawRequest('stopDeamon', array('plugin' => 'edisio'));
+		}
+		ajax::success();
+	}
+
 	if (init('action') == 'uploadConfEdisio') {
 		$uploaddir = dirname(__FILE__) . '/../config';
 		if (!file_exists($uploaddir)) {

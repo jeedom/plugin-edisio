@@ -15,17 +15,81 @@
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 if (!isConnect('admin')) {
-    throw new Exception('401 Unauthorized');
+	throw new Exception('401 Unauthorized');
 }
 echo '<div class="alert alert-warning">{{Attention le lancement en mode debug est très consommateur en ressources et en log, pensez bien à relancer le démon une fois l\'analyse terminée}}</div>';
+sendVarToJs('debugMode_slaveId', init('slave_id'));
 ?>
 <div id='div_edisioShowDebug' style="display: none;"></div>
 <pre id='pre_edisiolog' style='overflow: auto; height: 85%;with:90%;'></pre>
 
 
 <script>
+ if(debugMode_slaveId != ''){
+ $.ajax({// fonction permettant de faire de l'ajax
+            type: "POST", // methode de transmission des données au fichier php
+            url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
+            data: {
+                action: "restartSlaveDeamon",
+                id : debugMode_slaveId
+            },
+            dataType: 'json',
+            error: function (request, status, error) {
+                handleAjaxError(request, status, error, $('#div_edisioShowDebug'));
+            },
+            success: function (data) { // si l'appel a bien fonctionné
+            if (data.state != 'ok') {
+                $('#div_edisioShowDebug').showAlert({message: data.result, level: 'danger'});
+                return;
+            }
+             getJeedomSlaveLog(1);
+        }
+    });
+
+
+
+ function getJeedomSlaveLog(_autoUpdate) {
+    $.ajax({
+        type: 'POST',
+        url: 'core/ajax/jeeNetwork.ajax.php',
+        data: {
+            action: 'getLog',
+            log: 'edisiocmd',
+            id: debugMode_slaveId
+        },
+        dataType: 'json',
+        global: false,
+        error: function (request, status, error) {
+            setTimeout(function () {
+                getJeedomSlaveLog(_autoUpdate, 'edisiocmd')
+            }, 1000);
+        },
+        success: function (data) {
+            if (data.state != 'ok') {
+                $('#div_edisioShowDebug').showAlert({message: data.result, level: 'danger'});
+                return;
+            }
+            var log = '';
+            var regex = /<br\s*[\/]?>/gi;
+            for (var i in data.result.reverse()) {
+                log += data.result[i][2].replace(regex, "\n");
+            }
+            $('#pre_edisiolog').text(log);
+            $('#pre_edisiolog').scrollTop($('#pre_edisiolog').height() + 200000);
+            if (!$('#pre_edisiolog').is(':visible')) {
+                _autoUpdate = 0;
+            }
+
+            if (init(_autoUpdate, 0) == 1) {
+                setTimeout(function () {
+                    getJeedomSlaveLog(_autoUpdate)
+                }, 1000);
+            }
+        }
+    });
+}
+}else{
     $.ajax({
         type: 'POST',
         url: 'plugins/edisio/core/ajax/edisio.ajax.php',
@@ -84,6 +148,6 @@ echo '<div class="alert alert-warning">{{Attention le lancement en mode debug es
                 }
             }
         });
-    }
-
+}
+}
 </script>
