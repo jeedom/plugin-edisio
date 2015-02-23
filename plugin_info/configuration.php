@@ -287,7 +287,6 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
                 $('#div_alert').showAlert({message: data.result, level: 'danger'});
                 return;
             }
-            $('#ul_plugin .li_plugin[data-plugin_id=edisio]').click();
         }
     });
          }
@@ -311,7 +310,6 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
                 $('#div_alert').showAlert({message: data.result, level: 'danger'});
                 return;
             }
-            $('#ul_plugin .li_plugin[data-plugin_id=edisio]').click();
         }
     });
          }
