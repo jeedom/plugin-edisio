@@ -408,7 +408,10 @@ def decodePacket(message):
 
 	if MID == '08':
 		decode_string += "\nDecode model : \t\t= Temperature Sensor"
-
+		temperature = int(DATA[1:]) / 100
+		data_action += ' temperature='+str(temperature)
+		command = Command(action+data_action)
+		command.run(timeout=config.trigger_timeout)
 
 	if MID == '09':
 		decode_string += "\nDecode model : \t\t= Door Sensor (On/Off/Pulse)"

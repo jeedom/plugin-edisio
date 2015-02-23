@@ -1,0 +1,27 @@
+{
+    "08": {
+        "name": "Temperature Sensor",
+        "commands": [
+            {
+                "name": "Batterie",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 0,
+                "isHistorized": 0,
+                "unite": "",
+                "eventOnly": 1,
+                "logicalId": "battery"
+            },
+            {
+                "name": "Température",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "",
+                "eventOnly": 1,
+                "logicalId": "temperature"
+            }
+        ]
+    }
+}

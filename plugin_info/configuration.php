@@ -114,7 +114,7 @@ if (config::byKey('jeeNetwork::mode') == 'master') {
             <fieldset>
                 <legend>{{Démon sur l'esclave}} <?php echo $jeeNetwork->getName()?></legend>
                 <div class="form-group">
-                    <label class="col-lg-4 control-label">{{Port enOcean}}</label>
+                    <label class="col-lg-4 control-label">{{Port Edisio}}</label>
                     <div class="col-lg-4">
                         <select class="slaveConfigKey form-control" data-l1key="port">
                             <option value="none">{{Aucun}}</option>
