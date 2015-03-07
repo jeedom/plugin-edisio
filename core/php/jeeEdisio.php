@@ -45,7 +45,7 @@ if (!is_object($edisio)) {
 	}
 }
 
-if ($_GET['mid'] == 1 || $_GET['mid'] == 2 || $_GET['mid'] == 3 || $_GET['mid'] == 4 || $_GET['mid'] == 5 || $_GET['mid'] == 9) {
+if ($_GET['mid'] == 1 || $_GET['mid'] == 2 || $_GET['mid'] == 3 || $_GET['mid'] == 4 || $_GET['mid'] == 5 || $_GET['mid'] == 7 || $_GET['mid'] == 9) {
 	$logicalId = 'bt' . $_GET['bt'];
 	$value = $_GET['value'];
 	$cmd = $edisio->getCmd('info', $logicalId);

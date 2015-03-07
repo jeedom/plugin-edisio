@@ -1,6 +1,6 @@
 {
-    "09": {
-        "name": "Door Sensor (On/Off/Pulse)",
+    "07": {
+        "name": "Motion Sensor (On/Off/Pulse)",
         "category": {
                     "security": 1
         },
@@ -15,8 +15,8 @@
                 "eventOnly": 1,
                 "logicalId": "battery"
             },
-             {
-                "name": "Porte",
+            {
+                "name": "Présence",
                 "type": "info",
                 "subtype": "binary",
                 "isVisible": 1,
@@ -24,12 +24,16 @@
                 "unite": "",
                 "eventOnly": 1,
                 "logicalId": "bt01",
+                "configuration": {
+                    "returnStateTime": "4",
+                    "returnStateValue": "0"
+                },
                 "display": {
                     "invertBinary": "1"
                 },
                 "template": {
-                    "dashboard": "door",
-                    "mobile": "door"
+                    "dashboard": "presence",
+                    "mobile": "presence"
                 }
             }
         ]
