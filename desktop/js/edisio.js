@@ -36,6 +36,49 @@ $('body').delegate('#bt_shareOnMarket', 'click', function () {
     $('#md_modal').load('index.php?v=d&modal=market.send&type=edisio&logicalId=' + encodeURI(logicalId.split("::")[0]) + '&name=' + encodeURI($('.eqLogicAttr[data-l1key=configuration][data-l2key=device] option:selected').text())).dialog('open');
 });
 
+$('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
+    var logicalId = $(this).value();
+    $('#bt_deviceDocumentation').hide();
+    $('#img_device').attr('src', 'core/img/no_image.gif');
+    $("<img>", {
+        src: marketAddr + '/market/edisio/images/' + logicalId + '.jpg',
+        error: function () {
+            $("<img>", {
+                src: marketAddr + '/market/edisio/images/' + logicalId + '_icon.png',
+                error: function () {
+                    $("<img>", {
+                        src: marketAddr + '/market/edisio/images/' + logicalId + '_icon.jpg',
+                        error: function () {
+
+                        },
+                        load: function () {
+                            $('#img_device').attr("data-original", marketAddr + '/market/edisio/images/' + logicalId + '_icon.jpg');
+                            $('#img_device').lazyload({
+                                event: "sporty"
+                            });
+                            $('#img_device').trigger("sporty");
+                        }
+                    });
+                },
+                load: function () {
+                    $('#img_device').attr("data-original", marketAddr + '/market/edisio/images/' + logicalId + '_icon.png');
+                    $('#img_device').lazyload({
+                        event: "sporty"
+                    });
+                    $('#img_device').trigger("sporty");
+                }
+            });
+},
+load: function () {
+    $('#img_device').attr("data-original", marketAddr + '/market/edisio/images/' + logicalId + '.jpg');
+    $('#img_device').lazyload({
+        event: "sporty"
+    });
+    $('#img_device').trigger("sporty");
+}
+});
+});
+
 $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 
 function stopEDISIODeamon() {
