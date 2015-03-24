@@ -53,7 +53,7 @@ try {
 			if (!is_object($jeeNetwork)) {
 				throw new Exception(__('Impossible de trouver l\'esclave : ', __FILE__) . init('id'));
 			}
-			$jeeNetwork->sendRawRequest('restartDeamon', array('plugin' => 'edisio'));
+			$jeeNetwork->sendRawRequest('restartDeamon', array('plugin' => 'edisio', 'debug' => init('debug', 0)));
 		}
 		ajax::success();
 	}

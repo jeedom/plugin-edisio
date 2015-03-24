@@ -32,7 +32,8 @@ sendVarToJs('debugMode_slaveId', init('slave_id'));
             url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
             data: {
                 action: "restartSlaveDeamon",
-                id : debugMode_slaveId
+                id : debugMode_slaveId,
+                debug : 1
             },
             dataType: 'json',
             error: function (request, status, error) {
