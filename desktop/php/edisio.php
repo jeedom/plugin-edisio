@@ -141,7 +141,7 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
             <div class="form-group">
                 <label class="col-sm-3 control-label">Equipement</label>
                 <div class="col-sm-6">
-                   <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="device">
+                 <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="device">
                     <option value="">Aucun</option>
                     <?php
 foreach (edisio::devicesParameters() as $mid => $info) {
@@ -174,6 +174,10 @@ foreach (edisio::devicesParameters() as $mid => $info) {
     <label class="col-sm-3 control-label">{{Batterie}}</label>
     <div class="col-sm-3">
         <span class="eqLogicAttr label label-default tooltips" data-l1key="configuration" data-l2key="batteryStatus"></span> %
+    </div>
+    <label class="col-sm-3 control-label">{{Status}}</label>
+    <div class="col-sm-2">
+        <span class="eqLogicAttr label label-default tooltips" data-l1key="status" data-l2key="state"></span>
     </div>
 </div>
 <center>
