@@ -89,10 +89,31 @@ foreach (jeedom::getUsbMapping() as $name => $value) {
            </select>
        </div>
    </div>
-   <div class="form-group expertModeVisible">
+   <div class="form-group">
+       <label class="col-lg-4 control-label">{{Enregistrer tous les messages, cela peut ralentir le système}}</label>
+       <div class="col-lg-1">
+        <input type="checkbox" class="configKey" data-l1key="enableLogging" />
+    </div>
+    <div class="col-lg-7">
+        <a class="btn btn-default" id="bt_logEdisioMessage"><i class="fa fa-file-o"></i> {{Voir les messages}}</a>
+    </div>
+</div>
+<div class="form-group expertModeVisible">
     <label class="col-lg-4 control-label">{{Port socket interne (modification dangereuse, doit etre le meme surtout les esclaves)}}</label>
     <div class="col-lg-2">
         <input class="configKey form-control" data-l1key="socketport" value='55005' />
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">{{Traiter la répétition des messages}}</label>
+    <div class="col-sm-2">
+        <input type="checkbox" class="configKey" data-l1key="processRepeatMessage" />
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">{{Forcer la répétition des messages toutes les (min)}}</label>
+    <div class="col-sm-2">
+        <input class="configKey form-control" data-l1key="repeatMessageTime" />
     </div>
 </div>
 <div class="form-group">
@@ -127,24 +148,45 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
                      </select>
                  </div>
              </div>
-             <div class="form-group expertModeVisible">
-                <label class="col-lg-4 control-label">{{Port socket interne (modification dangereuse, doit etre le meme surtout les esclaves)}}</label>
-                <div class="col-lg-2">
-                    <input class="slaveConfigKey form-control" data-l1key="socketport" value='55005' />
-                </div>
+             <div class="form-group">
+               <label class="col-lg-4 control-label">{{Enregistrer tous les messages, cela peut ralentir le système}}</label>
+               <div class="col-lg-1">
+                <input type="checkbox" class="slaveConfigKey" data-l1key="enableLogging" />
             </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label">{{Gestion du démon}}</label>
-                <div class="col-lg-8">
-                    <a class="btn btn-success bt_restartEdisioDeamon"><i class='fa fa-play'></i> {{(Re)démarrer}}</a>
-                    <a class="btn btn-danger bt_stopEdisioDeamon"><i class='fa fa-stop'></i> {{Arrêter}}</a>
-                    <a class="btn btn-warning bt_launchEdisioInDebug"><i class="fa fa-exclamation-triangle"></i> {{Lancer en mode debug}}</a>
-                </div>
+            <div class="col-lg-7">
+                <a class="btn btn-default bt_logEdisioMessage"><i class="fa fa-file-o"></i> {{Voir les messages}}</a>
             </div>
-        </fieldset>
-    </form>
+        </div>
+        <div class="form-group expertModeVisible">
+            <label class="col-lg-4 control-label">{{Port socket interne (modification dangereuse, doit etre le meme surtout les esclaves)}}</label>
+            <div class="col-lg-2">
+                <input class="slaveConfigKey form-control" data-l1key="socketport" value='55005' />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">{{Traiter la répétition des messages}}</label>
+            <div class="col-sm-2">
+                <input type="checkbox" class="slaveConfigKey" data-l1key="processRepeatMessage" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">{{Forcer la répétition des messages toutes les (min)}}</label>
+            <div class="col-sm-2">
+                <input class="slaveConfigKey form-control" data-l1key="repeatMessageTime" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-4 control-label">{{Gestion du démon}}</label>
+            <div class="col-lg-8">
+                <a class="btn btn-success bt_restartEdisioDeamon"><i class='fa fa-play'></i> {{(Re)démarrer}}</a>
+                <a class="btn btn-danger bt_stopEdisioDeamon"><i class='fa fa-stop'></i> {{Arrêter}}</a>
+                <a class="btn btn-warning bt_launchEdisioInDebug"><i class="fa fa-exclamation-triangle"></i> {{Lancer en mode debug}}</a>
+            </div>
+        </div>
+    </fieldset>
+</form>
 
-    <?php
+<?php
 }
 }
 ?>
@@ -252,12 +294,12 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
     });
     });
 
- $('#bt_manageRfxComProtocole').on('click', function () {
+ $('#bt_manageEdisioComProtocole').on('click', function () {
     $('#md_modal').dialog({title: "{{Gestion des protocoles EDISIO}}"});
     $('#md_modal').load('index.php?v=d&plugin=edisio&modal=manage.protocole').dialog('open');
 });
 
- $('#bt_logRfxMessage').on('click', function () {
+ $('#bt_logEdisioMessage').on('click', function () {
     $('#md_modal').dialog({title: "{{Log des messages EDISIO}}"});
     $('#md_modal').load('index.php?v=d&plugin=edisio&modal=show.log').dialog('open');
 });
@@ -293,7 +335,7 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
 
 
 
-          function edisio_postSaveSlaveConfiguration(_slave_id){
+         function edisio_postSaveSlaveConfiguration(_slave_id){
              $.ajax({// fonction permettant de faire de l'ajax
             type: "POST", // methode de transmission des données au fichier php
             url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php

@@ -263,6 +263,7 @@ def decodePacket(message):
 	"""
 	global prevMessage;
 	global prevDatetime;
+	global current_sensor_data;
 	timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
 	unixtime_utc = int(time.time())
 
@@ -309,6 +310,9 @@ def decodePacket(message):
 	BL = int((int(BL, 16) / 3.3) * 10)
 
 	action = config.trigger+' id='+str(PID)+' battery='+str(BL)+' mid='+str(MID)
+
+
+	key = str(PID)+str(MID)+str(CMD)
 	data_action = ''
 	value = ''
 
@@ -409,9 +413,24 @@ def decodePacket(message):
 	if MID == '08':
 		decode_string += "\nDecode model : \t\t= Temperature Sensor"
 		temperature = int(DATA[1:]) / 100
-		data_action += ' temperature='+str(temperature)
-		command = Command(action+data_action)
-		command.run(timeout=config.trigger_timeout)
+
+		if key in current_sensor_data and 'updateTime' in current_sensor_data[key] : 
+			action += ' time_between_message='+str(unixtime_utc - current_sensor_data[key]['updateTime'])
+			decode_string += "\nTime between message\t= " + str(unixtime_utc - current_sensor_data[key]['updateTime'])
+
+		if not config.process_repeat_message and key in current_sensor_data and config.repeat_message_time > (unixtime_utc - current_sensor_data[key]['updateTime']):
+			if current_sensor_data[key]['temperature'] <> temperature:
+				data_action += ' temperature='+str(temperature)
+		else :
+			data_action += ' temperature='+str(temperature)
+
+	
+		current_sensor_data[key] = {'temperature' : temperature, 'updateTime' : unixtime_utc}
+
+		if data_action <> "":
+			command = Command(action+data_action)
+			command.run(timeout=config.trigger_timeout)
+
 
 	if MID == '09':
 		decode_string += "\nDecode model : \t\t= Door Sensor (On/Off/Pulse)"
@@ -1295,6 +1314,7 @@ if __name__ == '__main__':
 	cmdarg = cmdarg_data()
 	edisiocmd = edisiocmd_data()
 	serial_param = serial_data()
+	current_sensor_data = {}
 	prevMessage = '';
 	prevDatetime = '';
 
