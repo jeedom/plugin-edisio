@@ -138,16 +138,10 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
     <form class="form-horizontal">
         <fieldset>
             <legend>Informations</legend>
-            <div class="form-group expertModeVisible">
-                <label class="col-sm-3 control-label">{{Date de création}}</label>
-                <div class="col-sm-5">
-                    <span class="eqLogicAttr label label-primary" data-l1key="configuration" data-l2key="createtime"></span>
-                </div>
-            </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Equipement</label>
                 <div class="col-sm-6">
-                 <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="device">
+                   <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="device">
                     <option value="">Aucun</option>
                     <?php
 foreach (edisio::devicesParameters() as $mid => $info) {
@@ -166,9 +160,25 @@ foreach (edisio::devicesParameters() as $mid => $info) {
             <input id="bt_uploadConfEnocean" type="file" name="file" data-url="plugins/enocean/core/ajax/edisio.ajax.php?action=uploadConfEdisio">
         </div>
     </div>
-    <center>
-        <img src="core/img/no_image.gif" data-original=".jpg" id="img_device" class="img-responsive" style="max-height : 250px;"/>
-    </center>
+    <div class="form-group expertModeVisible">
+      <label class="col-sm-3 control-label">{{Création}}</label>
+      <div class="col-sm-3">
+        <span class="eqLogicAttr label label-default" data-l1key="configuration" data-l2key="createtime"></span>
+    </div>
+    <label class="col-sm-3 control-label">{{Communication}}</label>
+    <div class="col-sm-3">
+        <span class="eqLogicAttr label label-default" data-l1key="status" data-l2key="lastCommunication"></span>
+    </div>
+</div>
+<div class="form-group expertModeVisible">
+    <label class="col-sm-3 control-label">{{Batterie}}</label>
+    <div class="col-sm-3">
+        <span class="eqLogicAttr label label-default tooltips" data-l1key="configuration" data-l2key="batteryStatus"></span> %
+    </div>
+</div>
+<center>
+    <img src="core/img/no_image.gif" data-original=".jpg" id="img_device" class="img-responsive" style="max-height : 250px;"/>
+</center>
 </fieldset>
 </form>
 </div>

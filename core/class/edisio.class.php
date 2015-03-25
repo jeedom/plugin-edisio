@@ -49,17 +49,6 @@ class edisio extends eqLogic {
 		if ($port == 'auto' || file_exists(jeedom::getUsbMapping($port))) {
 			self::runDeamon();
 		}
-		foreach (self::byType('edisio') as $eqLogic) {
-			if ($eqLogic->getIsEnable() == 1 && $eqLogic->getConfiguration('noBatterieCheck') != 1) {
-				$cmd = $eqLogic->getCmd(null, 'battery');
-				if (is_object($cmd)) {
-					$battery = $cmd->execCmd();
-					if (is_numeric($battery) && $battery !== '') {
-						$eqLogic->batteryStatus($battery);
-					}
-				}
-			}
-		}
 	}
 
 	public static function cron() {

@@ -90,9 +90,12 @@ foreach ($edisio->getCmd('info') as $cmd) {
 	$logicalId = $cmd->getLogicalId();
 	if (isset($_GET[$logicalId])) {
 		if ($logicalId == 'battery') {
-			if ($cmd->execCmd(null, 2) !== $cmd->formatValue($_GET[$logicalId])) {
-				$cmd->setCollectDate('');
-				$cmd->event($_GET[$logicalId]);
+			if ($_GET[$logicalId] > 100) {
+				$_GET[$logicalId] = 100;
+			}
+			$cmd->event($_GET[$logicalId]);
+			if ($edisio->getIsEnable() == 1 && $edisio->getConfiguration('noBatterieCheck', 0) != 1) {
+				$edisio->batteryStatus($_GET[$logicalId]);
 			}
 		} else {
 			$value = trim($_GET[$logicalId]);
