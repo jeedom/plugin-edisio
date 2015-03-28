@@ -29,20 +29,6 @@ class edisio extends eqLogic {
 		self::runDeamon();
 	}
 
-	public static function start() {
-		$port = config::byKey('port', 'edisio', 'none');
-		if ($port != 'none') {
-			if ($port == 'auto' || file_exists(jeedom::getUsbMapping($port))) {
-				if (!self::deamonRunning()) {
-					self::runDeamon();
-				}
-				message::removeAll('edisio', 'noEdisioComPort');
-			} else {
-				log::add('edisio', 'error', __('Le port du Edisio est vide ou n\'éxiste pas', __FILE__), 'noEdisioComPort');
-			}
-		}
-	}
-
 	public static function cronDaily() {
 		sleep(180);
 		$port = config::byKey('port', 'edisio', 'none');
