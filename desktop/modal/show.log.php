@@ -15,59 +15,42 @@
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 if (!isConnect('admin')) {
-    throw new Exception('401 Unauthorized');
+	throw new Exception('401 Unauthorized');
 }
-if (config::byKey('enableLogging', 'edisio', 0) == 0) {
-    echo '<div class="alert alert-danger">{{Vous n\'avez pas activé l\'enregistrement de tous les messages : allez dans Générale -> Plugin puis edisio et coché la case correspondante}}</div>';
-}
+sendVarToJs('debugMode_slaveId', init('slave_id'));
 ?>
 <div class="alert alert-warning">{{Pensez bien à activer l'écriture de tous les messages dans la configuration du plugin et à redémarrer le démon une fois cela fait (N'oubliez pas de tout désactiver une fois fini)}}</div>
-<pre id='pre_edisiolog' style='overflow: auto; height: 95%;with:90%;'></pre>
-
+<a class="btn btn-warning pull-right" data-state="1" id="bt_edisioLogStopStart"><i class="fa fa-pause"></i> {{Pause}}</a>
+<input class="form-control pull-right" id="in_edisioLogSearch" style="width : 300px;" placeholder="{{Rechercher}}" />
+<br/><br/><br/>
+<pre id='pre_edisiolog' style='overflow: auto; height: 80%;with:90%;'></pre>
 
 <script>
-    getRfxLog(1);
-
-    function getRfxLog(_autoUpdate) {
-        $.ajax({
-            type: 'POST',
-            url: 'core/ajax/log.ajax.php',
-            data: {
-                action: 'get',
-                logfile: 'edisiocmd.message',
-            },
-            dataType: 'json',
-            global: false,
-            error: function(request, status, error) {
-                setTimeout(function() {
-                    getJeedomLog(_autoUpdate, _log)
-                }, 1000);
-            },
-            success: function(data) {
-                if (data.state != 'ok') {
-                    $('#div_alert').showAlert({message: data.result, level: 'danger'});
-                    return;
-                }
-                var log = '';
-                var regex = /<br\s*[\/]?>/gi;
-                for (var i in data.result.reverse()) {
-                    log += data.result[i][2].replace(regex, "\n");
-                }
-                $('#pre_edisiolog').text(log);
-                $('#pre_edisiolog').scrollTop($('#pre_edisiolog').height() + 200000);
-                if (!$('#pre_edisiolog').is(':visible')) {
-                    _autoUpdate = 0;
-                }
-
-                if (init(_autoUpdate, 0) == 1) {
-                    setTimeout(function() {
-                        getRfxLog(_autoUpdate)
-                    }, 1000);
-                }
-            }
+   $('#bt_edisioLogStopStart').on('click',function(){
+    if($(this).attr('data-state') == 1){
+        $(this).attr('data-state',0);
+        $(this).removeClass('btn-warning').addClass('btn-success');
+        $(this).html('<i class="fa fa-play"></i> {{Reprise}}');
+    }else{
+        $(this).removeClass('btn-success').addClass('btn-warning');
+        $(this).html('<i class="fa fa-pause"></i> {{Pause}}');
+        $(this).attr('data-state',1);
+        jeedom.log.autoupdate({
+            log : 'edisiocmd.message',
+            slaveId : debugMode_slaveId,
+            display : $('#pre_edisiolog'),
+            search : $('#in_edisioLogSearch'),
+            control : $('#bt_edisioLogStopStart'),
         });
     }
+});
 
+   jeedom.log.autoupdate({
+    log : 'edisiocmd.message',
+    slaveId : debugMode_slaveId,
+    display : $('#pre_edisiolog'),
+    search : $('#in_edisioLogSearch'),
+    control : $('#bt_edisioLogStopStart'),
+});
 </script>
