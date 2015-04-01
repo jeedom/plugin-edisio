@@ -2,7 +2,7 @@
 == Edisio
 
 === Description
-Plugin permetant d'utiliser le protocole Edisio avec Jeedom
+Plugin permettant d'utiliser le protocole Edisio avec Jeedom
 
 '''
 === Configuration
