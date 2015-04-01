@@ -1,8 +1,8 @@
-Le plugin Edisio permet de dialoguer avec l'ensemble des périphériques compatibles avec le module Edisio USB.
+Le plugin edisio permet de dialoguer avec l'ensemble des périphériques compatibles avec le module edisio USB.
 
 ==== Configuration du plugin
 
-Après téléchargement du plugin, il vous suffit de l'activer et de mettre le port sur auto, après sauvegarde le démon devrait se lancer. Le plugin est déjà configuré par défaut ; vous n'avez donc rien à faire de plus. Cependant vous pouvez modifier cette configuration.
+Après téléchargement du plugin, il vous suffit de l'activer et de mettre le port sur auto. Après sauvegarde le démon devrait se lancer. Le plugin est déjà configuré par défaut ; vous n'avez donc rien à faire de plus. Cependant vous pouvez modifier cette configuration.
 Voici le détail (certains paramètres peuvent n'être visibles qu'en mode expert) :
 
 image::../images/edisio1.JPG[]
@@ -13,14 +13,14 @@ image::../images/edisio1.JPG[]
 Si vous êtes en mode déporté, le démon local peut être arrêté, c'est tout à fait normal.
 
 * *Général* : cette partie permet de configurer les paramètres généraux du plugin.
-** _Créer automatiquement les nouveaux équipements_ : autorise jeedom à créer automatiquement les nouveaux équipements Edisio dès que ceux-ci envoient une valeur. Il faut absolument cocher cette option pour que les équipements soient créés correctement et automatiquement. En revanche une fois tous vos équipements Edisio créés, vous pouvez décocher cette case (cela évitera que si vos voisins installent de nouvelles sondes, celles-ci soient créées dans votre système).
-** _Bannir les IDs suivants_ : permet de donner une liste d'identifiants Edisio à Jeedom pour que celui-ci ne crée pas les équipements correspondants. Les identifiants doivent être séparés par des espaces. Exemple : "1356AD87 DB54AF".
+** _Créer automatiquement les nouveaux équipements_ : autorise jeedom à créer automatiquement les nouveaux équipements edisio dès que ceux-ci envoient une valeur. Il faut absolument cocher cette option pour que les équipements soient créés correctement et automatiquement. En revanche une fois tous vos équipements edisio créés, vous pouvez décocher cette case (cela évitera que si vos voisins installent de nouvelles sondes, celles-ci soient créées dans votre système).
+** _Bannir les IDs suivants_ : permet de donner une liste d'identifiants edisio à Jeedom pour que celui-ci ne crée pas les équipements correspondants. Les identifiants doivent être séparés par des espaces. Exemple : "1356AD87 DB54AF".
 * *Démon local* ou *Démon XXX* : paramètres de configuration locale (ou déportée, en fonction de l'intitulé) du démon.
-** _Port Edisio_ : le port USB sur lequel votre interface Edisio est connectée.
+** _Port edisio_ : le port USB sur lequel votre interface edisio est connectée.
 [icon="../images/plugin/tip.JPG"]
 [TIP]
 Si vous ne savez pas quel port USB est utilisé, vous pouvez simplement indiquer "Auto".
-** _Enregistrer tous les messages (cela peut ralentir le système)_ : permet d'enregistrer tous les messages reçus par votre interface Edisio avec, quand c'est possible, le décodage des messages.
+** _Enregistrer tous les messages (cela peut ralentir le système)_ : permet d'enregistrer tous les messages reçus par votre interface edisio avec, quand c'est possible, le décodage des messages.
 [icon="../images/plugin/important.JPG"]
 [IMPORTANT]
 Il n'est pas recommandé de laisser cette case en permanence cochée car cette option génère beaucoup d'écriture dans les fichiers de log.
@@ -33,19 +33,19 @@ Vous pouvez également faire une recherche dans le log affiché.
 
 image::../images/edisio8.JPG[]
 
-** _Port socket interne (modification dangereuse, doit être la même valeur sur tous les Jeedom déportés Edisio)_ : permet de modifier le port de communication interne du démon.
+** _Port socket interne (modification dangereuse, doit être la même valeur sur tous les Jeedom déportés edisio)_ : permet de modifier le port de communication interne du démon.
 [icon="../images/plugin/important.JPG"]
 [IMPORTANT]
 A ne changer que si vous savez ce que vous faites.
 
-** _Traiter la répétition des messages_ : par défaut le démon Edisio ne renvoie pas une valeur à Jeedom si celle-ci n'a pas changé. Cela permet de réduire significativement la charge de traitement des messages Edisio. Par défaut le démon ne remontera pas ces valeurs à moins qu'elles ne changent. +
-Exemple : les sondes de temperature envoient leur données (signal, batterie et température par exemple) toutes les 45 secondes environ, même s'il n'y a pas eu de changement de valeur. +
+** _Traiter la répétition des messages_ : par défaut le démon edisio ne renvoie pas une valeur à Jeedom si celle-ci n'a pas changé. Cela permet de réduire significativement la charge de traitement des messages edisio. Par défaut le démon ne remontera pas ces valeurs à moins qu'elles ne changent. +
+Exemple : les sondes de température envoient leur données (signal, batterie et température par exemple) toutes les 45 secondes environ, même s'il n'y a pas eu de changement de valeur. +
 Le fait de cocher cette case indique à Jeedom de traiter _tous_ les messages reçus.
 [icon="../images/plugin/important.JPG"]
 [IMPORTANT]
 En cochant cette case, la charge de traitement du système peut plus que doubler et donc ralentir Jeedom.
 
-** _Fréquence de répétition des messages (min)_ : cette option permet (si l'option précédente est cochée cette option n'aura aucun impact) de forcer la remontée d'une valeur suivant la fréquence définie (en minutes). +
+** _Fréquence de répétition des messages (min)_ : cette option permet (si l'option précédente est cochée, cette option n'aura aucun impact) de forcer la remontée d'une valeur suivant la fréquence définie (en minutes). +
 Si vous avez une sonde qui communique toutes les 45 secondes, et que cela fait 15 min (si vous mettez 15 dans la case) qu'aucune valeur n'a été envoyée à Jeedom, alors lors de la prochaine communication de la sonde avec Jeedom les valeurs seront forcément remontées à Jeedom même si il n'y a pas eu de changement.
 ** _Gestion du démon_ : vous retrouvez ici les boutons de gestion du démon : 
 *** Redémarrer : permet de redémarrer le démon en mode normal.
@@ -59,15 +59,15 @@ image::../images/edisio9.JPG[]
 
 ==== Configuration des équipements
 
-La configuration des équipements Edisio est accessible à partir du menu plugin : 
+La configuration des équipements edisio est accessible à partir du menu plugin : 
 
 image::../images/edisio10.JPG[]
 
-Voilà à quoi ressemble la page du plugin Edisio (ici avec déjà 3 équipements) : 
+Voilà à quoi ressemble la page du plugin edisio (ici avec déjà 3 équipements) : 
 
 image::../images/edisio2.JPG[]
 
-Vous avez sur la droite un bouton pour voir les configurations disponibles sur le market (elles sont inclues par défaut dans le plugin), un bouton de création d'équipement Edisio (utile pour les prises par exemple), la liste de vos équipements tout comme au centre de la page (avec leur photo en plus)
+Vous avez sur la droite un bouton pour voir les configurations disponibles sur le market (elles sont inclues par défaut dans le plugin), un bouton de création d'équipement edisio (utile pour les prises par exemple), la liste de vos équipements tout comme au centre de la page (avec leur photo en plus).
 
 Une fois que vous cliquez sur l'un d'eux, vous obtenez : 
 
@@ -76,18 +76,18 @@ image::../images/edisio3.JPG[]
 
 Vous retrouvez ici toute la configuration de votre équipement : 
 
-* Nom de l'équipement Edisio : nom de votre équipement Edisio
+* Nom de l'équipement edisio : nom de votre équipement edisio
 * ID : l'id de votre sonde (à ne modifier qu'en connaissance de cause)
 * Activer : permet de rendre votre équipement actif
 * Visible : le rend visible sur le dashboard
 * Objet parent : indique l'objet parent auquel appartient l'équipement
 * Catégorie : les catégories de l'équipement (il peut appartenir à plusieurs catégories)
-* Ne pas vérifier la batterie : indique à Jeedom de ne pas vous alerter si l'équipement envoit une trame de batterie faible (certains modules ne gèrent pas correctement cette info et génèrent de fausses alertes)
+* Ne pas vérifier la batterie : indique à Jeedom de ne pas vous alerter si l'équipement envoie une trame de batterie faible (certains modules ne gèrent pas correctement cette info et génèrent de fausses alertes)
 * Délai maximum autorisé entre 2 messages (min) : le délai maximum autorisé entre 2 messages avant que Jeedom ne déclare l'équipement en "timeout". Attention ce paramètre nécessite d'avoir configuré l'option "Forcer la répétition des messages toutes les (min)" et il doit être supérieur à cette valeur
 * Commentaire : vous permet de mettre des commentaires sur l'équipement (ex : pile changée le XX/XX/XXXX)
 * Equipement : permet de définir le modèle de votre équipement (à ne configurer que pour une création manuelle d'un équipement, en automatique Jeedom configure ce champ tout seul)
 ** Partager : permet de partager votre configuration (voir en-dessous)
-* Envoyer une configuration : vous permet d'envoyer à Jeedom une configuration json pour un nouvel équipement (peu utilisé en Edisio)
+* Envoyer une configuration : vous permet d'envoyer à Jeedom une configuration json pour un nouvel équipement (peu utilisé en edisio)
 * Création : vous donne la date de création de l'équipement
 * Communication : vous donne la date de dernière communication avec l'équipement (peut être vide dans le cas d'une prise par exemple)
 * Délai entre 2 messages : délai constaté entre les 2 derniers messages envoyés par l'équipement
@@ -102,20 +102,20 @@ En dessous vous retrouvez la liste des commandes :
 * "Valeur de retour d'état" et "Durée avant retour d'état" : permet d'indiquer à Jeedom qu'après un changement sur l'information sa valeur doit revenir à Y, X min après le changement. Exemple : dans le cas d'un détecteur de présence qui n'émet que lors d'une détection de présence, il est utile de mettre par exemple 0 en valeur et 4 en durée, pour que 4 min après une détection de mouvement (et s'il n'y a en pas eu de nouvelles depuis) Jeedom remette la valeur de l'information à 0 (plus de mouvement détecté)
 * historiser : permet d'historiser la donnée
 * afficher : permet d'afficher la donnée sur le dashboard
-* évènement : dans le cas du Edisio cette case doit toujours être cochée car on ne peut pas interroger un module Edisio
+* évènement : dans le cas du edisio cette case doit toujours être cochée car on ne peut pas interroger un module edisio
 * unité : unité de la donnée (peut être vide)
 * min/max : bornes de la donnée (peuvent être vides)
 * configuration avancée (petites roues crantées) : permet d'afficher la configuration avancée de la commande (méthode d'historisation, widget...)
 * Tester : permet de tester la commande
 * supprimer (signe -) : permet de supprimer la commande
 
-==== Opération sur les équipements Edisio
+==== Opération sur les équipements edisio
 
 En haut de votre page de configuration pour l'équipement, vous avez 3 boutons qui permettent de réaliser certaines options : 
 
 * Dupliquer : permet de dupliquer l'équipement
 * configurer (petites roues crantées) : même principe que pour les commandes, ça permet une configuration avancée de l'équipement
 
-==== Inclusion d'un équipement Edisio
+==== Inclusion d'un équipement edisio
 
-L'ajout d'un équipement Edisio est très simple, il faut dans la configuration du démon cocher la case "Créer automatiquement les nouveaux équipements" et Sauvegarder. Ensuite soit vous attendez que votre équipement Edisio envoi un message (en actionnant l'équipement par exemple) ou appuyez sur le bouton situer (en générale sous l'équipement)
+L'ajout d'un équipement edisio est très simple, il faut dans la configuration du démon cocher la case "Créer automatiquement les nouveaux équipements" et Sauvegarder. Ensuite soit vous attendez que votre équipement edisio envoi un message (en actionnant l'équipement par exemple), soit vous appuyez sur le bouton situé (en général) sous l'équipement.
