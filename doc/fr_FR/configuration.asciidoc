@@ -115,3 +115,7 @@ En haut de votre page de configuration pour l'équipement, vous avez 3 boutons q
 
 * Dupliquer : permet de dupliquer l'équipement
 * configurer (petites roues crantées) : même principe que pour les commandes, ça permet une configuration avancée de l'équipement
+
+==== Inclusion d'un équipement Edisio
+
+L'ajout d'un équipement Edisio est très simple, il faut dans la configuration du démon cocher la case "Créer automatiquement les nouveaux équipements" et Sauvegarder. Ensuite soit vous attendez que votre équipement Edisio envoi un message (en actionnant l'équipement par exemple) ou appuyez sur le bouton situer (en générale sous l'équipement)
