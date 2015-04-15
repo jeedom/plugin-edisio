@@ -71,7 +71,7 @@ image::../images/edisio2.JPG[]
 [TIP]
 Comme à beaucoup d'endroit sur Jeedom,mettre la souris tout a coche permet de faire apparaitre un menu d'accès rapide (vous pouvez à partir de votre profils le laisser toujours visible)
 
-Vous avez sur la droite un bouton pour voir les configurations disponibles sur le market (elles sont inclues par défaut dans le plugin), un bouton de création d'équipement edisio (utile pour les prises par exemple), la liste de vos équipements tout comme au centre de la page (avec leur photo en plus).
+Vous avez sur la un bouton pour voir les configurations disponibles sur le market (elles sont inclues par défaut dans le plugin), un bouton de création d'équipement edisio (utile pour les prises par exemple), la liste de vos équipements tout comme au centre de la page (avec leur photo en plus).
 
 Une fois que vous cliquez sur l'un d'eux, vous obtenez : 
 
