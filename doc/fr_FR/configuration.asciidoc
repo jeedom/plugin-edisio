@@ -8,7 +8,8 @@ Voici le détail (certains paramètres peuvent n'être visibles qu'en mode exper
 image::../images/edisio1.JPG[]
 
 * *Configuration* : cette partie vous donne le statut du démon (aussi bien en local qu'en déporté).
-[icon="../images/plugin/tip.JPG"]
+
+[icon="../images/plugin/tip.png"]
 [TIP]
 Si vous êtes en mode déporté, le démon local peut être arrêté, c'est tout à fait normal.
 
@@ -21,12 +22,13 @@ Si vous êtes en mode déporté, le démon local peut être arrêté, c'est tout
 [TIP]
 Si vous ne savez pas quel port USB est utilisé, vous pouvez simplement indiquer "Auto".
 ** _Enregistrer tous les messages (cela peut ralentir le système)_ : permet d'enregistrer tous les messages reçus par votre interface edisio avec, quand c'est possible, le décodage des messages.
-[icon="../images/plugin/important.JPG"]
+[icon="../images/plugin/important.png"]
 [IMPORTANT]
 Il n'est pas recommandé de laisser cette case en permanence cochée car cette option génère beaucoup d'écriture dans les fichiers de log.
 
 ** Bouton _Voir les messages_ : permet de voir les messages en temps réel :
-[icon="../images/plugin/tip.JPG"]
+
+[icon="../images/plugin/tip.png"]
 [TIP]
 Vous pouvez mettre en pause l'affichage du log pour copier/coller le texte facilement grâce au bouton _Pause_.
 Vous pouvez également faire une recherche dans le log affiché. 
@@ -34,14 +36,15 @@ Vous pouvez également faire une recherche dans le log affiché.
 image::../images/edisio8.JPG[]
 
 ** _Port socket interne (modification dangereuse, doit être la même valeur sur tous les Jeedom déportés edisio)_ : permet de modifier le port de communication interne du démon.
-[icon="../images/plugin/important.JPG"]
+
+[icon="../images/plugin/important.png"]
 [IMPORTANT]
 A ne changer que si vous savez ce que vous faites.
 
 ** _Traiter la répétition des messages_ : par défaut le démon edisio ne renvoie pas une valeur à Jeedom si celle-ci n'a pas changé. Cela permet de réduire significativement la charge de traitement des messages edisio. Par défaut le démon ne remontera pas ces valeurs à moins qu'elles ne changent. +
 Exemple : les sondes de température envoient leur données (signal, batterie et température par exemple) toutes les 45 secondes environ, même s'il n'y a pas eu de changement de valeur. +
 Le fait de cocher cette case indique à Jeedom de traiter _tous_ les messages reçus.
-[icon="../images/plugin/important.JPG"]
+[icon="../images/plugin/important.png"]
 [IMPORTANT]
 En cochant cette case, la charge de traitement du système peut plus que doubler et donc ralentir Jeedom.
 
@@ -51,7 +54,8 @@ Si vous avez une sonde qui communique toutes les 45 secondes, et que cela fait 1
 *** Redémarrer : permet de redémarrer le démon en mode normal.
 *** Arrêter : force l'arrêt du démon (attention cette option place le port sur l'option "Aucun" également).
 *** Lancer en mode debug : cette option lance le démon en mode debug. Cette option peut être utile pour voir, si c'est le cas, pourquoi le démon plante ou ne remonte pas une valeur.
-[icon="../images/plugin/important.JPG"]
+
+[icon="../images/plugin/important.png"]
 [IMPORTANT]
 Dans ce mode, le démon est très bavard. Une fois le debug terminé, il ne faut pas oublier de cliquer sur "Redémarrer" pour sortir du mode debug !! : 
 
@@ -67,9 +71,9 @@ Voilà à quoi ressemble la page du plugin edisio (ici avec déjà 4 équipement
 
 image::../images/edisio2.JPG[]
 
-[icon="../images/plugin/tip.JPG"]
+[icon="../images/plugin/tip.png"]
 [TIP]
-Comme à beaucoup d'endroit sur Jeedom,mettre la souris tout a coche permet de faire apparaitre un menu d'accès rapide (vous pouvez à partir de votre profils le laisser toujours visible)
+Comme à beaucoup d'endroit sur Jeedom, mettre la souris tout à gauche permet de faire apparaître un menu d'accès rapide (vous pouvez à partir de votre profils le laisser toujours visible)
 
 Vous avez sur la un bouton pour voir les configurations disponibles sur le market (elles sont inclues par défaut dans le plugin), un bouton de création d'équipement edisio (utile pour les prises par exemple), la liste de vos équipements tout comme au centre de la page (avec leur photo en plus).
 
