@@ -32,20 +32,16 @@ foreach ($eqLogics as $eqLogic) {
     </center>
     <span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#94ca02"><center>{{Ajouter}}</center></span>
 </div>
- <div class="cursor" id="bt_getFromMarket" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
-       <center>
-        <i class="fa fa-shopping-cart" style="font-size : 7em;color:#94ca02;"></i>
-    </center>
-    <span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#94ca02"><center>{{Accéder au Market}}</center></span>
-</div>
         <?php
 foreach ($eqLogics as $eqLogic) {
 	echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
 	echo "<center>";
-	$urlPath = config::byKey('market::address') . '/market/edisio/images/' . $eqLogic->getConfiguration('device') . '.jpg';
-	$urlPath2 = config::byKey('market::address') . '/market/edisio/images/' . $eqLogic->getConfiguration('device') . '_icon.png';
-	$urlPath3 = config::byKey('market::address') . '/market/edisio/images/' . $eqLogic->getConfiguration('device') . '_icon.jpg';
-	echo '<img class="lazy" src="plugins/edisio/doc/images/edisio_icon.png" data-original3="' . $urlPath3 . '" data-original2="' . $urlPath2 . '" data-original="' . $urlPath . '" height="105" width="95" />';
+
+	if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $eqLogic->getConfiguration('device') . '.jpg')) {
+		echo '<img class="lazy" src="plugins/edisio/core/config/devices/' . $eqLogic->getConfiguration('device') . '.jpg" height="105" width="95" />';
+	} else {
+		echo '<img class="lazy" src="plugins/edisio/doc/images/edisio_icon.png" height="105" width="95" />';
+	}
 	echo "</center>";
 	echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true, true) . '</center></span>';
 	echo '</div>';
@@ -153,15 +149,6 @@ foreach (edisio::devicesParameters() as $mid => $info) {
 ?>
                </select>
            </div>
-           <div class="col-sm-3">
-            <a class="btn btn-warning" id="bt_shareOnMarket"><i class="fa fa-cloud-upload"></i> {{Partager}}</a>
-        </div>
-    </div>
-    <div class="form-group expertModeVisible">
-        <label class="col-sm-3 control-label">{{Envoyer une configuration}}</label>
-        <div class="col-sm-5">
-            <input id="bt_uploadConfEnocean" type="file" name="file" data-url="plugins/enocean/core/ajax/edisio.ajax.php?action=uploadConfEdisio">
-        </div>
     </div>
     <div class="form-group expertModeVisible">
       <label class="col-sm-3 control-label">{{Création}}</label>

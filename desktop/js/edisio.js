@@ -16,16 +16,16 @@
  */
 
 
-$('#bt_stopEDISIODemon').on('click', function () {
+ $('#bt_stopEDISIODemon').on('click', function () {
     stopEDISIODeamon();
 });
 
-$('body').delegate('#bt_getFromMarket', 'click', function () {
+ $('body').delegate('#bt_getFromMarket', 'click', function () {
     $('#md_modal').dialog({title: "{{Partager sur le market}}"});
     $('#md_modal').load('index.php?v=d&modal=market.list&type=edisio').dialog('open');
 });
 
-$('body').delegate('#bt_shareOnMarket', 'click', function () {
+ $('body').delegate('#bt_shareOnMarket', 'click', function () {
     var logicalId = $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').value();
     if (logicalId == '') {
         $('#div_alert').showAlert({message: '{{Vous devez d\'abord sélectionner une configuration à partager}}', level: 'danger'});
@@ -36,52 +36,17 @@ $('body').delegate('#bt_shareOnMarket', 'click', function () {
     $('#md_modal').load('index.php?v=d&modal=market.send&type=edisio&logicalId=' + encodeURI(logicalId.split("::")[0]) + '&name=' + encodeURI($('.eqLogicAttr[data-l1key=configuration][data-l2key=device] option:selected').text())).dialog('open');
 });
 
-$('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
-    var logicalId = $(this).value();
-    $('#bt_deviceDocumentation').hide();
-    $('#img_device').attr('src', 'core/img/no_image.gif');
-    $("<img>", {
-        src: marketAddr + '/market/edisio/images/' + logicalId + '.jpg',
-        error: function () {
-            $("<img>", {
-                src: marketAddr + '/market/edisio/images/' + logicalId + '_icon.png',
-                error: function () {
-                    $("<img>", {
-                        src: marketAddr + '/market/edisio/images/' + logicalId + '_icon.jpg',
-                        error: function () {
-
-                        },
-                        load: function () {
-                            $('#img_device').attr("data-original", marketAddr + '/market/edisio/images/' + logicalId + '_icon.jpg');
-                            $('#img_device').lazyload({
-                                event: "sporty"
-                            });
-                            $('#img_device').trigger("sporty");
-                        }
-                    });
-                },
-                load: function () {
-                    $('#img_device').attr("data-original", marketAddr + '/market/edisio/images/' + logicalId + '_icon.png');
-                    $('#img_device').lazyload({
-                        event: "sporty"
-                    });
-                    $('#img_device').trigger("sporty");
-                }
-            });
-},
-load: function () {
-    $('#img_device').attr("data-original", marketAddr + '/market/edisio/images/' + logicalId + '.jpg');
-    $('#img_device').lazyload({
-        event: "sporty"
-    });
-    $('#img_device').trigger("sporty");
+ $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
+  if($('.li_eqLogic.active').attr('data-eqlogic_id') != ''){
+    $('#img_device').attr("src", $('.eqLogicDisplayCard[data-eqLogic_id='+$('.li_eqLogic.active').attr('data-eqlogic_id')+'] img').attr('src'));
+}else{
+    $('#img_device').attr("src",'plugins/enocean/doc/images/enocean_icon.png');
 }
 });
-});
 
-$("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+ $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 
-function stopEDISIODeamon() {
+ function stopEDISIODeamon() {
     $.ajax({// fonction permettant de faire de l'ajax
         type: "POST", // methode de transmission des données au fichier php
         url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
@@ -93,13 +58,13 @@ function stopEDISIODeamon() {
             handleAjaxError(request, status, error);
         },
         success: function (data) { // si l'appel a bien fonctionné
-            if (data.state != 'ok') {
-                $('#div_alert').showAlert({message: data.result, level: 'danger'});
-                return;
-            }
-            $('#div_alert').showAlert({message: 'Le démon a été correctement arrêté : il se relancera automatiquement dans 1 minute', level: 'success'});
+        if (data.state != 'ok') {
+            $('#div_alert').showAlert({message: data.result, level: 'danger'});
+            return;
         }
-    });
+        $('#div_alert').showAlert({message: 'Le démon a été correctement arrêté : il se relancera automatiquement dans 1 minute', level: 'success'});
+    }
+});
 }
 
 

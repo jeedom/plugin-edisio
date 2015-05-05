@@ -69,33 +69,6 @@ try {
 		ajax::success();
 	}
 
-	if (init('action') == 'uploadConfEdisio') {
-		$uploaddir = dirname(__FILE__) . '/../config';
-		if (!file_exists($uploaddir)) {
-			mkdir($uploaddir);
-		}
-		$uploaddir .= '/devices/';
-		if (!file_exists($uploaddir)) {
-			mkdir($uploaddir);
-		}
-		if (!file_exists($uploaddir)) {
-			throw new Exception(__('Répertoire d\'upload non trouvé : ', __FILE__) . $uploaddir);
-		}
-		if (!isset($_FILES['file'])) {
-			throw new Exception(__('Aucun fichier trouvé. Vérifié parametre PHP (post size limit)', __FILE__));
-		}
-		if (filesize($_FILES['file']['tmp_name']) > 2000000) {
-			throw new Exception(__('Le fichier est trop gros (miximum 2mo)', __FILE__));
-		}
-		if (!is_json(file_get_contents($_FILES['file']['tmp_name']))) {
-			throw new Exception(__('Le fichier json est invalide', __FILE__));
-		}
-		if (!move_uploaded_file($_FILES['file']['tmp_name'], $uploaddir . '/' . $_FILES['file']['name'])) {
-			throw new Exception(__('Impossible de déplacer le fichier temporaire', __FILE__));
-		}
-		ajax::success();
-	}
-
 	throw new Exception('Aucune methode correspondante');
 	/*     * *********Catch exeption*************** */
 } catch (Exception $e) {
