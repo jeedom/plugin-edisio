@@ -20,27 +20,11 @@
     stopEDISIODeamon();
 });
 
- $('body').delegate('#bt_getFromMarket', 'click', function () {
-    $('#md_modal').dialog({title: "{{Partager sur le market}}"});
-    $('#md_modal').load('index.php?v=d&modal=market.list&type=edisio').dialog('open');
-});
-
- $('body').delegate('#bt_shareOnMarket', 'click', function () {
-    var logicalId = $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').value();
-    if (logicalId == '') {
-        $('#div_alert').showAlert({message: '{{Vous devez d\'abord sélectionner une configuration à partager}}', level: 'danger'});
-        return;
-    }
-    $('#md_modal').dialog({title: "{{Partager sur le market}}"});
-
-    $('#md_modal').load('index.php?v=d&modal=market.send&type=edisio&logicalId=' + encodeURI(logicalId.split("::")[0]) + '&name=' + encodeURI($('.eqLogicAttr[data-l1key=configuration][data-l2key=device] option:selected').text())).dialog('open');
-});
-
  $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
   if($('.li_eqLogic.active').attr('data-eqlogic_id') != ''){
     $('#img_device').attr("src", $('.eqLogicDisplayCard[data-eqLogic_id='+$('.li_eqLogic.active').attr('data-eqlogic_id')+'] img').attr('src'));
 }else{
-    $('#img_device').attr("src",'plugins/enocean/doc/images/enocean_icon.png');
+    $('#img_device').attr("src",'plugins/edisio/doc/images/edisio_icon.png');
 }
 });
 
