@@ -18,7 +18,7 @@ Si vous êtes en mode déporté, le démon local peut être arrêté, c'est tout
 ** _Bannir les IDs suivants_ : permet de donner une liste d'identifiants edisio à Jeedom pour que celui-ci ne crée pas les équipements correspondants. Les identifiants doivent être séparés par des espaces. Exemple : "1356AD87 DB54AF".
 * *Démon local* ou *Démon XXX* : paramètres de configuration locale (ou déportée, en fonction de l'intitulé) du démon.
 ** _Port edisio_ : le port USB sur lequel votre interface edisio est connectée.
-[icon="../images/plugin/tip.JPG"]
+[icon="../images/plugin/tip.png"]
 [TIP]
 Si vous ne savez pas quel port USB est utilisé, vous pouvez simplement indiquer "Auto".
 ** _Enregistrer tous les messages (cela peut ralentir le système)_ : permet d'enregistrer tous les messages reçus par votre interface edisio avec, quand c'est possible, le décodage des messages.
@@ -75,7 +75,7 @@ image::../images/edisio2.JPG[]
 [TIP]
 Comme à beaucoup d'endroit sur Jeedom, mettre la souris tout à gauche permet de faire apparaître un menu d'accès rapide (vous pouvez à partir de votre profils le laisser toujours visible)
 
-Vous avez sur la un bouton pour voir les configurations disponibles sur le market (elles sont inclues par défaut dans le plugin), un bouton de création d'équipement edisio (utile pour les prises par exemple), la liste de vos équipements tout comme au centre de la page (avec leur photo en plus).
+Vous avez un bouton de création d'équipement edisio (utile pour les prises par exemple), la liste de vos équipements tout comme au centre de la page (avec leur photo en plus).
 
 Une fois que vous cliquez sur l'un d'eux, vous obtenez : 
 
@@ -94,8 +94,6 @@ Vous retrouvez ici toute la configuration de votre équipement :
 * Délai maximum autorisé entre 2 messages (min) : le délai maximum autorisé entre 2 messages avant que Jeedom ne déclare l'équipement en "timeout". Attention ce paramètre nécessite d'avoir configuré l'option "Forcer la répétition des messages toutes les (min)" et il doit être supérieur à cette valeur
 * Commentaire : vous permet de mettre des commentaires sur l'équipement (ex : pile changée le XX/XX/XXXX)
 * Equipement : permet de définir le modèle de votre équipement (à ne configurer que pour une création manuelle d'un équipement, en automatique Jeedom configure ce champ tout seul)
-** Partager : permet de partager votre configuration (voir en-dessous)
-* Envoyer une configuration : vous permet d'envoyer à Jeedom une configuration json pour un nouvel équipement (peu utilisé en edisio)
 * Création : vous donne la date de création de l'équipement
 * Communication : vous donne la date de dernière communication avec l'équipement (peut être vide dans le cas d'une prise par exemple)
 * Délai entre 2 messages : délai constaté entre les 2 derniers messages envoyés par l'équipement
