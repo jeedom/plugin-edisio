@@ -412,8 +412,10 @@ def decodePacket(message):
 
 	if MID == '08':
 		decode_string += "\nDecode model : \t\t= Temperature Sensor"
-		logger.debug("Temp packet : "+str(DATA[3:4])+str(DATA[0:2]))
-		temperature = int(DATA[3:4]+DATA[0:2],16) / 100
+		try:
+			temperature = int(DATA[3:4]+DATA[0:2],16) / 100
+		except Exception, e:
+			return
 
 		if key in current_sensor_data and 'updateTime' in current_sensor_data[key] : 
 			action += ' time_between_message='+str(unixtime_utc - current_sensor_data[key]['updateTime'])
