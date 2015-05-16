@@ -415,6 +415,7 @@ def decodePacket(message):
 		try:
 			temperature = int(DATA[3:4]+DATA[0:2],16) / 100
 		except Exception, e:
+			logger.debug("Error on temperature decode "+str(e))
 			return
 
 		if key in current_sensor_data and 'updateTime' in current_sensor_data[key] : 
