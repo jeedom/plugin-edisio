@@ -150,13 +150,9 @@ class edisio extends eqLogic {
 		);
 		if (config::byKey('jeeNetwork::mode') == 'slave') {
 			$replace_config['#sockethost#'] = network::getNetworkAccess('internal', 'ip', '127.0.0.1');
-		} else {
-			$replace_config['#sockethost#'] = 'localhost';
-		}
-
-		if (config::byKey('jeeNetwork::mode') == 'slave') {
 			$remote = str_replace(array('#ip_master#', '#apikey#'), array(config::byKey('jeeNetwork::master::ip'), config::byKey('jeeNetwork::master::apikey')), file_get_contents($edisio_path . '/remote_tmpl.sh'));
 		} else {
+			$replace_config['#sockethost#'] = '127.0.0.1';
 			$remote = str_replace(array('#ip_master#', '#apikey#'), array(network::getNetworkAccess('internal'), config::byKey('api')), file_get_contents($edisio_path . '/remote_tmpl.sh'));
 		}
 		file_put_contents($edisio_path . '/remote.sh', $remote);
