@@ -145,18 +145,23 @@ class edisio extends eqLogic {
 			'#log_path#' => log::getPathToLog('edisiocmd'),
 			'#enable_log#' => $enable_logging,
 			'#pid_path#' => '/tmp/edisio.pid',
+			'#trigger#' => $edisio_path . '/remote.sh',
 			'#repeat_message_time#' => config::byKey('repeatMessageTime', 'edisio', 9999999) * 60,
 		);
 		if (config::byKey('jeeNetwork::mode') == 'slave') {
-			$replace_config['#trigger#'] = '/bin/bash ' . $edisio_path . '/remote.sh';
-			$remote = str_replace(array('#ip_master#', '#apikey#'), array(config::byKey('jeeNetwork::master::ip'), config::byKey('jeeNetwork::master::apikey')), file_get_contents($edisio_path . '/remote_tmpl.sh'));
-			file_put_contents($edisio_path . '/remote.sh', $remote);
-			chmod($edisio_path . '/remote.sh', 0775);
 			$replace_config['#sockethost#'] = network::getNetworkAccess('internal', 'ip', '127.0.0.1');
 		} else {
-			$replace_config['#trigger#'] = "/usr/bin/php " . $edisio_path . "/../../core/php/jeeEdisio.php";
-			$replace_config['#sockethost#'] = '127.0.0.1';
+			$replace_config['#sockethost#'] = 'localhost';
 		}
+
+		if (config::byKey('jeeNetwork::mode') == 'slave') {
+			$remote = str_replace(array('#ip_master#', '#apikey#'), array(config::byKey('jeeNetwork::master::ip'), config::byKey('jeeNetwork::master::apikey')), file_get_contents($edisio_path . '/remote_tmpl.sh'));
+		} else {
+			$remote = str_replace(array('#ip_master#', '#apikey#'), array(network::getNetworkAccess('internal'), config::byKey('api')), file_get_contents($edisio_path . '/remote_tmpl.sh'));
+		}
+		file_put_contents($edisio_path . '/remote.sh', $remote);
+		chmod($edisio_path . '/remote.sh', 0775);
+
 		if (config::byKey('processRepeatMessage', 'edisio', 0) == 1) {
 			$replace_config['#process_repeat_message#'] = 'yes';
 		} else {
