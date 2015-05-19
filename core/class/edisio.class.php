@@ -153,7 +153,7 @@ class edisio extends eqLogic {
 			$remote = str_replace(array('#ip_master#', '#apikey#'), array(config::byKey('jeeNetwork::master::ip'), config::byKey('jeeNetwork::master::apikey')), file_get_contents($edisio_path . '/remote_tmpl.sh'));
 		} else {
 			$replace_config['#sockethost#'] = '127.0.0.1';
-			$remote = str_replace(array('#ip_master#', '#apikey#'), array(network::getNetworkAccess('internal'), config::byKey('api')), file_get_contents($edisio_path . '/remote_tmpl.sh'));
+			$remote = str_replace(array('#ip_master#', '#apikey#'), array(network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp'), config::byKey('api')), file_get_contents($edisio_path . '/remote_tmpl.sh'));
 		}
 		file_put_contents('/tmp/edisio_remote.sh', $remote);
 		chmod('/tmp/edisio_remote.sh', 0775);
