@@ -7,14 +7,14 @@
                 "type": "action",
                 "subtype": "ohter",
                 "isVisible": 0,
-                "logicalId" : "6C7663#ID#03011E010003640D0A"
+                "logicalId" : "6C7663#ID##GROUP#011E010003640D0A"
             },
             {
                 "name": "Dimmer",
                 "type": "action",
                 "subtype": "ohter",
                 "isVisible": 0,
-                "logicalId" : "6C766300065BE705011E000007640D0A"
+                "logicalId" : "6C7663#ID##GROUP#01011E000007640D0A"
             }
         ]
     }

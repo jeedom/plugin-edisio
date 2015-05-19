@@ -358,6 +358,11 @@ class edisioCmd extends cmd {
 		if ($this->getType() == 'action') {
 			$logicalId = $this->getEqlogic()->getLogicalId();
 			$value = trim(str_replace("#ID#", $logicalId, $this->getLogicalId()));
+			$group = $this->getConfiguration('group', '01');
+			if (strlen($group) == 1) {
+				$group = '0' . $group;
+			}
+			$value = trim(str_replace("#GROUP#", $this->getConfiguration('group', '01'), $value));
 			switch ($this->getSubType()) {
 				case 'slider':
 					$value = str_replace('#slider#', strtoupper(dechex(intval($_options['slider']))), $value);
