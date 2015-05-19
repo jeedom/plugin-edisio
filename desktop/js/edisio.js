@@ -51,6 +51,14 @@
 });
 }
 
+$('#table_cmd').delegate('.cmdAttr[data-l1key=type]','change',function(){
+    if($(this).value() == 'info'){
+       $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').hide();
+   }else{
+       $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').show();
+   }
+});
+
 
 function addCmdToTable(_cmd) {
     if (!isset(_cmd)) {
