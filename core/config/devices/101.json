@@ -5,14 +5,14 @@
             {
                 "name": "Toggle",
                 "type": "action",
-                "subtype": "ohter",
+                "subtype": "other",
                 "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#011E010003640D0A"
             },
             {
                 "name": "Dimmer",
                 "type": "action",
-                "subtype": "ohter",
+                "subtype": "other",
                 "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#01011E000007640D0A"
             }

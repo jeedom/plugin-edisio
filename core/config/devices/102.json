@@ -5,7 +5,7 @@
             {
                 "name": "Toggle",
                 "type": "action",
-                "subtype": "ohter",
+                "subtype": "other",
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#011E010003640D0A"
             }
