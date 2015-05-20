@@ -8,8 +8,8 @@
                 "subtype": "ohter",
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#011E010001640D0A"
-            }
-             {
+            },
+            {
                 "name": "Off",
                 "type": "action",
                 "subtype": "ohter",
