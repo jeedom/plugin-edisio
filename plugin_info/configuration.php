@@ -61,8 +61,8 @@ foreach ($deamonRunningSlave as $name => $status) {
 </form>
 <form class="form-horizontal">
     <fieldset>
-     <legend>{{Générale}}</legend>
-     <div class="form-group">
+       <legend>{{Générale}}</legend>
+       <div class="form-group">
         <label class="col-lg-4 control-label">{{Créer automatiquement les nouveaux équipements}}</label>
         <div class="col-lg-4">
             <input type="checkbox" class="configKey" data-l1key="autoDiscoverEqLogic" />
@@ -90,8 +90,8 @@ foreach (jeedom::getUsbMapping() as $name => $value) {
        </div>
    </div>
    <div class="form-group">
-       <label class="col-lg-4 control-label">{{Enregistrer tous les messages, cela peut ralentir le système}}</label>
-       <div class="col-lg-1">
+     <label class="col-lg-4 control-label">{{Enregistrer tous les messages, cela peut ralentir le système}}</label>
+     <div class="col-lg-1">
         <input type="checkbox" class="configKey" data-l1key="enableLogging" />
     </div>
     <div class="col-lg-7">
@@ -149,51 +149,51 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
                  </div>
              </div>
              <div class="form-group">
-               <label class="col-lg-4 control-label">{{Enregistrer tous les messages, cela peut ralentir le système}}</label>
-               <div class="col-lg-1">
-                <input type="checkbox" class="slaveConfigKey" data-l1key="enableLogging" />
+                 <label class="col-lg-4 control-label">{{Enregistrer tous les messages, cela peut ralentir le système}}</label>
+                 <div class="col-lg-1">
+                    <input type="checkbox" class="slaveConfigKey" data-l1key="enableLogging" />
+                </div>
+                <div class="col-lg-7">
+                    <a class="btn btn-default bt_logEdisioMessage"><i class="fa fa-file-o"></i> {{Voir les messages}}</a>
+                </div>
             </div>
-            <div class="col-lg-7">
-                <a class="btn btn-default bt_logEdisioMessage"><i class="fa fa-file-o"></i> {{Voir les messages}}</a>
+            <div class="form-group expertModeVisible">
+                <label class="col-lg-4 control-label">{{Port socket interne (modification dangereuse, doit etre le meme surtout les esclaves)}}</label>
+                <div class="col-lg-2">
+                    <input class="slaveConfigKey form-control" data-l1key="socketport" value='55005' />
+                </div>
             </div>
-        </div>
-        <div class="form-group expertModeVisible">
-            <label class="col-lg-4 control-label">{{Port socket interne (modification dangereuse, doit etre le meme surtout les esclaves)}}</label>
-            <div class="col-lg-2">
-                <input class="slaveConfigKey form-control" data-l1key="socketport" value='55005' />
+            <div class="form-group">
+                <label class="col-sm-4 control-label">{{Traiter la répétition des messages}}</label>
+                <div class="col-sm-2">
+                    <input type="checkbox" class="slaveConfigKey" data-l1key="processRepeatMessage" />
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-4 control-label">{{Traiter la répétition des messages}}</label>
-            <div class="col-sm-2">
-                <input type="checkbox" class="slaveConfigKey" data-l1key="processRepeatMessage" />
+            <div class="form-group">
+                <label class="col-sm-4 control-label">{{Forcer la répétition des messages toutes les (min)}}</label>
+                <div class="col-sm-2">
+                    <input class="slaveConfigKey form-control" data-l1key="repeatMessageTime" />
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-4 control-label">{{Forcer la répétition des messages toutes les (min)}}</label>
-            <div class="col-sm-2">
-                <input class="slaveConfigKey form-control" data-l1key="repeatMessageTime" />
+            <div class="form-group">
+                <label class="col-lg-4 control-label">{{Gestion du démon}}</label>
+                <div class="col-lg-8">
+                    <a class="btn btn-success bt_restartEdisioDeamon"><i class='fa fa-play'></i> {{(Re)démarrer}}</a>
+                    <a class="btn btn-danger bt_stopEdisioDeamon"><i class='fa fa-stop'></i> {{Arrêter}}</a>
+                    <a class="btn btn-warning bt_launchEdisioInDebug"><i class="fa fa-exclamation-triangle"></i> {{Lancer en mode debug}}</a>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-lg-4 control-label">{{Gestion du démon}}</label>
-            <div class="col-lg-8">
-                <a class="btn btn-success bt_restartEdisioDeamon"><i class='fa fa-play'></i> {{(Re)démarrer}}</a>
-                <a class="btn btn-danger bt_stopEdisioDeamon"><i class='fa fa-stop'></i> {{Arrêter}}</a>
-                <a class="btn btn-warning bt_launchEdisioInDebug"><i class="fa fa-exclamation-triangle"></i> {{Lancer en mode debug}}</a>
-            </div>
-        </div>
-    </fieldset>
-</form>
+        </fieldset>
+    </form>
 
-<?php
+    <?php
 }
 }
 ?>
 
 
 <script>
- $('.bt_restartEdisioDeamon').on('click', function () {
+   $('.bt_restartEdisioDeamon').on('click', function () {
         $.ajax({// fonction permettant de faire de l'ajax
             type: "POST", // methode de transmission des données au fichier php
             url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
@@ -216,7 +216,7 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
     });
     });
 
- $('.bt_stopEdisioDeamon').on('click', function () {
+   $('.bt_stopEdisioDeamon').on('click', function () {
         $.ajax({// fonction permettant de faire de l'ajax
             type: "POST", // methode de transmission des données au fichier php
             url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
@@ -239,7 +239,7 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
     });
     });
 
- $('.bt_launchEdisioInDebug').on('click', function () {
+   $('.bt_launchEdisioInDebug').on('click', function () {
     var slave_id = $(this).closest('.slaveConfig').attr('data-slave_id');
     bootbox.confirm('{{Etes-vous sur de vouloir lancer le démon en mode debug ? N\'oubliez pas de le relancer en mode normale une fois terminé}}', function (result) {
         if (result) {
@@ -250,7 +250,7 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
 });
 
 
- $('#bt_restartEdisioDeamon').on('click', function () {
+   $('#bt_restartEdisioDeamon').on('click', function () {
         $.ajax({// fonction permettant de faire de l'ajax
             type: "POST", // methode de transmission des données au fichier php
             url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
@@ -272,7 +272,7 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
     });
     });
 
- $('#bt_stopEdisioDeamon').on('click', function () {
+   $('#bt_stopEdisioDeamon').on('click', function () {
         $.ajax({// fonction permettant de faire de l'ajax
             type: "POST", // methode de transmission des données au fichier php
             url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
@@ -294,17 +294,23 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
     });
     });
 
- $('#bt_manageEdisioComProtocole').on('click', function () {
+   $('#bt_manageEdisioComProtocole').on('click', function () {
     $('#md_modal').dialog({title: "{{Gestion des protocoles EDISIO}}"});
     $('#md_modal').load('index.php?v=d&plugin=edisio&modal=manage.protocole').dialog('open');
 });
 
- $('#bt_logEdisioMessage').on('click', function () {
+   $('.bt_logEdisioMessage').on('click', function () {
+     var slave_id = $(this).closest('.slaveConfig').attr('data-slave_id');
+     $('#md_modal').dialog({title: "{{Log des messages Edisio}}"});
+     $('#md_modal').load('index.php?v=d&plugin=edisio&modal=show.log&slave_id='+slave_id).dialog('open');
+ });
+
+   $('#bt_logEdisioMessage').on('click', function () {
     $('#md_modal').dialog({title: "{{Log des messages EDISIO}}"});
     $('#md_modal').load('index.php?v=d&plugin=edisio&modal=show.log').dialog('open');
 });
 
- $('#bt_launchEdisioInDebug').on('click', function () {
+   $('#bt_launchEdisioInDebug').on('click', function () {
     bootbox.confirm('{{Etes-vous sur de vouloir lancer le démon en mode debug ? N\'oubliez pas d\arrêter/redemarrer le démon une fois terminé}}', function (result) {
         if (result) {
             $('#md_modal').dialog({title: "{{EDISIO en mode debug}}"});
@@ -313,7 +319,7 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
     });
 });
 
- function edisio_postSaveConfiguration(){
+   function edisio_postSaveConfiguration(){
              $.ajax({// fonction permettant de faire de l'ajax
             type: "POST", // methode de transmission des données au fichier php
             url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
