@@ -364,7 +364,7 @@ class edisioCmd extends cmd {
 		if (strlen($group) == 1) {
 			$group = '0' . $group;
 		}
-		$value = trim(str_replace("#GROUP#", $this->getConfiguration('group', '01'), $value));
+		$value = trim(str_replace("#GROUP#", $group, $value));
 		switch ($this->getSubType()) {
 			case 'slider':
 				$value = str_replace('#slider#', strtoupper(dechex(intval($_options['slider']))), $value);
