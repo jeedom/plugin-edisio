@@ -357,6 +357,7 @@ class edisioCmd extends cmd {
 		if ($this->getType() != 'action') {
 			return;
 		}
+		$eqLogic = $this->getEqLogic();
 		$logicalId = ($this->getConfiguration('id') != '') ? $this->getConfiguration('id') : $eqLogic->getLogicalId();
 		$value = trim(str_replace("#ID#", $logicalId, $this->getLogicalId()));
 		$group = $this->getConfiguration('group', '01');
