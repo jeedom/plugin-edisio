@@ -267,7 +267,7 @@ def decodePacket(message):
 	timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
 	unixtime_utc = int(time.time())
 
-	if message == prevMessage and unixtime_utc < (prevDatetime+2) :
+	if message == prevMessage and unixtime_utc < (prevDatetime+1) :
 		logger.debug("Message already decode, ignore")
 		return
 
