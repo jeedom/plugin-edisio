@@ -1,27 +1,38 @@
 {
-    "103": {
-        "name": "Interrupteur 1 bouton (mode ON/OFF)",
+    "105": {
+        "name": "Interrupteur 3 boutons (mode toggle)",
         "commands": [
             {
-                "name": "On",
+                "name": "Toggle",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
-                "logicalId" : "6C7663#ID##GROUP#011E010001640D0A",
+                "logicalId" : "6C7663#ID##GROUP#011E010003640D0A",
                 "configuration" : 
                 {
                     "group" : 1
                 }
-            },
+            }, 
             {
-                "name": "Off",
+                "name": "Toggle",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
-                "logicalId" : "6C7663#ID##GROUP#011E010002640D0A",
+                "logicalId" : "6C7663#ID##GROUP#011E010003640D0A",
                 "configuration" : 
                 {
-                    "group" : 1
+                    "group" : 2
+                }
+            },
+             {
+                "name": "Toggle",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#011E010003640D0A",
+                "configuration" : 
+                {
+                    "group" : 3
                 }
             },
             {

@@ -1,6 +1,6 @@
 {
-    "102": {
-        "name": "Interrupteur 1 bouton (mode toggle)",
+    "104": {
+        "name": "Interrupteur 2 boutons (mode toggle)",
         "commands": [
             {
                 "name": "Toggle",
@@ -11,6 +11,17 @@
                 "configuration" : 
                 {
                     "group" : 1
+                }
+            },
+            {
+                "name": "Toggle",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#011E010003640D0A",
+                "configuration" : 
+                {
+                    "group" : 2
                 }
             },
             {

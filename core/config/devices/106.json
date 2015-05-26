@@ -1,0 +1,62 @@
+{
+    "106": {
+        "name": "Interrupteur 4 boutons (mode toggle)",
+        "commands": [
+            {
+                "name": "Toggle",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#011E010003640D0A",
+                "configuration" : 
+                {
+                    "group" : 1
+                }
+            },
+             {
+                "name": "Toggle",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#011E010003640D0A",
+                "configuration" : 
+                {
+                    "group" : 2
+                }
+            },
+             {
+                "name": "Toggle",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#011E010003640D0A",
+                "configuration" : 
+                {
+                    "group" : 3
+                }
+            },
+             {
+                "name": "Toggle",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#011E010003640D0A",
+                "configuration" : 
+                {
+                    "group" : 4
+                }
+            },
+            {
+                "name": "E",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID#09011F000010640D0A",
+                "configuration" : 
+                {
+                    "group" : 1
+                }
+            }
+        ]
+    }
+}

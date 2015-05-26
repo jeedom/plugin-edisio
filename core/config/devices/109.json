@@ -1,0 +1,84 @@
+{
+    "109": {
+        "name": "Interrupteur 3 boutons (mode ON/OFF)",
+        "commands": [
+            {
+                "name": "On",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#011E010001640D0A",
+                "configuration" : 
+                {
+                    "group" : 1
+                }
+            },
+            {
+                "name": "Off",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#011E010002640D0A",
+                "configuration" : 
+                {
+                    "group" : 1
+                }
+            },
+            {
+                "name": "On",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#011E010001640D0A",
+                "configuration" : 
+                {
+                    "group" : 2
+                }
+            },
+            {
+                "name": "Off",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#011E010002640D0A",
+                "configuration" : 
+                {
+                    "group" : 2
+                }
+            },
+            {
+                "name": "On",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#011E010001640D0A",
+                "configuration" : 
+                {
+                    "group" : 3
+                }
+            },
+            {
+                "name": "Off",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#011E010002640D0A",
+                "configuration" : 
+                {
+                    "group" : 3
+                }
+            },
+            {
+                "name": "E",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID#09011F000010640D0A",
+                "configuration" : 
+                {
+                    "group" : 1
+                }
+            }
+        ]
+    }
+}

@@ -354,45 +354,46 @@ class edisioCmd extends cmd {
 	/*     * *********************Methode d'instance************************* */
 
 	public function execute($_options = null) {
-		log::add('edisio', 'debug', 'Début fonction d\'envoi commandes edisio');
-		if ($this->getType() == 'action') {
-			$logicalId = $this->getEqlogic()->getLogicalId();
-			$value = trim(str_replace("#ID#", $logicalId, $this->getLogicalId()));
-			$group = $this->getConfiguration('group', '01');
-			if (strlen($group) == 1) {
-				$group = '0' . $group;
-			}
-			$value = trim(str_replace("#GROUP#", $this->getConfiguration('group', '01'), $value));
-			switch ($this->getSubType()) {
-				case 'slider':
-					$value = str_replace('#slider#', strtoupper(dechex(intval($_options['slider']))), $value);
-					break;
-				case 'color':
-					$value = str_replace('#color#', $_options['color'], $value);
-					break;
-			}
-			$values = explode('&&', $value);
-			if (config::byKey('jeeNetwork::mode') == 'master') {
-				foreach (jeeNetwork::byPlugin('edisio') as $jeeNetwork) {
-					foreach ($values as $value) {
-						$socket = socket_create(AF_INET, SOCK_STREAM, 0);
-						socket_connect($socket, $jeeNetwork->getRealIp(), config::byKey('socketport', 'edisio', 55000));
-						socket_write($socket, trim($value), strlen(trim($value)));
-						socket_close($socket);
-					}
-					sleep(1);
-				}
-			}
-			if (config::byKey('port', 'edisio', 'none') != 'none') {
+		if ($this->getType() != 'action') {
+			return;
+		}
+		$logicalId = ($this->getConfiguration('id') != '') ? $this->getConfiguration('id') : $eqLogic->getLogicalId();
+		$value = trim(str_replace("#ID#", $logicalId, $this->getLogicalId()));
+		$group = $this->getConfiguration('group', '01');
+		if (strlen($group) == 1) {
+			$group = '0' . $group;
+		}
+		$value = trim(str_replace("#GROUP#", $this->getConfiguration('group', '01'), $value));
+		switch ($this->getSubType()) {
+			case 'slider':
+				$value = str_replace('#slider#', strtoupper(dechex(intval($_options['slider']))), $value);
+				break;
+			case 'color':
+				$value = str_replace('#color#', $_options['color'], $value);
+				break;
+		}
+		$values = explode('&&', $value);
+		if (config::byKey('jeeNetwork::mode') == 'master') {
+			foreach (jeeNetwork::byPlugin('edisio') as $jeeNetwork) {
 				foreach ($values as $value) {
 					$socket = socket_create(AF_INET, SOCK_STREAM, 0);
-					socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio', 55000));
+					socket_connect($socket, $jeeNetwork->getRealIp(), config::byKey('socketport', 'edisio', 55000));
 					socket_write($socket, trim($value), strlen(trim($value)));
 					socket_close($socket);
 				}
+				sleep(1);
 			}
-			log::add('edisio', 'debug', 'Début fonction d\'envoi commandes edisio');
 		}
+		if (config::byKey('port', 'edisio', 'none') != 'none') {
+			foreach ($values as $value) {
+				$socket = socket_create(AF_INET, SOCK_STREAM, 0);
+				socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio', 55000));
+				socket_write($socket, trim($value), strlen(trim($value)));
+				socket_close($socket);
+			}
+		}
+		log::add('edisio', 'debug', 'Début fonction d\'envoi commandes edisio');
+
 	}
 
 	/*     * **********************Getteur Setteur*************************** */
