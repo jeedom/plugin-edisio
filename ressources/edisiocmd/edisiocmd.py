@@ -325,14 +325,83 @@ def decodePacket(message):
 	if CMD == '03':
 		decode_string += "\nCommand value : \t= Toogle"
 		value = 'toggle'
+	if CMD == '04':
+		decode_string += "\nCommand value : \t= Dim"
+		value = 'toggle'
+	if CMD == '05':
+		decode_string += "\nCommand value : \t= Dim up"
+		value = 'toggle'
+	if CMD == '06':
+		decode_string += "\nCommand value : \t= Dim down"
+		value = 'toggle'
 	if CMD == '07':
-		decode_string += "\nCommand value : \t= Level up"
+		decode_string += "\nCommand value : \t= Dim A"
 		value = 'up'
+	if CMD == '08':
+		decode_string += "\nCommand value : \t= Dim stop"
+		value = 'toggle'
 	if CMD == '09':
-		decode_string += "\nCommand value : \t= ON"
+		decode_string += "\nCommand value : \t= Shutter open"
 		value = 1
 	if CMD == '0A':
-		decode_string += "\nCommand value : \t= OFF"
+		decode_string += "\nCommand value : \t= Shutter close"
+		value = 0
+	if CMD == '0B':
+		decode_string += "\nCommand value : \t= Shutter stop"
+		value = 0
+	if CMD == '0C':
+		decode_string += "\nCommand value : \t= RGB"
+		value = 0
+	if CMD == '0D':
+		decode_string += "\nCommand value : \t= RGB c"
+		value = 0
+	if CMD == '0E':
+		decode_string += "\nCommand value : \t= RGB plus"
+		value = 0
+	if CMD == '0F':
+		decode_string += "\nCommand value : \t= Open slow"
+		value = 0
+	if CMD == '10':
+		decode_string += "\nCommand value : \t= Set short"
+		value = 0
+	if CMD == '11':
+		decode_string += "\nCommand value : \t= Set 5s"
+		value = 0
+	if CMD == '12':
+		decode_string += "\nCommand value : \t= Set 10s"
+		value = 0
+	if CMD == '13':
+		decode_string += "\nCommand value : \t= Close slow"
+		value = 0
+	if CMD == '14':
+		decode_string += "\nCommand value : \t= Dim stop2"
+		value = 0
+	if CMD == '15':
+		decode_string += "\nCommand value : \t= Set long up"
+		value = 0
+	if CMD == '16':
+		decode_string += "\nCommand value : \t= Study"
+		value = 0
+	if CMD == '17':
+		decode_string += "\nCommand value : \t= Del button"
+		value = 0
+	if CMD == '18':
+		decode_string += "\nCommand value : \t= Del all"
+		value = 0
+	if CMD == '19':
+		decode_string += "\nCommand value : \t= Door close"
+		value = 0
+	if CMD == '1A':
+		decode_string += "\nCommand value : \t= Door open"
+		value = 1
+	if CMD == '1F':
+		decode_string += "\nCommand value : \t= Broadcast query"
+		value = 0
+	if CMD == '20':
+		decode_string += "\nCommand value : \t= Querry status"
+		value = 0
+	if CMD == '21':
+		decode_string += "\nCommand value : \t= Report status"
 		value = 0
 	if CMD == 'F1':
 		decode_string += "\nCommand value : \t= Dim to 10%"
