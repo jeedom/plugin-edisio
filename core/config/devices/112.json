@@ -1,28 +1,36 @@
 {
     "112": {
-        "name": "Micromudule volet roulant",
+        "name": "Micro-module volet roulant",
         "commands": [
-            {
-                "name": "Monter",
+           {
+                "name": "Toggle",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 0,
-                "logicalId" : "6C7663#ID##GROUP#011E010009640D0A"
-            },
-            {
-                "name": "Descendre",
-                "type": "action",
-                "subtype": "other",
-                "isVisible": 0,
-                "logicalId" : "6C7663#ID##GROUP#011E01000A640D0A"
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#011E010003640D0A",
+                "configuration" : 
+                {
+                    "group" : 1
+                }
             },
             {
                 "name": "Stop",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 0,
-                "logicalId" : "6C7663#ID##GROUP#011E01000B640D0A"
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#031E01000B640D0A",
+                "configuration" : 
+                {
+                    "group" : 1
+                }
             },
+            {
+                "name": "E",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 0,
+                "logicalId" : "6C7663#ID#09011F000010640D0A"
+            }
         ]
     }
 }
