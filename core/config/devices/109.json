@@ -7,7 +7,7 @@
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
-                "logicalId" : "6C7663#ID##GROUP#011E010001640D0A",
+                "logicalId" : "6C7663#ID##GROUP#031E010001640D0A&&6C7663#ID##GROUP#031E010009640D0A",
                 "configuration" : 
                 {
                     "group" : 1
@@ -18,51 +18,51 @@
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
-                "logicalId" : "6C7663#ID##GROUP#011E010002640D0A",
+                "logicalId" : "6C7663#ID##GROUP#031E010002640D0A&&6C7663#ID##GROUP#031E01000A640D0A",
                 "configuration" : 
                 {
                     "group" : 1
                 }
             },
             {
-                "name": "On",
+                "name": "On 2",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
-                "logicalId" : "6C7663#ID##GROUP#011E010001640D0A",
+                "logicalId" : "6C7663#ID##GROUP#031E010001640D0A&&6C7663#ID##GROUP#031E010009640D0A",
                 "configuration" : 
                 {
                     "group" : 2
                 }
             },
             {
-                "name": "Off",
+                "name": "Off 2",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
-                "logicalId" : "6C7663#ID##GROUP#011E010002640D0A",
+                "logicalId" : "6C7663#ID##GROUP#031E010002640D0A&&6C7663#ID##GROUP#031E01000A640D0A",
                 "configuration" : 
                 {
                     "group" : 2
                 }
             },
             {
-                "name": "On",
+                "name": "On 3",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
-                "logicalId" : "6C7663#ID##GROUP#011E010001640D0A",
+                "logicalId" : "6C7663#ID##GROUP#031E010001640D0A&&6C7663#ID##GROUP#031E010009640D0A",
                 "configuration" : 
                 {
                     "group" : 3
                 }
             },
             {
-                "name": "Off",
+                "name": "Off 3",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
-                "logicalId" : "6C7663#ID##GROUP#011E010002640D0A",
+                "logicalId" : "6C7663#ID##GROUP#031E010002640D0A&&6C7663#ID##GROUP#031E01000A640D0A",
                 "configuration" : 
                 {
                     "group" : 3
@@ -72,12 +72,8 @@
                 "name": "E",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
-                "logicalId" : "6C7663#ID#09011F000010640D0A",
-                "configuration" : 
-                {
-                    "group" : 1
-                }
+                "isVisible": 0,
+                "logicalId" : "6C7663#ID#09031F000010640D0A"
             }
         ]
     }

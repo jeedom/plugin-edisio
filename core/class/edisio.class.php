@@ -281,12 +281,6 @@ class edisio extends eqLogic {
 		if (isset($device['commands'])) {
 			foreach ($device['commands'] as $command) {
 				$cmd = null;
-				foreach ($this->getCmd() as $liste_cmd) {
-					if ($liste_cmd->getLogicalId() == $command['logicalId']) {
-						$cmd = $liste_cmd;
-						break;
-					}
-				}
 				try {
 					if ($cmd == null || !is_object($cmd)) {
 						$cmd = new edisioCmd();
