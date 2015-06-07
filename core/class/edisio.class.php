@@ -375,8 +375,8 @@ class edisioCmd extends cmd {
 					socket_connect($socket, $jeeNetwork->getRealIp(), config::byKey('socketport', 'edisio', 55000));
 					socket_write($socket, trim($value), strlen(trim($value)));
 					socket_close($socket);
+					usleep(40000);
 				}
-				sleep(1);
 			}
 		}
 		if (config::byKey('port', 'edisio', 'none') != 'none') {
@@ -385,6 +385,7 @@ class edisioCmd extends cmd {
 				socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio', 55000));
 				socket_write($socket, trim($value), strlen(trim($value)));
 				socket_close($socket);
+				usleep(40000);
 			}
 		}
 		log::add('edisio', 'debug', 'Début fonction d\'envoi commandes edisio');

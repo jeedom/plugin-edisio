@@ -628,18 +628,16 @@ def read_socket():
 				print "Date/Time\t\t= " + timestamp
 				print "Packet Length\t\t= " + ByteToHex( message.decode('hex')[0] )
 
-			logger.debug("Write message to serial port")
+			logger.debug("Write message to serial port : " + ByteToHex( message.decode('hex')))
 			serial_param.port.write( message.decode('hex') )
-			logger.debug("Write message ok : "+ ByteToHex( message.decode('hex')))
+			logger.debug("Write 1")
+			time.sleep(0.14)
+			serial_param.port.write( message.decode('hex') )
+			logger.debug("Write 2")
+			time.sleep(0.14)
+			serial_param.port.write( message.decode('hex') )
+			logger.debug("Write 3")
 
-			try:
-				logger.debug("Decode message")
-				decodePacket( message.decode('hex') )
-			except KeyError:
-				logger.error("Unrecognizable packet. Line: " + _line())
-				if cmdarg.printout_complete == True:
-					print "Error: unrecognizable packet"
-			
 		else:
 			logger.error("Invalid message from socket. Line: " + _line())
 			if cmdarg.printout_complete == True:
