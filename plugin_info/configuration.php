@@ -65,7 +65,7 @@ foreach ($deamonRunningSlave as $name => $status) {
        <div class="form-group">
         <label class="col-lg-4 control-label">{{Créer automatiquement les nouveaux équipements}}</label>
         <div class="col-lg-4">
-            <input type="checkbox" class="configKey" data-l1key="autoDiscoverEqLogic" />
+            <input type="checkbox" class="configKey bootstrapSwitch" data-l1key="autoDiscoverEqLogic" />
         </div>
     </div>
     <div class="form-group">
@@ -92,7 +92,7 @@ foreach (jeedom::getUsbMapping() as $name => $value) {
    <div class="form-group">
      <label class="col-lg-4 control-label">{{Enregistrer tous les messages, cela peut ralentir le système}}</label>
      <div class="col-lg-1">
-        <input type="checkbox" class="configKey" data-l1key="enableLogging" />
+        <input type="checkbox" class="configKey bootstrapSwitch" data-l1key="enableLogging" />
     </div>
     <div class="col-lg-7">
         <a class="btn btn-default" id="bt_logEdisioMessage"><i class="fa fa-file-o"></i> {{Voir les messages}}</a>
@@ -107,7 +107,7 @@ foreach (jeedom::getUsbMapping() as $name => $value) {
 <div class="form-group">
     <label class="col-sm-4 control-label">{{Traiter la répétition des messages}}</label>
     <div class="col-sm-2">
-        <input type="checkbox" class="configKey" data-l1key="processRepeatMessage" />
+        <input type="checkbox" class="configKey bootstrapSwitch" data-l1key="processRepeatMessage" />
     </div>
 </div>
 <div class="form-group">
@@ -151,7 +151,7 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
              <div class="form-group">
                  <label class="col-lg-4 control-label">{{Enregistrer tous les messages, cela peut ralentir le système}}</label>
                  <div class="col-lg-1">
-                    <input type="checkbox" class="slaveConfigKey" data-l1key="enableLogging" />
+                    <input type="checkbox" class="slaveConfigKey bootstrapSwitch" data-l1key="enableLogging" />
                 </div>
                 <div class="col-lg-7">
                     <a class="btn btn-default bt_logEdisioMessage"><i class="fa fa-file-o"></i> {{Voir les messages}}</a>
@@ -166,7 +166,7 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
             <div class="form-group">
                 <label class="col-sm-4 control-label">{{Traiter la répétition des messages}}</label>
                 <div class="col-sm-2">
-                    <input type="checkbox" class="slaveConfigKey" data-l1key="processRepeatMessage" />
+                    <input type="checkbox" class="slaveConfigKey bootstrapSwitch" data-l1key="processRepeatMessage" />
                 </div>
             </div>
             <div class="form-group">
