@@ -281,12 +281,6 @@ class edisio extends eqLogic {
 		if (isset($device['commands'])) {
 			foreach ($device['commands'] as $command) {
 				$cmd = null;
-				foreach ($this->getCmd() as $liste_cmd) {
-					if ($liste_cmd->getLogicalId() == $command['logicalId']) {
-						$cmd = $liste_cmd;
-						break;
-					}
-				}
 				try {
 					if ($cmd == null || !is_object($cmd)) {
 						$cmd = new edisioCmd();
@@ -381,8 +375,8 @@ class edisioCmd extends cmd {
 					socket_connect($socket, $jeeNetwork->getRealIp(), config::byKey('socketport', 'edisio', 55000));
 					socket_write($socket, trim($value), strlen(trim($value)));
 					socket_close($socket);
+					usleep(40000);
 				}
-				sleep(1);
 			}
 		}
 		if (config::byKey('port', 'edisio', 'none') != 'none') {
@@ -391,6 +385,7 @@ class edisioCmd extends cmd {
 				socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio', 55000));
 				socket_write($socket, trim($value), strlen(trim($value)));
 				socket_close($socket);
+				usleep(40000);
 			}
 		}
 		log::add('edisio', 'debug', 'Début fonction d\'envoi commandes edisio');

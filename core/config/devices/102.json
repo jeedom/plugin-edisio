@@ -17,12 +17,8 @@
                 "name": "E",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
-                "logicalId" : "6C7663#ID#09011F000010640D0A",
-                "configuration" : 
-                {
-                    "group" : 1
-                }
+                "isVisible": 0,
+                "logicalId" : "6C7663#ID#09011F000010640D0A"
             }
         ]
     }

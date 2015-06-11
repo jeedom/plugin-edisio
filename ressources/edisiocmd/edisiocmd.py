@@ -610,12 +610,32 @@ def read_socket():
 	if not messageQueue.empty():
 		logger.debug("Message received in socket messageQueue")
 		message = stripped(messageQueue.get())
-		
-		if test_edisio( message ):			
-			logger.debug("Write message to serial port")
+		if test_edisio( message ):
+			if config.serial_active:
+				# Flush buffer
+				serial_param.port.flushOutput()
+				logger.debug("SerialPort flush output")
+				serial_param.port.flushInput()
+				logger.debug("SerialPort flush input")
+			
+			timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
+					
+			if cmdarg.printout_complete == True:
+				print "------------------------------------------------"
+				print "Incoming message from socket"
+				print "Send\t\t\t= " + ByteToHex( message.decode('hex') )
+				print "Date/Time\t\t= " + timestamp
+				print "Packet Length\t\t= " + ByteToHex( message.decode('hex')[0] )
+
+			logger.debug("Write message to serial port : " + ByteToHex( message.decode('hex')))
 			serial_param.port.write( message.decode('hex') )
-			logger.debug("Write message ok : "+ ByteToHex( message.decode('hex')))
-			time.sleep(0.5)
+			logger.debug("Write 1")
+			time.sleep(0.14)
+			serial_param.port.write( message.decode('hex') )
+			logger.debug("Write 2")
+			time.sleep(0.14)
+			serial_param.port.write( message.decode('hex') )
+			logger.debug("Write 3")
 			
 		else:
 			logger.error("Invalid message from socket. Line: " + _line())
