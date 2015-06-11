@@ -611,34 +611,11 @@ def read_socket():
 		logger.debug("Message received in socket messageQueue")
 		message = stripped(messageQueue.get())
 		
-		if test_edisio( message ):
-			if config.serial_active:
-				# Flush buffer
-				serial_param.port.flushOutput()
-				logger.debug("SerialPort flush output")
-				serial_param.port.flushInput()
-				logger.debug("SerialPort flush input")
-			
-			timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
-					
-			if cmdarg.printout_complete == True:
-				print "------------------------------------------------"
-				print "Incoming message from socket"
-				print "Send\t\t\t= " + ByteToHex( message.decode('hex') )
-				print "Date/Time\t\t= " + timestamp
-				print "Packet Length\t\t= " + ByteToHex( message.decode('hex')[0] )
-
+		if test_edisio( message ):			
 			logger.debug("Write message to serial port")
 			serial_param.port.write( message.decode('hex') )
 			logger.debug("Write message ok : "+ ByteToHex( message.decode('hex')))
-
-			try:
-				logger.debug("Decode message")
-				decodePacket( message.decode('hex') )
-			except KeyError:
-				logger.error("Unrecognizable packet. Line: " + _line())
-				if cmdarg.printout_complete == True:
-					print "Error: unrecognizable packet"
+			time.sleep(0.5)
 			
 		else:
 			logger.error("Invalid message from socket. Line: " + _line())
@@ -979,23 +956,6 @@ def option_send():
 	if not len(cmdarg.rawcmd.decode('hex')) == (cmd_len + 1):
 		print "Error: invalid rawcmd, invalid length"
 		sys.exit(1)
-
-	# Flush buffer
-	logger.debug("Serialport flush output")
-	serial_param.port.flushOutput()
-	logger.debug("Serialport flush input")
-	serial_param.port.flushInput()
-
-	# Send RESET
-	logger.debug("Send RFX reset")
-	serial_param.port.write( edisiocmd.reset.decode('hex') )
-	time.sleep(1)
-
-	# Flush buffer
-	logger.debug("Serialport flush output")
-	serial_param.port.flushOutput()
-	logger.debug("Serialport flush input")
-	serial_param.port.flushInput()
 
 	if cmdarg.rawcmd:
 		timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
