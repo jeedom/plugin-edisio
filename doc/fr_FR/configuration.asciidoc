@@ -7,7 +7,7 @@ Voici le détail (certains paramètres peuvent n'être visibles qu'en mode exper
 
 image::../images/edisio1.JPG[]
 
-* *Configuration* : cette partie vous donne le statut du démon (aussi bien en local qu'en déporté).
+* *Configuration* : cette partie vous donne le statut du démon (aussi bien en local qu'en déporté). Et vous indique aussi si le démon peut communiquer avec Jeedom, si ce n'est pas la cas il faut vérifier votre configuration réseaux.
 
 [icon="../images/plugin/tip.png"]
 [TIP]

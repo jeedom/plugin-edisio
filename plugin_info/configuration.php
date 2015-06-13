@@ -58,7 +58,7 @@ if (config::byKey('jeeNetwork::mode') == 'master') {
     <fieldset>
         <?php
 echo '<div class="form-group">';
-echo '<label class="col-sm-4 control-label">{{Configuration réseaux}}</label>';
+echo '<label class="col-sm-4 control-label">{{Retour local}}</label>';
 if (!$urlMasterLocal) {
 	echo '<div class="col-sm-1"><span class="label label-danger tooltips" style="font-size : 1em;" title="{{Vérifiez votre configuration sur la page de configuration réseaux, celle-ci est incorrecte et le démon ne pourra communiquer avec Jeedom}}">NOK</span></div>';
 } else {
