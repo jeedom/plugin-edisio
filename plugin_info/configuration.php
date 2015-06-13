@@ -60,31 +60,31 @@ if (config::byKey('jeeNetwork::mode') == 'master') {
 echo '<div class="form-group">';
 echo '<label class="col-sm-4 control-label">{{Configuration réseaux}}</label>';
 if (!$urlMasterLocal) {
-	echo '<div class="col-sm-1"><span class="label label-danger tooltips" title="{{Vérifiez votre configuration sur la page de configuration réseaux, celle-ci est incorrecte et le démon ne pourra communiquer avec Jeedom}}">NOK</span></div>';
+	echo '<div class="col-sm-1"><span class="label label-danger tooltips" style="font-size : 1em;" title="{{Vérifiez votre configuration sur la page de configuration réseaux, celle-ci est incorrecte et le démon ne pourra communiquer avec Jeedom}}">NOK</span></div>';
 } else {
-	echo '<div class="col-sm-1"><span class="label label-success">OK</span></div>';
+	echo '<div class="col-sm-1"><span class="label label-success" style="font-size : 1em;">OK</span></div>';
 }
 echo '<label class="col-sm-2 control-label">{{Retour distant}}</label>';
 if (!$urlMasterDistant) {
-	echo '<div class="col-sm-1"><span class="label label-danger tooltips" title="{{Vérifiez votre configuration sur la page de configuration réseaux, celle-ci est incorrecte et le démon ne pourra communiquer avec Jeedom}}">NOK</span></div>';
+	echo '<div class="col-sm-1"><span class="label label-danger tooltips" style="font-size : 1em;" title="{{Vérifiez votre configuration sur la page de configuration réseaux, celle-ci est incorrecte et le démon ne pourra communiquer avec Jeedom}}">NOK</span></div>';
 } else {
-	echo '<div class="col-sm-1"><span class="label label-success">OK</span></div>';
+	echo '<div class="col-sm-1"><span class="label label-success" style="font-size : 1em;">OK</span></div>';
 }
 echo '</div>';
 echo '<div class="form-group">';
 echo '<label class="col-sm-4 control-label">{{Démon local}}</label>';
 if (!$deamonRunningMaster) {
-	echo '<div class="col-sm-1"><span class="label label-danger tooltips" title="{{Peut être normale si vous etes en deporté}}">NOK</span></div>';
+	echo '<div class="col-sm-1"><span class="label label-danger tooltips" style="font-size : 1em;" title="{{Peut être normale si vous etes en deporté}}">NOK</span></div>';
 } else {
-	echo '<div class="col-sm-1"><span class="label label-success">OK</span></div>';
+	echo '<div class="col-sm-1"><span class="label label-success" style="font-size : 1em;">OK</span></div>';
 }
 echo '</div>';
 foreach ($deamonRunningSlave as $name => $status) {
 	echo ' <div class="form-group"><label class="col-sm-4 control-label">{{Sur l\'esclave}} ' . $name . '</label>';
 	if (!$status) {
-		echo '<div class="col-sm-1"><span class="label label-danger">NOK</span></div>';
+		echo '<div class="col-sm-1"><span class="label label-danger" style="font-size : 1em;">NOK</span></div>';
 	} else {
-		echo '<div class="col-sm-1"><span class="label label-success">OK</span></div>';
+		echo '<div class="col-sm-1"><span class="label label-success" style="font-size : 1em;">OK</span></div>';
 	}
 	echo '</div>';
 }
