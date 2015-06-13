@@ -23,13 +23,9 @@ if ((php_sapi_name() != 'cli' || isset($_SERVER['REQUEST_METHOD']) || !isset($_S
 	die();
 }
 
-if (isset($argv)) {
-	foreach ($argv as $arg) {
-		$argList = explode('=', $arg);
-		if (isset($argList[0]) && isset($argList[1])) {
-			$_GET[$argList[0]] = $argList[1];
-		}
-	}
+if (isset($_GET['test'])) {
+	echo 'OK';
+	die();
 }
 
 if (!isset($_GET['id'])) {

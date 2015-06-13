@@ -24,6 +24,15 @@ if (!isConnect()) {
 $port = config::byKey('port', 'edisio');
 $deamonRunningMaster = edisio::deamonRunning();
 $deamonRunningSlave = array();
+$urlMaster = false;
+try {
+	$request_http = new com_http(network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp') . '/plugins/edisio/core/php/jeeEdisio.php?api=' . config::byKey('api') . '&test=1');
+	if ($request_http->exec(1, 1) == 'OK') {
+		$urlMaster = true;
+	}
+} catch (Exception $e) {
+
+}
 if (config::byKey('jeeNetwork::mode') == 'master') {
 	foreach (jeeNetwork::byPlugin('edisio') as $jeeNetwork) {
 		try {
@@ -39,6 +48,14 @@ if (config::byKey('jeeNetwork::mode') == 'master') {
 <form class="form-horizontal">
     <fieldset>
         <?php
+echo '<div class="form-group">';
+echo '<label class="col-sm-4 control-label">{{Configuration réseaux}}</label>';
+if (!$urlMaster) {
+	echo '<div class="col-sm-1"><span class="label label-danger tooltips" title="{{Vérifiez votre configuration sur la page de configuration réseaux, celle-ci est incorrecte et le démon ne pourra communiquer avec Jeedom}}">NOK</span></div>';
+} else {
+	echo '<div class="col-sm-1"><span class="label label-success">OK</span></div>';
+}
+echo '</div>';
 echo '<div class="form-group">';
 echo '<label class="col-sm-4 control-label">{{Démon local}}</label>';
 if (!$deamonRunningMaster) {
