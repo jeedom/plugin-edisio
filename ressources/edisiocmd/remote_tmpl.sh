@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 data=""
 for var in "$@"
 do
