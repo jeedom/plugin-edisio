@@ -18,7 +18,7 @@
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
-                "logicalId" : "6C7663#ID##GROUP#021E010002640D0A&&6C7663#ID##GROUP#021E01000A640D0A",
+                "logicalId" : "6C7663#ID##GROUP#021E010002640D0A&&6C7663#ID##GROUP#021E01001B640D0A",
                 "configuration" : 
                 {
                     "group" : 1
@@ -40,7 +40,7 @@
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
-                "logicalId" : "6C7663#ID##GROUP#021E010002640D0A&&6C7663#ID##GROUP#021E01000A640D0A",
+                "logicalId" : "6C7663#ID##GROUP#021E010002640D0A&&6C7663#ID##GROUP#021E01001B640D0A",
                 "configuration" : 
                 {
                     "group" : 2
