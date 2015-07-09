@@ -1,17 +1,16 @@
-:icons:
-== Edisio
+:icons: font
+= Edisio
 
-=== Description
 Plugin permettant d'utiliser le protocole Edisio avec Jeedom
 
 '''
-=== Configuration
+== Configuration
 include::configuration.asciidoc[]
 
 '''
-=== FAQ
+== FAQ
 include::faq.asciidoc[]
 
 '''
-=== Troubleshoting
+== Troubleshoting
 include::troubleshoting.asciidoc[]
