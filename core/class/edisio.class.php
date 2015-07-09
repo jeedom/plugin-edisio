@@ -372,7 +372,7 @@ class edisioCmd extends cmd {
 			foreach (jeeNetwork::byPlugin('edisio') as $jeeNetwork) {
 				foreach ($values as $value) {
 					$socket = socket_create(AF_INET, SOCK_STREAM, 0);
-					socket_connect($socket, $jeeNetwork->getRealIp(), config::byKey('socketport', 'edisio', 55000));
+					socket_connect($socket, $jeeNetwork->getRealIp(), config::byKey('socketport', 'edisio', 55005));
 					socket_write($socket, trim($value), strlen(trim($value)));
 					socket_close($socket);
 					usleep(40000);
@@ -382,7 +382,7 @@ class edisioCmd extends cmd {
 		if (config::byKey('port', 'edisio', 'none') != 'none') {
 			foreach ($values as $value) {
 				$socket = socket_create(AF_INET, SOCK_STREAM, 0);
-				socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio', 55000));
+				socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio', 55005));
 				socket_write($socket, trim($value), strlen(trim($value)));
 				socket_close($socket);
 				usleep(40000);
