@@ -1,0 +1,84 @@
+{
+    "113": {
+        "name": "Micro-module lumière",
+        "commands": [
+            {
+                "name": "On",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#021E010001640D0A&&6C7663#ID##GROUP#021E010009640D0A",
+                "configuration" : 
+                {
+                    "group" : 1,
+                    "updateCmdId": "Etat 1",
+                    "updateCmdToValue": "1"
+                }
+            },
+            {
+                "name": "Off",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#021E010002640D0A&&6C7663#ID##GROUP#021E01001B640D0A",
+                "configuration" : 
+                {
+                    "group" : 1,
+                    "updateCmdId": "Etat 1",
+                    "updateCmdToValue": "0"
+                }
+            },
+            {
+                "name": "On 2",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#021E010001640D0A&&6C7663#ID##GROUP#021E010009640D0A",
+                "configuration" : 
+                {
+                    "group" : 2,
+                    "updateCmdId": "Etat 2",
+                    "updateCmdToValue": "1"
+                }
+            },
+            {
+                "name": "Off 2",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#021E010002640D0A&&6C7663#ID##GROUP#021E01001B640D0A",
+                "configuration" : 
+                {
+                    "group" : 2,
+                    "updateCmdId": "Etat 2",
+                    "updateCmdToValue": "0"
+                }
+            },
+            {
+                "name": "E",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 0,
+                "logicalId" : "6C7663#ID#09021F000010640D0A"
+            },
+            {
+                "name": "Etat 1",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "eventOnly": 1
+            },
+            {
+                "name": "Etat 2",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "eventOnly": 1
+            }
+        ]
+    }
+}

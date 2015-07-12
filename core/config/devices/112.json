@@ -1,7 +1,7 @@
 {
     "112": {
         "name": "Micro-module volet roulant",
-        "commands": [
+         "commands": [
            {
                 "name": "Monter",
                 "type": "action",
@@ -10,7 +10,9 @@
                 "logicalId" : "6C7663#ID##GROUP#011E010009640D0A",
                 "configuration" : 
                 {
-                    "group" : 1
+                    "group" : 1,
+                    "updateCmdId": "Etat",
+                    "updateCmdToValue": "1"
                 }
             },
             {
@@ -21,7 +23,9 @@
                 "logicalId" : "6C7663#ID##GROUP#011E01001B640D0A",
                 "configuration" : 
                 {
-                    "group" : 1
+                    "group" : 1,
+                    "updateCmdId": "Etat",
+                    "updateCmdToValue": "0"
                 }
             },
             {
@@ -41,6 +45,15 @@
                 "subtype": "other",
                 "isVisible": 0,
                 "logicalId" : "6C7663#ID#09011F000010640D0A"
+            },
+            {
+                "name": "Etat",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "eventOnly": 1
             }
         ]
     }

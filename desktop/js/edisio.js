@@ -15,11 +15,6 @@
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
- $('#bt_stopEDISIODemon').on('click', function () {
-    stopEDISIODeamon();
-});
-
  $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
   if($('.li_eqLogic.active').attr('data-eqlogic_id') != ''){
     $('#img_device').attr("src", $('.eqLogicDisplayCard[data-eqLogic_id='+$('.li_eqLogic.active').attr('data-eqlogic_id')+'] img').attr('src'));
@@ -27,6 +22,10 @@
     $('#img_device').attr("src",'plugins/edisio/doc/images/edisio_icon.png');
 }
 });
+
+ $(".eqLogicAttr[data-l1key=configuration][data-l2key=device]").html($(".eqLogicAttr[data-l1key=configuration][data-l2key=device] option").sort(function (a, b) {
+    return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+}))
 
  $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 
@@ -53,10 +52,10 @@
 
 $('#table_cmd').delegate('.cmdAttr[data-l1key=type]','change',function(){
     if($(this).value() == 'info'){
-       $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').hide();
-   }else{
-       $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').show();
-   }
+     $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').hide();
+ }else{
+     $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').show();
+ }
 });
 
 $('body').delegate('.cmd .cmdAttr[data-l1key=type]', 'change', function () {
