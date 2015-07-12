@@ -55,6 +55,20 @@
                 }
             },
             {
+                "name": "Minuterie Off",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID#09021F000010640D0A&&6C7663#ID#09021F000010640D0A&&6C7663#ID#09021F000010640D0A&&6C7663#ID#09021F000010640D0A"
+            },
+            {
+                "name": "Minuterie On",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID#09021F000010640D0A&&6C7663#ID#09021F000010640D0A&&6C7663#ID#09021F000010640D0A&&6C7663#ID#09021F000010640D0A&&6C7663#ID#09021F000010640D0A"
+            },
+            {
                 "name": "E",
                 "type": "action",
                 "subtype": "other",
