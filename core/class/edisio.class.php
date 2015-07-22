@@ -70,7 +70,7 @@ class edisio extends eqLogic {
 				$return[] = array(
 					'test' => __('Démon sur', __FILE__) . $jeeNetwork->getName(),
 					'result' => ($demon_state) ? __('OK', __FILE__) : __('NOK', __FILE__),
-					'advice' => ($demon_state) ? '' : __('Peut être normal si vous êtes en déporté', __FILE__),
+					'advice' => '',
 					'state' => $demon_state,
 				);
 			}
