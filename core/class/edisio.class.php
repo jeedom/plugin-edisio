@@ -51,6 +51,33 @@ class edisio extends eqLogic {
 		}
 	}
 
+	public static function health() {
+		$return = array();
+		$demon_state = self::deamonRunning();
+		$return[] = array(
+			'test' => __('Démon local', __FILE__),
+			'result' => ($demon_state) ? __('OK', __FILE__) : __('NOK', __FILE__),
+			'advice' => ($demon_state) ? '' : __('Peut être normal si vous êtes en déporté', __FILE__),
+			'state' => $demon_state,
+		);
+		if (config::byKey('jeeNetwork::mode') == 'master') {
+			foreach (jeeNetwork::byPlugin('edisio') as $jeeNetwork) {
+				try {
+					$demon_state = $jeeNetwork->sendRawRequest('deamonRunning', array('plugin' => 'edisio'));
+				} catch (Exception $e) {
+					$demon_state = false;
+				}
+				$return[] = array(
+					'test' => __('Démon sur', __FILE__) . $jeeNetwork->getName(),
+					'result' => ($demon_state) ? __('OK', __FILE__) : __('NOK', __FILE__),
+					'advice' => ($demon_state) ? '' : __('Peut être normal si vous êtes en déporté', __FILE__),
+					'state' => $demon_state,
+				);
+			}
+		}
+		return $return;
+	}
+
 	public static function createFromDef($_def) {
 		if (config::byKey('autoDiscoverEqLogic', 'edisio') == 0) {
 			return false;
