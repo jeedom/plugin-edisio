@@ -11,7 +11,7 @@
                 "subtype": "numeric",
                 "isVisible": 0,
                 "isHistorized": 0,
-                "unite": "",
+                "unite": "%",
                 "eventOnly": 1,
                 "logicalId": "battery"
             },

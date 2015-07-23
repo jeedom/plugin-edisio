@@ -8,7 +8,7 @@
                 "subtype": "numeric",
                 "isVisible": 0,
                 "isHistorized": 0,
-                "unite": "",
+                "unite": "%",
                 "eventOnly": 1,
                 "logicalId": "battery"
             },
@@ -18,7 +18,7 @@
                 "subtype": "numeric",
                 "isVisible": 1,
                 "isHistorized": 1,
-                "unite": "",
+                "unite": "°C",
                 "eventOnly": 1,
                 "logicalId": "temperature"
             }
