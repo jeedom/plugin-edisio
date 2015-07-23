@@ -483,7 +483,6 @@ def decodePacket(message):
 		decode_string += "\nDecode model : \t\t= Temperature Sensor"
 		try:
 			temperature = float(int(DATA[3:4]+DATA[0:2],16)) / 100
-			decode_string += "\nDecode temperature : \t\t= "+ temperature
 		except Exception, e:
 			logger.debug("Error on temperature decode "+str(e))
 			return
