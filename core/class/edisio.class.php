@@ -153,6 +153,7 @@ class edisio extends eqLogic {
 			if (@!file_exists($port)) {
 				throw new Exception(__('Le port : ', __FILE__) . print_r($port, true) . __(' n\'éxiste pas', __FILE__));
 			}
+			exec('sudo chmod 777 ' . $port . ' > /dev/null 2>&1');
 		}
 		$edisio_path = realpath(dirname(__FILE__) . '/../../ressources/edisiocmd');
 
