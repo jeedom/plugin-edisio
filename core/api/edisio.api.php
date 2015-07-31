@@ -29,10 +29,12 @@ if ($jsonrpc->getMethod() == 'deamonRunning') {
 }
 
 if ($jsonrpc->getMethod() == 'stopDeamon') {
+	config::save('allowStartDeamon', 0, 'edisio');
 	$jsonrpc->makeSuccess(edisio::stopDeamon());
 }
 
 if ($jsonrpc->getMethod() == 'restartDeamon') {
+	config::save('allowStartDeamon', 1, 'edisio');
 	$port = config::byKey('port', 'edisio', 'none');
 	if ($port == 'none') {
 		ajax::success();
