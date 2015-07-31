@@ -31,23 +31,14 @@ class edisio extends eqLogic {
 
 	public static function cronDaily() {
 		sleep(180);
-		$port = config::byKey('port', 'edisio', 'none');
-		if ($port == 'auto' || file_exists(jeedom::getUsbMapping($port))) {
+		if (config::byKey('allowStartDeamon', 'edisio', 1) == 1 && config::byKey('port', 'edisio', 'none') != 'none') {
 			self::runDeamon();
 		}
 	}
 
 	public static function cron() {
-		$port = config::byKey('port', 'edisio', 'none');
-		if ($port != 'none') {
-			if ($port == 'auto' || file_exists(jeedom::getUsbMapping($port))) {
-				if (!self::deamonRunning()) {
-					self::runDeamon();
-				}
-				message::removeAll('edisio', 'noRfxComPort');
-			} else {
-				log::add('edisio', 'error', __('Le port du EDISIO est vide ou n\'existe pas', __FILE__), 'noRfxComPort');
-			}
+		if (config::byKey('allowStartDeamon', 'edisio', 1) == 1 && config::byKey('port', 'edisio', 'none') != 'none' && !self::deamonRunning()) {
+			self::runDeamon();
 		}
 	}
 
