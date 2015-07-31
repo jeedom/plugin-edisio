@@ -25,6 +25,7 @@ try {
 	}
 
 	if (init('action') == 'restartDeamon') {
+		config::save('allowStartDeamon', 1, 'edisio');
 		$port = config::byKey('port', 'edisio', 'none');
 		if ($port == 'none') {
 			ajax::success();
@@ -43,7 +44,7 @@ try {
 		if (edisio::deamonRunning()) {
 			throw new Exception(__('Impossible d\'arrêter le démon', __FILE__));
 		}
-		config::save('port', 'none', 'edisio');
+		config::save('allowStartDeamon', 0, 'edisio');
 		ajax::success();
 	}
 

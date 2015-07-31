@@ -146,6 +146,9 @@ class edisio extends eqLogic {
 	}
 
 	public static function runDeamon($_debug = false) {
+		if (config::byKey('allowStartDeamon', 'edisio', 1) == 0) {
+			return;
+		}
 		self::stopDeamon();
 		$port = config::byKey('port', 'edisio');
 		if ($port != 'auto') {

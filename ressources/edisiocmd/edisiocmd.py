@@ -267,13 +267,6 @@ def decodePacket(message):
 	timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
 	unixtime_utc = int(time.time())
 
-	if message == prevMessage and unixtime_utc < (prevDatetime+1) :
-		logger.debug("Message already decode, ignore")
-		return
-
-	prevMessage = message
-	prevDatetime = unixtime_utc
-
 	# Verify incoming message
 	if not test_edisio( ByteToHex(message) ):
 		logger.error("The incoming message is invalid (" + ByteToHex(message) + ") Line: " + _line())
@@ -297,6 +290,15 @@ def decodePacket(message):
 		DATA = ''
 		for i in range(0,len(message) - 16):
 			DATA += ByteToHex(message[13 + i])
+
+	clean_message = str(PID) + str(BID) + str(MID) + str(RMAX) + str(CMD) + str(DATA)
+
+	if clean_message == prevMessage and unixtime_utc < (prevDatetime+1) :
+		logger.debug("Message already decode, ignore")
+		return
+
+	prevMessage = clean_message
+	prevDatetime = unixtime_utc
 
 	decode_string = "\nPID\t\t\t= " + str(PID);
 	decode_string += "\nBID\t\t\t= " + str(BID);
