@@ -17,13 +17,13 @@
 
  $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
   if($('.li_eqLogic.active').attr('data-eqlogic_id') != ''){
-    $('#img_device').attr("src", $('.eqLogicDisplayCard[data-eqLogic_id='+$('.li_eqLogic.active').attr('data-eqlogic_id')+'] img').attr('src'));
+    $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+this.value+'.jpg');
 }else{
     $('#img_device').attr("src",'plugins/edisio/doc/images/edisio_icon.png');
 }
 });
 
-$(".eqLogicAttr[data-l1key=configuration][data-l2key=device]").html($(".eqLogicAttr[data-l1key=configuration][data-l2key=device] option").sort(function (a, b) {
+ $(".eqLogicAttr[data-l1key=configuration][data-l2key=device]").html($(".eqLogicAttr[data-l1key=configuration][data-l2key=device] option").sort(function (a, b) {
     return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
 }))
 

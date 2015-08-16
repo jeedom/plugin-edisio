@@ -162,7 +162,7 @@ foreach (edisio::devicesParameters() as $mid => $info) {
         </div>
     </div>
     <center>
-        <img src="core/img/no_image.gif" data-original=".jpg" id="img_device" class="img-responsive" style="max-height : 250px;"/>
+        <img src="core/img/no_image.gif" data-original=".jpg" id="img_device" class="img-responsive" style="max-height : 250px;" onerror="this.src='plugins/edisio/doc/images/edisio_icon.png'"/>
     </center>
 </fieldset>
 </form>
