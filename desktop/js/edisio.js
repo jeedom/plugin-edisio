@@ -17,7 +17,7 @@
 
  $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
   if($('.li_eqLogic.active').attr('data-eqlogic_id') != ''){
-    $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+this.value+'.jpg');
+    $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+$(this).value()+'.jpg');
 }else{
     $('#img_device').attr("src",'plugins/edisio/doc/images/edisio_icon.png');
 }
