@@ -35,6 +35,12 @@ class edisio extends eqLogic {
 		}
 	}
 
+	public static function start() {
+		if (config::byKey('allowStartDeamon', 'edisio', 1) == 1 && config::byKey('port', 'edisio', 'none') != 'none' && !self::deamonRunning()) {
+			self::runDeamon();
+		}
+	}
+
 	public static function cron15() {
 		if (config::byKey('allowStartDeamon', 'edisio', 1) == 1 && config::byKey('port', 'edisio', 'none') != 'none' && !self::deamonRunning()) {
 			self::runDeamon();
