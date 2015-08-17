@@ -156,8 +156,8 @@ class edisio extends eqLogic {
 		}
 		$edisio_path = realpath(dirname(__FILE__) . '/../../ressources/edisiocmd');
 
-		if (file_exists($edisio_path . '/config.xml')) {
-			unlink($edisio_path . '/config.xml');
+		if (file_exists('/tmp/config_edisio.xml')) {
+			unlink('/tmp/config_edisio.xml');
 		}
 		$enable_logging = (config::byKey('enableLogging', 'edisio', 0) == 1) ? 'yes' : 'no';
 		if (file_exists(log::getPathToLog('edisiocmd') . '.message')) {
@@ -177,30 +177,22 @@ class edisio extends eqLogic {
 		);
 		if (config::byKey('jeeNetwork::mode') == 'slave') {
 			$replace_config['#sockethost#'] = network::getNetworkAccess('internal', 'ip', '127.0.0.1');
-			$remote = str_replace(array('#ip_master#', '#apikey#'), array(config::byKey('jeeNetwork::master::ip'), config::byKey('jeeNetwork::master::apikey')), file_get_contents($edisio_path . '/remote_tmpl.sh'));
+			$replace_config['#trigger_url#'] = config::byKey('jeeNetwork::master::ip') . '/plugins/edisio/core/php/jeeEdisio.php';
+			$replace_config['#apikey#'] = config::byKey('jeeNetwork::master::apikey');
 		} else {
 			$replace_config['#sockethost#'] = '127.0.0.1';
-			$remote = str_replace(array('#ip_master#', '#apikey#'), array(network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp'), config::byKey('api')), file_get_contents($edisio_path . '/remote_tmpl.sh'));
+			$replace_config['#trigger_url#'] = network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp') . '/plugins/edisio/core/php/jeeEdisio.php';
+			$replace_config['#apikey#'] = config::byKey('api');
 		}
-		file_put_contents('/tmp/edisio_remote.sh', $remote);
-		chmod('/tmp/edisio_remote.sh', 0775);
-
 		if (config::byKey('processRepeatMessage', 'edisio', 0) == 1) {
 			$replace_config['#process_repeat_message#'] = 'yes';
 		} else {
 			$replace_config['#process_repeat_message#'] = 'no';
 		}
 		$config = template_replace($replace_config, file_get_contents($edisio_path . '/config_tmpl.xml'));
-		file_put_contents($edisio_path . '/config.xml', $config);
-		chmod($edisio_path . '/config.xml', 0777);
-		if (!file_exists($edisio_path . '/config.xml')) {
-			file_put_contents($edisio_path . '/config.xml', $config);
-			chmod($edisio_path . '/config.xml', 0777);
-		}
-		if (!file_exists($edisio_path . '/config.xml')) {
-			throw new Exception(__('Impossible de créer : ', __FILE__) . $edisio_path . '/config.xml');
-		}
-		$cmd = '/usr/bin/python ' . $edisio_path . '/edisiocmd.py -l -o ' . $edisio_path . '/config.xml';
+		file_put_contents('/tmp/config_edisio.xml', $config);
+		chmod('/tmp/config_edisio.xml', 0777);
+		$cmd = '/usr/bin/python ' . $edisio_path . '/edisiocmd.py -l -o /tmp/config_edisio.xml';
 		if ($_debug) {
 			$cmd .= ' -D';
 		}

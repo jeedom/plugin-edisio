@@ -24,6 +24,8 @@ __status__ = "Development-Beta-1"
 __date__ = "$Date: 2015-02-14 18:37:06 +0200$"
 
 # Default modules
+import logging
+import requests
 import pdb
 import string
 import sys
@@ -33,8 +35,8 @@ import datetime
 import binascii
 import traceback
 import subprocess
+import threading
 import re
-import logging
 import signal
 import xml.dom.minidom as minidom
 from optparse import OptionParser
@@ -49,13 +51,6 @@ try:
 except ImportError:
 	print "Error: importing module from lib folder"
 	sys.exit(1)
-
-try:
-	from lib.edisio_command import *
-except ImportError:
-	print "Error: module lib/edisio_command not found"
-	sys.exit(1)
-
 
 try:
 	from lib.edisio_utils import *
@@ -240,6 +235,36 @@ def _line():
 
 # ----------------------------------------------------------------------------
 
+##############################COMMAND###########################################
+
+class Command(object):
+	def __init__(self, url,data):
+		self.url = url
+		self.data = data
+		self.process = None
+	
+	def run(self, timeout):
+		def target():
+			logger.debug("Thread started, timeout = " + str(timeout))
+			requests.get(self.url, params=self.data)
+			self.timer.cancel()
+		
+		def timer_callback():
+			logger.debug("Thread timeout, terminate it")
+			if self.process.poll() is None:
+				try:
+					self.process.terminate()
+				except OSError as error:
+					logger.error("Error: %s " % error)
+				logger.debug("Thread terminated")
+			else:
+				logger.debug("Thread not alive")
+			
+		thread = threading.Thread(target=target)
+		self.timer = threading.Timer(int(timeout), timer_callback)
+		self.timer.start()
+		thread.start()
+
 def readbytes(number):
 	"""
 	Read x amount of bytes from serial port. 
@@ -311,11 +336,9 @@ def decodePacket(message):
 
 	BL = int((int(BL, 16) / 3.3) * 10)
 
-	action = config.trigger+' id='+str(PID)+' battery='+str(BL)+' mid='+str(MID)
-
+	action = {'id' : str(PID), 'battery' : str(BL), 'mid' : str(MID)}
 
 	key = str(PID)+str(MID)+str(CMD)
-	data_action = ''
 	value = ''
 
 	if CMD == '01':
@@ -438,37 +461,37 @@ def decodePacket(message):
 
 	if MID == '01':
 		decode_string += "\nDecode model : \t\t= Emitter Channel 1"
-		data_action += ' bt='+str(BID)
-		data_action += ' value='+str(value)
-		command = Command(action+data_action)
+		action['bt'] = str(BID)
+		action['value'] = str(value)
+		command = Command(config.trigger_url,action)
 		command.run(timeout=config.trigger_timeout)
 
 	if MID == '02':
 		decode_string += "\nDecode model : \t\t= Emitter Channel 2"
-		data_action += ' bt='+str(BID)
-		data_action += ' value='+str(value)
-		command = Command(action+data_action)
+		action['bt'] = str(BID)
+		action['value'] = str(value)
+		command = Command(config.trigger_url,action)
 		command.run(timeout=config.trigger_timeout)
 
 	if MID == '03':
 		decode_string += "\nDecode model : \t\t= Emitter Channel 3"
-		data_action += ' bt='+str(BID)
-		data_action += ' value='+str(value)
-		command = Command(action+data_action)
+		action['bt'] = str(BID)
+		action['value'] = str(value)
+		command = Command(config.trigger_url,action)
 		command.run(timeout=config.trigger_timeout)
 
 	if MID == '04':
 		decode_string += "\nDecode model : \t\t= Emitter Channel 4"
-		data_action += ' bt='+str(BID)
-		data_action += ' value='+str(value)
-		command = Command(action+data_action)
+		action['bt'] = str(BID)
+		action['value'] = str(value)
+		command = Command(config.trigger_url,action)
 		command.run(timeout=config.trigger_timeout)
 
 	if MID == '05':
 		decode_string += "\nDecode model : \t\t= Emitter Channel 5"
-		data_action += ' bt='+str(BID)
-		data_action += ' value='+str(value)
-		command = Command(action+data_action)
+		action['bt'] = str(BID)
+		action['value'] = str(value)
+		command = Command(config.trigger_url,action)
 		command.run(timeout=config.trigger_timeout)
 
 	if MID == '06':
@@ -476,9 +499,9 @@ def decodePacket(message):
 
 	if MID == '07':
 		decode_string += "\nDecode model : \t\t= Motion Sensor (On/Off/Pulse)"
-		data_action += ' bt='+str(BID)
-		data_action += ' value='+str(value)
-		command = Command(action+data_action)
+		action['bt'] = str(BID)
+		action['value'] = str(value)
+		command = Command(config.trigger_url,action)
 		command.run(timeout=config.trigger_timeout)
 
 	if MID == '08':
@@ -490,28 +513,28 @@ def decodePacket(message):
 			return
 
 		if key in current_sensor_data and 'updateTime' in current_sensor_data[key] : 
-			action += ' time_between_message='+str(unixtime_utc - current_sensor_data[key]['updateTime'])
+			action['time_between_message'] = str(unixtime_utc - current_sensor_data[key]['updateTime'])
 			decode_string += "\nTime between message\t= " + str(unixtime_utc - current_sensor_data[key]['updateTime'])
 
 		if not config.process_repeat_message and key in current_sensor_data and config.repeat_message_time > (unixtime_utc - current_sensor_data[key]['updateTime']):
 			if current_sensor_data[key]['temperature'] <> temperature:
-				data_action += ' temperature='+str(temperature)
+				action['temperature'] = str(temperature)
 		else :
-			data_action += ' temperature='+str(temperature)
+			action['temperature'] = str(temperature)
 
 	
 		current_sensor_data[key] = {'temperature' : temperature, 'updateTime' : unixtime_utc}
 
-		if data_action <> "":
-			command = Command(action+data_action)
+		if 'temperature' in action :
+			command = Command(config.trigger_url,action)
 			command.run(timeout=config.trigger_timeout)
 
 
 	if MID == '09':
 		decode_string += "\nDecode model : \t\t= Door Sensor (On/Off/Pulse)"
-		data_action += ' bt='+str(BID)
-		data_action += ' value='+str(value)
-		command = Command(action+data_action)
+		action['bt'] = str(BID)
+		action['value'] = str(value)
+		command = Command(config.trigger_url,action)
 		command.run(timeout=config.trigger_timeout)
 
 	if MID == '10':
@@ -537,16 +560,16 @@ def decodePacket(message):
 
 	if MID == '17':
 		decode_string += "\nDecode model : \t\t= Emitter 2 Channels (Button)"
-		data_action += ' bt='+str(BID)
-		data_action += ' value='+str(value)
-		command = Command(action+data_action)
+		action['bt'] = str(BID)
+		action['value'] = str(value)
+		command = Command(config.trigger_url,action)
 		command.run(timeout=config.trigger_timeout)
 
 	if MID == '18':
 		decode_string += "\nDecode model : \t\t= Emitter 2 Channels (Button)"
-		data_action += ' bt='+str(BID)
-		data_action += ' value='+str(value)
-		command = Command(action+data_action)
+		action['bt'] = str(BID)
+		action['value'] = str(value)
+		command = Command(config.trigger_url,action)
 		command.run(timeout=config.trigger_timeout)
 
 	if MID == '0B':
@@ -777,18 +800,13 @@ def read_config( configFile, configItem):
 	"""
 	Read item from the configuration file
 	"""
-	logger.debug('Open configuration file')
-	logger.debug('File: ' + configFile)
-	
 	if os.path.exists( configFile ):
 
 		#open the xml file for reading:
 		f = open( configFile,'r')
 		data = f.read()
 		f.close()
-	
-		# xml parse file data
- 		logger.debug('Parse config XML data')
+
 		try:
 			dom = minidom.parseString(data)
 		except:
@@ -806,9 +824,6 @@ def read_config( configFile, configItem):
 		except:
 			logger.debug('The item tag not found in the config file')
 			xmlData = ""
-			
- 		logger.debug('Return')
- 		
  	else:
  		logger.error("Error: Config file does not exists. Line: " + _line())
  		
@@ -1029,8 +1044,12 @@ def read_configfile():
 		
 		# ----------------------
 		# TRIGGER
-		config.trigger = read_config( cmdarg.configfile, "trigger").replace('&quot;', '"').replace('&amp;', '&')
+		config.trigger_url = read_config( cmdarg.configfile, "trigger_url")
+		config.apikey = read_config( cmdarg.configfile, "apikey")
 		config.trigger_timeout = read_config( cmdarg.configfile, "trigger_timeout")
+		logger.debug("trigger_url: " + str(config.trigger_url))
+		logger.debug("apikey: " + str(config.apikey))
+		logger.debug("trigger_timeout: " + str(config.trigger_timeout))
 
 		# ----------------------
 		config.sockethost = read_config( cmdarg.configfile, "sockethost")
@@ -1156,37 +1175,19 @@ def find_tty_usb(idVendor, idProduct):
 
 # ----------------------------------------------------------------------------
 
-def logger_init(configfile, name, debug):
-	"""
-
-	Init loghandler and logging
-	
-	Input: 
-	
-		- configfile = location of the config.xml
-		- name	= name
-		- debug = True will send log to stdout, False to file
-		
-	Output:
-	
-		- Returns logger handler
-	
-	"""
+def logger_init(configFile, name, debug):
 	program_path = os.path.dirname(os.path.realpath(__file__))
 	dom = None
-	
-	if os.path.exists( os.path.join(program_path, "config.xml") ):
-
-		# Read config file
-		f = open(os.path.join(program_path, "config.xml"),'r')
+	if os.path.exists( configFile ):
+		#open the xml file for reading:
+		f = open( configFile,'r')
 		data = f.read()
 		f.close()
-
 		try:
 			dom = minidom.parseString(data)
-		except:
+		except Exception, e:
 			print "Error: problem in the config.xml file, cannot process it"
-
+			print "Exception: %s" % str(e)
 		if dom:
 		
 			# Get loglevel from config file
@@ -1206,7 +1207,7 @@ def logger_init(configfile, name, debug):
 			loglevel = loglevel.upper()
 			
 			#formatter = logging.Formatter(fmt='%(asctime)s - %(levelname)s - %(module)s - %(message)s')
-			formatter = logging.Formatter('%(asctime)s - %(threadName)s - %(module)s:%(lineno)d - %(levelname)s - %(message)s')
+			formatter = logging.Formatter(fmt='%(asctime)s - %(threadName)s - %(module)s:%(lineno)d - %(levelname)s - %(message)s')
 			
 			if debug:
 				loglevel = "DEBUG"
@@ -1241,11 +1242,6 @@ def main():
 	parser.add_option("-V", "--version", action="store_true", dest="version", help="Print edisiocmd version information")
 	parser.add_option("-D", "--debug", action="store_true", dest="debug", default=False, help="Debug printout on stdout")
 	(options, args) = parser.parse_args()
-
-	# ----------------------------------------------------------
-	# VERSION PRINT
-	if options.version:
-		print_version()
 
 	# ----------------------------------------------------------
 	# CONFIG FILE
