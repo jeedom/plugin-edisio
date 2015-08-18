@@ -246,23 +246,9 @@ class Command(object):
 	def run(self, timeout):
 		def target():
 			logger.debug("Thread started, timeout = " + str(timeout))
-			requests.get(self.url, params=self.data)
-			self.timer.cancel()
-		
-		def timer_callback():
-			logger.debug("Thread timeout, terminate it")
-			if self.process.poll() is None:
-				try:
-					self.process.terminate()
-				except OSError as error:
-					logger.error("Error: %s " % error)
-				logger.debug("Thread terminated")
-			else:
-				logger.debug("Thread not alive")
+			requests.get(self.url, params=self.data,timeout= float(timeout))
 			
 		thread = threading.Thread(target=target)
-		self.timer = threading.Timer(int(timeout), timer_callback)
-		self.timer.start()
 		thread.start()
 
 def readbytes(number):
