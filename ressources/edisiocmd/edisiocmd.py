@@ -995,6 +995,7 @@ def read_configfile():
 
 		# ----------------------
 		# Serial device
+		config.serial_device = read_config( cmdarg.configfile, "serial_device")
 		if config.serial_device == 'auto':
 			config.serial_device = find_tty_usb('067b','2303')
 		config.serial_rate = read_config( cmdarg.configfile, "serial_rate")
