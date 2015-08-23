@@ -71,7 +71,6 @@ except ImportError:
 class config_data:
 	def __init__(
 		self,
-		serial_active = True,
 		serial_device = "auto",
 		serial_rate = 9600,
 		serial_timeout = 9,
@@ -80,12 +79,9 @@ class config_data:
 		loglevel = "info",
 		logfile = "edisiocmd.log",
 		program_path = "",
-		socketserver = False,
 		sockethost = "",
 		socketport = "",
-		daemon_active = False,
 		daemon_pidfile = "edisiocmd.pid",
-		process_edisiomsg = True,
 		barometric = 0,
 		log_msg = False,
 		log_msgfile = "",
@@ -93,7 +89,6 @@ class config_data:
 		repeat_message_time = 999999999
 		):
 
-		self.serial_active = serial_active
 		self.serial_device = serial_device
 		self.serial_rate = serial_rate
 		self.serial_timeout = serial_timeout
@@ -101,12 +96,9 @@ class config_data:
 		self.loglevel = loglevel
 		self.logfile = logfile
 		self.program_path = program_path
-		self.socketserver = socketserver
 		self.sockethost = sockethost
 		self.socketport = socketport
-		self.daemon_active = daemon_active
 		self.daemon_pidfile = daemon_pidfile
-		self.process_edisiomsg = process_edisiomsg
 		self.barometric = barometric
 		self.log_msg = log_msg
 		self.log_msgfile = log_msgfile
@@ -622,12 +614,12 @@ def read_socket():
 		logger.debug("Message received in socket messageQueue")
 		message = stripped(messageQueue.get())
 		if test_edisio( message ):
-			if config.serial_active:
-				# Flush buffer
-				serial_param.port.flushOutput()
-				logger.debug("SerialPort flush output")
-				serial_param.port.flushInput()
-				logger.debug("SerialPort flush input")
+			
+			# Flush buffer
+			serial_param.port.flushOutput()
+			logger.debug("SerialPort flush output")
+			serial_param.port.flushInput()
+			logger.debug("SerialPort flush input")
 			
 			timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
 					
@@ -891,29 +883,27 @@ def option_listen():
 	"""
 	logger.debug("Start listening...")
 	
-	if config.serial_active:
-		logger.debug("Open serial port")
-		open_serialport()
+	logger.debug("Open serial port")
+	open_serialport()
 
-	if config.socketserver:
-		try:
-			serversocket = RFXcmdSocketAdapter(config.sockethost,int(config.socketport))
-		except Exception as err:
-			logger.error("Error starting socket server. Line: " + _line())
-			logger.error("Error: %s" % str(err))
-			print "Error: can not start server socket, another instance already running?"
-			exit(1)
-		if serversocket.netAdapterRegistered:
-			logger.debug("Socket interface started")
-		else:
-			logger.debug("Cannot start socket interface")
+	try:
+		serversocket = RFXcmdSocketAdapter(config.sockethost,int(config.socketport))
+	except Exception as err:
+		logger.error("Error starting socket server. Line: " + _line())
+		logger.error("Error: %s" % str(err))
+		print "Error: can not start server socket, another instance already running?"
+		exit(1)
+	if serversocket.netAdapterRegistered:
+		logger.debug("Socket interface started")
+	else:
+		logger.debug("Cannot start socket interface")
 
-	if config.serial_active:
-		# Flush buffer
-		logger.debug("Serialport flush output")
-		serial_param.port.flushOutput()
-		logger.debug("Serialport flush input")
-		serial_param.port.flushInput()
+	
+	# Flush buffer
+	logger.debug("Serialport flush output")
+	serial_param.port.flushOutput()
+	logger.debug("Serialport flush input")
+	serial_param.port.flushInput()
 
 	try:
 		while 1:
@@ -921,25 +911,19 @@ def option_listen():
 			# Without this sleep it will cause 100% CPU in windows
 			time.sleep(0.05)
 			
-			if config.serial_active:
-				# Read serial port
-				if config.process_edisiomsg == True:
-					rawcmd = read_edisio()
-					if rawcmd:
-						logger.debug("Processed: " + str(rawcmd))
-			
-			# Read socket
-			if config.socketserver:
-				read_socket()
+			rawcmd = read_edisio()
+			if rawcmd:
+				logger.debug("Processed: " + str(rawcmd))
+
+			read_socket()
 			
 	except KeyboardInterrupt:
 		logger.debug("Received keyboard interrupt")
 		logger.debug("Close server socket")
 		serversocket.netAdapter.shutdown()
 		
-		if config.serial_active:
-			logger.debug("Close serial port")
-			close_serialport()
+		logger.debug("Close serial port")
+		close_serialport()
 		
 		print("\nExit...")
 		pass
@@ -1011,11 +995,6 @@ def read_configfile():
 
 		# ----------------------
 		# Serial device
-		if (read_config(cmdarg.configfile, "serial_active") == "yes"):
-			config.serial_active = True
-		else:
-			config.serial_active = False
-		config.serial_device = read_config( cmdarg.configfile, "serial_device")
 		if config.serial_device == 'auto':
 			config.serial_device = find_tty_usb('067b','2303')
 		config.serial_rate = read_config( cmdarg.configfile, "serial_rate")
@@ -1024,9 +1003,6 @@ def read_configfile():
 		logger.debug("Serial device: " + str(config.serial_device))
 		logger.debug("Serial rate: " + str(config.serial_rate))
 		logger.debug("Serial timeout: " + str(config.serial_timeout))
-
-		config.process_edisiomsg = True
-		config.socketserver = True
 		
 		# ----------------------
 		# TRIGGER
@@ -1040,18 +1016,12 @@ def read_configfile():
 		# ----------------------
 		config.sockethost = read_config( cmdarg.configfile, "sockethost")
 		config.socketport = read_config( cmdarg.configfile, "socketport")
-		logger.debug("SocketServer: " + str(config.socketserver))
 		logger.debug("SocketHost: " + str(config.sockethost))
 		logger.debug("SocketPort: " + str(config.socketport))
 
 		# -----------------------
 		# DAEMON
-		if (read_config(cmdarg.configfile, "daemon_active") == "yes"):
-			config.daemon_active = True
-		else:
-			config.daemon_active = False
 		config.daemon_pidfile = read_config( cmdarg.configfile, "daemon_pidfile")
-		logger.debug("Daemon_active: " + str(config.daemon_active))
 		logger.debug("Daemon_pidfile: " + str(config.daemon_pidfile))
 
 		# ------------------------
@@ -1220,7 +1190,6 @@ def main():
 
 	parser = OptionParser()
 	parser.add_option("-d", "--device", action="store", type="string", dest="device", help="The serial device of the EDISIO, example /dev/ttyUSB0")
-	parser.add_option("-l", "--listen", action="store_true", dest="listen", help="Listen for messages from RFX device")
 	parser.add_option("-x", "--simulate", action="store", type="string", dest="simulate", help="Simulate one incoming data message")
 	parser.add_option("-s", "--sendmsg", action="store", type="string", dest="sendmsg", help="Send one message to RFX device")
 	parser.add_option("-o", "--config", action="store", type="string", dest="config", help="Specify the configuration file")
@@ -1273,51 +1242,50 @@ def main():
 
 	# ----------------------------------------------------------
 	# DAEMON
-	if config.daemon_active and options.listen:
-		logger.debug("Daemon")
-		logger.debug("Check PID file")
-		
-		if config.daemon_pidfile:
-			cmdarg.pidfile = config.daemon_pidfile
-			cmdarg.createpid = True
-			logger.debug("PID file '" + cmdarg.pidfile + "'")
-		
-			if os.path.exists(cmdarg.pidfile):
-				print("PID file '" + cmdarg.pidfile + "' already exists. Exiting.")
-				logger.debug("PID file '" + cmdarg.pidfile + "' already exists.")
-				logger.debug("Exit 1")
-				sys.exit(1)
-			else:
-				logger.debug("PID file does not exists")
-
-		else:
-			print("You need to set the --pidfile parameter at the startup")
-			logger.error("Command argument --pidfile missing. Line: " + _line())
-			logger.debug("Exit 1")
-			sys.exit(1)
-
-		logger.debug("Check platform")
-		if sys.platform == 'win32':
-			print "Daemonize not supported under Windows. Exiting."
-			logger.error("Daemonize not supported under Windows. Line: " + _line())
+	logger.debug("Daemon")
+	logger.debug("Check PID file")
+	
+	if config.daemon_pidfile:
+		cmdarg.pidfile = config.daemon_pidfile
+		cmdarg.createpid = True
+		logger.debug("PID file '" + cmdarg.pidfile + "'")
+	
+		if os.path.exists(cmdarg.pidfile):
+			print("PID file '" + cmdarg.pidfile + "' already exists. Exiting.")
+			logger.debug("PID file '" + cmdarg.pidfile + "' already exists.")
 			logger.debug("Exit 1")
 			sys.exit(1)
 		else:
-			logger.debug("Platform: " + sys.platform)
-			
-			try:
-				logger.debug("Write PID file")
-				file(cmdarg.pidfile, 'w').write("pid\n")
-			except IOError, e:
-				logger.error("Line: " + _line())
-				logger.error("Unable to write PID file: %s [%d]" % (e.strerror, e.errno))
-				raise SystemExit("Unable to write PID file: %s [%d]" % (e.strerror, e.errno))
+			logger.debug("PID file does not exists")
 
-			logger.debug("Deactivate screen printouts")
-			cmdarg.printout_complete = False
+	else:
+		print("You need to set the --pidfile parameter at the startup")
+		logger.error("Command argument --pidfile missing. Line: " + _line())
+		logger.debug("Exit 1")
+		sys.exit(1)
 
-			logger.debug("Start daemon")
-			daemonize()
+	logger.debug("Check platform")
+	if sys.platform == 'win32':
+		print "Daemonize not supported under Windows. Exiting."
+		logger.error("Daemonize not supported under Windows. Line: " + _line())
+		logger.debug("Exit 1")
+		sys.exit(1)
+	else:
+		logger.debug("Platform: " + sys.platform)
+		
+		try:
+			logger.debug("Write PID file")
+			file(cmdarg.pidfile, 'w').write("pid\n")
+		except IOError, e:
+			logger.error("Line: " + _line())
+			logger.error("Unable to write PID file: %s [%d]" % (e.strerror, e.errno))
+			raise SystemExit("Unable to write PID file: %s [%d]" % (e.strerror, e.errno))
+
+		logger.debug("Deactivate screen printouts")
+		cmdarg.printout_complete = False
+
+		logger.debug("Start daemon")
+		daemonize()
 
 	# ----------------------------------------------------------
 	# SIMULATE
@@ -1325,9 +1293,7 @@ def main():
 		option_simulate(options.simulate)
 
 	# ----------------------------------------------------------
-	# LISTEN
-	if options.listen:
-		option_listen()
+	option_listen()
 
 	# ----------------------------------------------------------
 	# SEND MESSAGE

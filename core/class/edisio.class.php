@@ -192,7 +192,7 @@ class edisio extends eqLogic {
 		$config = template_replace($replace_config, file_get_contents($edisio_path . '/config_tmpl.xml'));
 		file_put_contents('/tmp/config_edisio.xml', $config);
 		chmod('/tmp/config_edisio.xml', 0777);
-		$cmd = '/usr/bin/python ' . $edisio_path . '/edisiocmd.py -l -o /tmp/config_edisio.xml';
+		$cmd = '/usr/bin/python ' . $edisio_path . '/edisiocmd.py -o /tmp/config_edisio.xml';
 		if ($_debug) {
 			$cmd .= ' -D';
 		}

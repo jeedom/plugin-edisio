@@ -2,20 +2,15 @@
     <version>1</version>
 
     <!-- Serial -->
-    <serial_active>yes</serial_active>
     <serial_device>#device#</serial_device>
     <serial_rate>9600</serial_rate>
     <serial_timeout>9</serial_timeout>
-
-    <!-- Process -->
-    <process_edisiomsg>yes</process_edisiomsg>
 
     <!-- Process -->
     <process_repeat_message>#process_repeat_message#</process_repeat_message>
     <repeat_message_time>#repeat_message_time#</repeat_message_time>
 
     <!-- Daemon -->
-    <daemon_active>yes</daemon_active>
     <daemon_pidfile>#pid_path#</daemon_pidfile>
 
     <!-- Trigger -->
@@ -35,7 +30,6 @@
 
   
     <!-- Socket server -->
-    <socketserver>yes</socketserver>
     <sockethost>#sockethost#</sockethost>
     <socketport>#socketport#</socketport>
 
