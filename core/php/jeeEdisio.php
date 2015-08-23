@@ -17,7 +17,7 @@
  */
 require_once dirname(__FILE__) . "/../../../../core/php/core.inc.php";
 
-if (config::byKey('api') != init('apikey') && init('apikey') != '') {
+if (config::byKey('api') != init('apikey')) {
 	connection::failed();
 	echo 'Clef API non valide, vous n\'êtes pas autorisé à effectuer cette action';
 	die();
