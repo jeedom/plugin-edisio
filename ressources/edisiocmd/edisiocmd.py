@@ -322,7 +322,7 @@ def decodePacket(message):
 
 	BL = int((int(BL, 16) / 3.3) * 10)
 
-	action = {'id' : str(PID), 'battery' : str(BL), 'mid' : str(MID)}
+	action = {'id' : str(PID), 'battery' : str(BL), 'mid' : str(MID),'apikey' : str(config.apikey)}
 
 	key = str(PID)+str(MID)+str(CMD)
 	value = ''
