@@ -82,7 +82,6 @@ class config_data:
 		sockethost = "",
 		socketport = "",
 		daemon_pidfile = "edisiocmd.pid",
-		barometric = 0,
 		log_msg = False,
 		log_msgfile = "",
 		process_repeat_message = True,
@@ -99,7 +98,6 @@ class config_data:
 		self.sockethost = sockethost
 		self.socketport = socketport
 		self.daemon_pidfile = daemon_pidfile
-		self.barometric = barometric
 		self.log_msg = log_msg
 		self.log_msgfile = log_msgfile
 		self.trigger = trigger
@@ -1000,34 +998,20 @@ def read_configfile():
 			config.serial_device = find_tty_usb('067b','2303')
 		config.serial_rate = read_config( cmdarg.configfile, "serial_rate")
 		config.serial_timeout = read_config( cmdarg.configfile, "serial_timeout")
-
-		logger.debug("Serial device: " + str(config.serial_device))
-		logger.debug("Serial rate: " + str(config.serial_rate))
-		logger.debug("Serial timeout: " + str(config.serial_timeout))
 		
 		# ----------------------
 		# TRIGGER
 		config.trigger_url = read_config( cmdarg.configfile, "trigger_url")
 		config.apikey = read_config( cmdarg.configfile, "apikey")
 		config.trigger_timeout = read_config( cmdarg.configfile, "trigger_timeout")
-		logger.debug("trigger_url: " + str(config.trigger_url))
-		logger.debug("apikey: " + str(config.apikey))
-		logger.debug("trigger_timeout: " + str(config.trigger_timeout))
 
 		# ----------------------
 		config.sockethost = read_config( cmdarg.configfile, "sockethost")
 		config.socketport = read_config( cmdarg.configfile, "socketport")
-		logger.debug("SocketHost: " + str(config.sockethost))
-		logger.debug("SocketPort: " + str(config.socketport))
 
 		# -----------------------
 		# DAEMON
 		config.daemon_pidfile = read_config( cmdarg.configfile, "daemon_pidfile")
-		logger.debug("Daemon_pidfile: " + str(config.daemon_pidfile))
-
-		# ------------------------
-		# BAROMETRIC
-		config.barometric = read_config(cmdarg.configfile, "barometric")
 		
 		# ------------------------
 		# LOG MESSAGES
