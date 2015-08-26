@@ -1,6 +1,7 @@
 {
     "103": {
         "name": "Interrupteur 1 bouton (mode ON/OFF)",
+        "actuator" : "1",
         "commands": [
             {
                 "name": "On",

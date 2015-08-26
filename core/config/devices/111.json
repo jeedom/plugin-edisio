@@ -1,6 +1,7 @@
 {
     "111": {
         "name": "Interrupteur 5 boutons (mode ON/OFF)",
+        "actuator" : "1",
         "commands": [
             {
                 "name": "On",

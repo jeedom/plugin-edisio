@@ -5,6 +5,9 @@ if (!isConnect('admin')) {
 sendVarToJS('eqType', 'edisio');
 $eqLogics = eqLogic::byType('edisio');
 sendVarToJS('marketAddr', config::byKey('market::address'));
+function sortByOption($a, $b) {
+	return strcmp($a['name'], $b['name']);
+}
 ?>
 
 <div class="row row-overflow">
@@ -134,9 +137,29 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
                    <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="device">
                     <option value="">Aucun</option>
                     <?php
-foreach (edisio::devicesParameters() as $mid => $info) {
-	echo '<option value="' . $mid . '">' . $info['name'] . '</option>';
+$actuators = array();
+$sensors = array();
+
+foreach (edisio::devicesParameters() as $key => $info) {
+	if (isset($info['actuator']) && $info['actuator'] == 1) {
+		$actuators[$key] = $info;
+	} else {
+		$sensors[$key] = $info;
+	}
 }
+uasort($sensors, 'sortByOption');
+uasort($actuators, 'sortByOption');
+echo '<optgroup label="{{Actionneur}}">';
+foreach ($actuators as $key => $info) {
+	echo '<option value="' . $key . '">' . $info['name'] . '</option>';
+}
+echo '</optgroup>';
+echo '<optgroup label="{{Capteur}}">';
+foreach ($sensors as $key => $info) {
+	echo '<option value="' . $key . '">' . $info['name'] . '</option>';
+}
+echo '</optgroup>';
+?>
 ?>
                </select>
            </div>

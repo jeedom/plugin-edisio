@@ -1,6 +1,7 @@
 {
     "112": {
         "name": "Micro-module volet roulant",
+        "actuator" : "1",
          "commands": [
            {
                 "name": "Monter",

@@ -1,6 +1,7 @@
 {
     "106": {
         "name": "Interrupteur 4 boutons (mode toggle)",
+        "actuator" : "1",
         "commands": [
             {
                 "name": "Toggle",

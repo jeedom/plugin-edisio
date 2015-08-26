@@ -1,6 +1,7 @@
 {
     "108": {
         "name": "Interrupteur 2 boutons (mode ON/OFF)",
+        "actuator" : "1",
         "commands": [
             {
                 "name": "On",

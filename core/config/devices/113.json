@@ -1,6 +1,7 @@
 {
     "113": {
         "name": "Micro-module lumière",
+        "actuator" : "1",
         "commands": [
             {
                 "name": "On",

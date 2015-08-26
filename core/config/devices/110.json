@@ -1,6 +1,7 @@
 {
     "110": {
         "name": "Interrupteur 4 bouton (mode ON/OFF)",
+        "actuator" : "1",
         "commands": [
             {
                 "name": "On",
