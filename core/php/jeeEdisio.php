@@ -36,7 +36,7 @@ $edisio = edisio::byLogicalId($_GET['id'], 'edisio');
 if (!is_object($edisio)) {
 	$edisio = edisio::createFromDef($_GET);
 	if (!is_object($edisio)) {
-		log::add('edisio', 'debug', 'Aucun équipement trouvé pour : ' . $_GET['id']);
+		log::add('edisio', 'debug', 'Aucun équipement trouvé pour : ' . secureXSS($_GET['id']));
 		die();
 	}
 }
