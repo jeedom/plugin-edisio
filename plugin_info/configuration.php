@@ -27,6 +27,7 @@ $deamonRunningSlave = array();
 $urlMasterLocal = false;
 try {
 	$request_http = new com_http(network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp') . '/plugins/edisio/core/php/jeeEdisio.php?apikey=' . config::byKey('api') . '&test=1');
+	$request_http->setNoSslCheck(false);
 	if ($request_http->exec(1, 1) == 'OK') {
 		$urlMasterLocal = true;
 	}
@@ -36,6 +37,7 @@ try {
 $urlMasterDistant = false;
 try {
 	$request_http = new com_http(network::getNetworkAccess('internal', 'proto:ip:port:comp') . '/plugins/enocean/core/php/jeeEnocean.php?apikey=' . config::byKey('api') . '&test=1');
+	$request_http->setNoSslCheck(false);
 	if ($request_http->exec(1, 1) == 'OK') {
 		$urlMasterDistant = true;
 	}
