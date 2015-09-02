@@ -1,0 +1,3 @@
+''''
+Je ne vois pas le port USB Edisio::
+Vérifiez que vous n'avez pas brltty d'installer (`sudo apt-get remove brltty` pour le supprimer)
