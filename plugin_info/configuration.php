@@ -151,7 +151,7 @@ foreach (jeedom::getUsbMapping() as $name => $value) {
     </div>
 </div>
 <div class="form-group">
-    <label class="col-lg-4 control-label">{{Gestion du démon}}</label>
+    <label class="col-lg-4 control-label"><i class="icon loisir-darth"></i> {{Gestion du démon}}</label>
     <div class="col-lg-8">
         <a class="btn btn-success" id="bt_restartEdisioDeamon"><i class='fa fa-play'></i> {{(Re)démarrer}}</a>
         <a class="btn btn-danger" id="bt_stopEdisioDeamon"><i class='fa fa-stop'></i> {{Arrêter}}</a>
