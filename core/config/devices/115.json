@@ -1,0 +1,61 @@
+{
+    "115": {
+        "name": "Module volet roulant DIO2",
+        "actuator" : "1",
+         "commands": [
+           {
+                "name": "Monter",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#011E010009640D0A",
+                "configuration" : 
+                {
+                    "group" : 1,
+                    "updateCmdId": "Etat",
+                    "updateCmdToValue": "1"
+                }
+            },
+            {
+                "name": "Descendre",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#011E01001B640D0A",
+                "configuration" : 
+                {
+                    "group" : 1,
+                    "updateCmdId": "Etat",
+                    "updateCmdToValue": "0"
+                }
+            },
+            {
+                "name": "Stop",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#031E01000B640D0A",
+                "configuration" : 
+                {
+                    "group" : 1
+                }
+            },
+            {
+                "name": "E",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 0,
+                "logicalId" : "6C7663#ID#09011F000010640D0A"
+            },
+            {
+                "name": "Etat",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "eventOnly": 1
+            }
+        ]
+    }
+}
