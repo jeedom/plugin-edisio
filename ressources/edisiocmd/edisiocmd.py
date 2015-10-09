@@ -235,8 +235,8 @@ class Command(object):
 	
 	def run(self, timeout):
 		def target():
-			logger.debug("Thread started, timeout = " + str(timeout))
-			requests.get(self.url, params=self.data,timeout= float(timeout))
+			logger.debug("Send data to jeedom : "+self.url+' => '+str(self.data))
+			requests.get(self.url, params=self.data,timeout= (0.5,float(timeout)),verify=False)
 			
 		thread = threading.Thread(target=target)
 		thread.start()

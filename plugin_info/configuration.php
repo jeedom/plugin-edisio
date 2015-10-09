@@ -27,7 +27,6 @@ $deamonRunningSlave = array();
 $urlMasterLocal = false;
 try {
 	$request_http = new com_http(network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp') . '/plugins/edisio/core/php/jeeEdisio.php?apikey=' . config::byKey('api') . '&test=1');
-	$request_http->setNoSslCheck(false);
 	if ($request_http->exec(1, 1) == 'OK') {
 		$urlMasterLocal = true;
 	}
@@ -37,7 +36,6 @@ try {
 $urlMasterDistant = false;
 try {
 	$request_http = new com_http(network::getNetworkAccess('internal', 'proto:ip:port:comp') . '/plugins/enocean/core/php/jeeEnocean.php?apikey=' . config::byKey('api') . '&test=1');
-	$request_http->setNoSslCheck(false);
 	if ($request_http->exec(1, 1) == 'OK') {
 		$urlMasterDistant = true;
 	}
@@ -95,7 +93,7 @@ foreach ($deamonRunningSlave as $name => $status) {
 </form>
 <form class="form-horizontal">
     <fieldset>
-       <legend>{{Générale}}</legend>
+       <legend><i class="fa fa-list-alt"></i> {{Générale}}</legend>
        <div class="form-group">
         <label class="col-lg-4 control-label">{{Créer automatiquement les nouveaux équipements}}</label>
         <div class="col-lg-4">
@@ -108,7 +106,7 @@ foreach ($deamonRunningSlave as $name => $status) {
             <textarea class="configKey form-control" data-l1key="banEdisioId" rows="3"/>
         </div>
     </div>
-    <legend>{{Démon local}}</legend>
+    <legend><i class="icon loisir-darth"></i> {{Démon local}}</legend>
     <div class="form-group">
         <label class="col-lg-4 control-label">{{Port EDISIO}}</label>
         <div class="col-lg-4">
@@ -151,7 +149,7 @@ foreach (jeedom::getUsbMapping() as $name => $value) {
     </div>
 </div>
 <div class="form-group">
-    <label class="col-lg-4 control-label"><i class="icon loisir-darth"></i> {{Gestion du démon}}</label>
+    <label class="col-lg-4 control-label">{{Gestion du démon}}</label>
     <div class="col-lg-8">
         <a class="btn btn-success" id="bt_restartEdisioDeamon"><i class='fa fa-play'></i> {{(Re)démarrer}}</a>
         <a class="btn btn-danger" id="bt_stopEdisioDeamon"><i class='fa fa-stop'></i> {{Arrêter}}</a>
@@ -167,7 +165,7 @@ if (config::byKey('jeeNetwork::mode') == 'master') {
 		?>
         <form class="form-horizontal slaveConfig" data-slave_id="<?php echo $jeeNetwork->getId();?>">
             <fieldset>
-                <legend>{{Démon sur l'esclave}} <?php echo $jeeNetwork->getName()?></legend>
+                <legend><i class="icon loisir-darth"></i> {{Démon sur l'esclave}} <?php echo $jeeNetwork->getName()?></legend>
                 <div class="form-group">
                     <label class="col-lg-4 control-label">{{Port Edisio}}</label>
                     <div class="col-lg-4">
