@@ -266,7 +266,8 @@ def decodePacket(message):
 	global prevDatetime;
 	global current_sensor_data;
 	timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
-	unixtime_utc = datetime.datetime.utcnow()
+	unixtime_utc_check = datetime.datetime.utcnow()
+	unixtime_utc = int(time.time())
 
 	# Verify incoming message
 	if not test_edisio( ByteToHex(message) ):
@@ -294,12 +295,12 @@ def decodePacket(message):
 
 	clean_message = str(PID) + str(BID) + str(MID) + str(RMAX) + str(CMD) + str(DATA)
 
-	if clean_message == prevMessage and unixtime_utc < (prevDatetime+datetime.timedelta(milliseconds=250)) :
+	if clean_message == prevMessage and unixtime_utc_check < (prevDatetime+datetime.timedelta(milliseconds=250)) :
 		logger.debug("Message already decode, ignore")
 		return
 
 	prevMessage = clean_message
-	prevDatetime = unixtime_utc
+	prevDatetime = unixtime_utc_check
 
 	decode_string = "\nPID\t\t\t= " + str(PID);
 	decode_string += "\nBID\t\t\t= " + str(BID);
