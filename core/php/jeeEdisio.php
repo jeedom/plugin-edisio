@@ -44,40 +44,57 @@ if (!is_object($edisio)) {
 if ($_GET['mid'] == 1 || $_GET['mid'] == 2 || $_GET['mid'] == 3 || $_GET['mid'] == 4 || $_GET['mid'] == 5 || $_GET['mid'] == 7 || $_GET['mid'] == 9) {
 	$logicalId = 'bt' . $_GET['bt'];
 	$value = $_GET['value'];
-	$cmd = $edisio->getCmd('info', $logicalId);
-	if (!is_object($cmd) && config::byKey('autoDiscoverEqLogic', 'edisio') != 0) {
-		$cmd = new edisioCmd();
-		$config = array(
-			'name' => $logicalId,
-			'type' => 'info',
-			'subtype' => 'binary',
-			'isVisible' => 1,
-			'isHistorized' => 0,
-			'unite' => '',
-			'eventOnly' => 1,
-			'logicalId' => $logicalId,
-		);
-		$cmd->setEqLogic_id($edisio->getId());
-		utils::a2o($cmd, $config);
-		$cmd->save();
+	$cmdArray = array($logicalId,$logicalId. 'long');
+	foreach ($cmdArray as $logicalIdToCheck) {
+		$cmd = $edisio->getCmd('info', $logicalIdToCheck);
+		if (!is_object($cmd) && config::byKey('autoDiscoverEqLogic', 'edisio') != 0) {
+			$cmd = new edisioCmd();
+			$config = array(
+				'name' => $logicalIdToCheck,
+				'type' => 'info',
+				'subtype' => 'binary',
+				'isVisible' => 1,
+				'isHistorized' => 0,
+				'unite' => '',
+				'eventOnly' => 1,
+				'logicalId' => $logicalIdToCheck,
+			);
+			$cmd->setEqLogic_id($edisio->getId());
+			utils::a2o($cmd, $config);
+			$cmd->save();
+		}
+	}
+	if (in_array($value,array("up", "down"))) {
+		$cmd = $edisio->getCmd('info', $logicalId. 'long');
+	} else {
+		$cmd = $edisio->getCmd('info', $logicalId);
 	}
 	if (is_object($cmd)) {
 		if ($value == 'toggle' && $cmd->getSubType() == 'binary') {
 			$value = $cmd->execCmd();
+			log::add('edisio', 'debug', $value);
 			$value = ($value != 0) ? 0 : 1;
+			log::add('edisio', 'debug', $value);
 		}
-		if ($value == 'toggle' && $cmd->getSubType() == 'numeric') {
+		else if ($value == 'toggle' && $cmd->getSubType() == 'numeric') {
 			$value = $cmd->execCmd();
 			$value = ($value != 0) ? $cmd->getConfiguration('minValue', 0) : $cmd->getConfiguration('maxValue', 100);
 		}
-		if ($value == 'up' && $cmd->getSubType() == 'numeric') {
+		else if ($value == 'up' && $cmd->getSubType() == 'binary') {
+			log::add('edisio', 'debug', $value);
+			$value = 1;
+		}
+		else if ($value == 'down' && $cmd->getSubType() == 'binary') {
+			$value = 0;
+		}
+		else if ($value == 'up' && $cmd->getSubType() == 'numeric') {
 			$value = $cmd->execCmd();
 			$range = $cmd->getConfiguration('maxValue', 100) - $cmd->getConfiguration('minValue', 0);
 			$value += $range / 10;
 			if ($value > $cmd->getConfiguration('maxValue', 100)) {
 				$value = $cmd->getConfiguration('minValue', 0);
 			}
-		}
+		};
 		$cmd->event($value);
 	}
 }
