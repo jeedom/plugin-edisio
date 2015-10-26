@@ -379,7 +379,11 @@ class edisioCmd extends cmd {
 		$value = trim(str_replace("#GROUP#", $group, $value));
 		switch ($this->getSubType()) {
 			case 'slider':
-				$value = str_replace('#slider#', strtoupper(dechex(intval($_options['slider']))), $value);
+				$hexvalue = strtoupper(dechex(intval($_options['slider'])));
+				if (strlen($hexvalue)<2) {
+					$hexvalue = '0' . $hexvalue;
+				}
+				$value = str_replace('#slider#', $hexvalue, $value);
 				break;
 			case 'color':
 				$value = str_replace('#color#', $_options['color'], $value);
