@@ -2,6 +2,7 @@
     "08": {
         "name": "Température",
         "groupe" : "Capteurs",
+        "battery_type" : "1x3V ER14250",
         "commands": [
             {
                 "name": "Batterie",

@@ -2,6 +2,7 @@
     "07": {
         "name": "Mouvement",
         "groupe" : "Capteurs",
+        "battery_type" : "1x3V ER14250",
         "category": {
                     "security": 1
         },
