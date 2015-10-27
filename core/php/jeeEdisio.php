@@ -99,6 +99,15 @@ if ($_GET['mid'] == 1 || $_GET['mid'] == 2 || $_GET['mid'] == 3 || $_GET['mid'] 
 			}
 		};
 		$cmd->event($value);
+		if ($_GET['battery'] > 100) {
+			$_GET['battery'] = 100;
+		}
+		if ($edisio->getIsEnable() == 1 && $edisio->getConfiguration('noBatterieCheck', 0) != 1) {
+			$edisio->batteryStatus($_GET['battery']);
+		}
+		if (null !==$edisio->getCmd('info','battery')){
+			$edisio->getCmd('info','battery')->event($_GET['battery']);
+		}
 	}
 	die();
 }
