@@ -75,16 +75,13 @@ if ($_GET['mid'] == 1 || $_GET['mid'] == 2 || $_GET['mid'] == 3 || $_GET['mid'] 
 	if (is_object($cmd)) {
 		if ($value == 'toggle' && $cmd->getSubType() == 'binary') {
 			$value = $cmd->execCmd();
-			log::add('edisio', 'debug', $value);
 			$value = ($value != 0) ? 0 : 1;
-			log::add('edisio', 'debug', $value);
 		}
 		else if ($value == 'toggle' && $cmd->getSubType() == 'numeric') {
 			$value = $cmd->execCmd();
 			$value = ($value != 0) ? $cmd->getConfiguration('minValue', 0) : $cmd->getConfiguration('maxValue', 100);
 		}
 		else if ($value == 'up' && $cmd->getSubType() == 'binary') {
-			log::add('edisio', 'debug', $value);
 			$value = 1;
 		}
 		else if ($value == 'down' && $cmd->getSubType() == 'binary') {

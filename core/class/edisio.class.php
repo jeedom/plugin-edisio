@@ -33,6 +33,13 @@ class edisio extends eqLogic {
 		if (config::byKey('allowStartDeamon', 'edisio', 1) == 1 && config::byKey('port', 'edisio', 'none') != 'none') {
 			self::runDeamon();
 		}
+		foreach (eqLogic::byType('edisio') as $eqLogic){
+			$deviceParameter = edisio::devicesParameters($eqLogic->getConfiguration('device'));
+			if (isset($deviceParameter) && isset($deviceParameter['battery_type'])) {
+				$eqLogic->setConfiguration('battery_type', $deviceParameter['battery_type']);
+				$eqLogic->save();
+			}
+		}
 	}
 
 	public static function start() {
@@ -292,6 +299,9 @@ class edisio extends eqLogic {
 			foreach ($device['category'] as $key => $value) {
 				$this->setCategory($key, $value);
 			}
+		}
+		if (isset($device['battery_type'])) {
+			$this->setConfiguration('battery_type', $device['battery_type']);
 		}
 		$cmd_order = 0;
 		$link_cmds = array();
