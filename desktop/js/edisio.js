@@ -99,9 +99,7 @@ function addCmdToTable(_cmd) {
     tr += '<td>';
     tr += '<span><input type="checkbox" class="cmdAttr bootstrapSwitch" data-l1key="isHistorized" data-label-text="{{Historiser}}" data-size="mini" /></span> ';
     tr += '<span><input type="checkbox" class="cmdAttr bootstrapSwitch" data-l1key="isVisible" data-label-text="{{Afficher}}" data-size="mini" checked/></span> ';
-    tr += '<span><input type="checkbox" class="cmdAttr bootstrapSwitch expertModeVisible" data-label-text="{{Evénement}}" data-l1key="eventOnly" data-size="mini" /></span> ';
-    tr += '<span><input type="checkbox" class="cmdAttr bootstrapSwitch expertModeVisible" data-label-text="{{Inverser}}" data-l1key="display" data-l2key="invertBinary" data-size="mini" /></span> ';
-    tr += '<input style="width : 150px;" class="tooltips cmdAttr form-control expertModeVisible input-sm" data-l1key="cache" data-l2key="lifetime" placeholder="Lifetime cache">';
+    tr += '<span><input type="checkbox" class="cmdAttr bootstrapSwitch expertModeVisible" data-label-text="{{Inverser}}" data-l1key="display" data-l2key="invertBinary" data-size="mini"/></span> ';
     tr += '</td>';
     tr += '<td>';
     tr += '<select class="cmdAttr form-control tooltips input-sm" data-l1key="configuration" data-l2key="updateCmdId" style="display : none;margin-top : 5px;" title="Commande d\'information à mettre à jour">';
