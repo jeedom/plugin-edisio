@@ -1,6 +1,7 @@
 {
     "07": {
-        "name": "Motion Sensor (On/Off/Pulse)",
+        "name": "Mouvement",
+        "groupe" : "Capteurs",
         "category": {
                     "security": 1
         },

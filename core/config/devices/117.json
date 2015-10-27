@@ -1,7 +1,7 @@
 {
-    "01": {
-        "name": "Interrupteur 1 bouton",
-        "groupe" : "Interrupteurs",
+    "117": {
+        "name": "Télécommande Smile",
+        "groupe" : "Télécommandes",
         "commands": [
             {
                 "name": "Batterie",

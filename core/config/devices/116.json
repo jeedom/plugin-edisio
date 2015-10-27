@@ -1,14 +1,14 @@
 {
-    "115": {
-        "name": "Module volet roulant",
-        "groupe" : "Micros-Modules DIO-2",
+    "116": {
+        "name": "Micro-module EMSD-300A",
+        "groupe" : "Micros-Modules Edisio",
          "commands": [
            {
-                "name": "Monter",
+                "name": "ON",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
-                "logicalId" : "6C7663#ID##GROUP#011E010009640D0A",
+                "logicalId" : "6C7663#ID##GROUP#011E010001640D0A",
                 "configuration" : 
                 {
                     "group" : 1,
@@ -17,11 +17,11 @@
                 }
             },
             {
-                "name": "Descendre",
+                "name": "OFF",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
-                "logicalId" : "6C7663#ID##GROUP#011E01001B640D0A",
+                "logicalId" : "6C7663#ID##GROUP#011E010002640D0A",
                 "configuration" : 
                 {
                     "group" : 1,
@@ -30,11 +30,22 @@
                 }
             },
             {
-                "name": "Stop",
+                "name": "Dim -3",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
-                "logicalId" : "6C7663#ID##GROUP#031E01000B640D0A",
+                "logicalId" : "6C7663#ID##GROUP#011E010006640D0A",
+                "configuration" : 
+                {
+                    "group" : 1
+                }
+            },
+            {
+                "name": "Dim +3",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#011E010005640D0A",
                 "configuration" : 
                 {
                     "group" : 1

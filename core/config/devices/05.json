@@ -1,6 +1,6 @@
 {
-    "01": {
-        "name": "Interrupteur 1 bouton",
+    "05": {
+        "name": "Interrupteur 5 boutons",
         "groupe" : "Interrupteurs",
         "commands": [
             {

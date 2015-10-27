@@ -1,6 +1,7 @@
 {
     "09": {
-        "name": "Door Sensor (On/Off/Pulse)",
+        "name": "Ouverture",
+        "groupe" : "Capteurs",
         "category": {
                     "security": 1
         },

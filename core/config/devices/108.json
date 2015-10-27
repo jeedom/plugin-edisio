@@ -1,7 +1,7 @@
 {
     "108": {
-        "name": "Interrupteur 2 boutons (mode ON/OFF)",
-        "actuator" : "1",
+        "name": "Emetteur 2 boutons (ON/OFF)",
+        "groupe" : "Actionneurs Jeedom",
         "commands": [
             {
                 "name": "On",

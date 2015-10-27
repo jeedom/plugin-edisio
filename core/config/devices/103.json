@@ -1,7 +1,7 @@
 {
     "103": {
-        "name": "Interrupteur 1 bouton (mode ON/OFF)",
-        "actuator" : "1",
+        "name": "Emetteur 1 bouton (ON/OFF)",
+        "groupe" : "Actionneurs Jeedom",
         "commands": [
             {
                 "name": "On",

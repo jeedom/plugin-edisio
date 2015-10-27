@@ -1,6 +1,7 @@
 {
     "08": {
-        "name": "Temperature Sensor",
+        "name": "Température",
+        "groupe" : "Capteurs",
         "commands": [
             {
                 "name": "Batterie",

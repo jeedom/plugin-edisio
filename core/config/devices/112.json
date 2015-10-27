@@ -1,7 +1,7 @@
 {
     "112": {
-        "name": "Micro-module volet roulant",
-        "actuator" : "1",
+        "name": "Micro-module EMV-400 (Volet roulant)",
+        "groupe" : "Micros-Modules Edisio",
          "commands": [
            {
                 "name": "Monter",

@@ -1,7 +1,7 @@
 {
     "105": {
-        "name": "Interrupteur 3 boutons (mode toggle)",
-        "actuator" : "1",
+        "name": "Emetteur 3 boutons (Toggle/Dimmer)",
+        "groupe" : "Actionneurs Jeedom",
         "commands": [
             {
                 "name": "Toggle",

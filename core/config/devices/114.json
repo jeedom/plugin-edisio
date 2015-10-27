@@ -1,7 +1,7 @@
 {
     "114": {
-        "name": "Module lumière DIO2",
-        "actuator" : "1",
+        "name": "Module lumière",
+        "groupe" : "Micros-Modules DIO-2",
         "commands": [
             {
                 "name": "On",

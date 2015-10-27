@@ -139,29 +139,31 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
                    <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="device">
                     <option value="">Aucun</option>
                     <?php
-$actuators = array();
-$sensors = array();
+$groups = array();
 
 foreach (edisio::devicesParameters() as $key => $info) {
-	if (isset($info['actuator']) && $info['actuator'] == 1) {
-		$actuators[$key] = $info;
-	} else {
-		$sensors[$key] = $info;
-	}
+    if (isset($info['groupe'])) {
+        $info['key'] = $key;
+        if (!isset($groups[$info['groupe']])) {
+           $groups[$info['groupe']][0] = $info;
+        } else {
+           array_push($groups[$info['groupe']], $info);
+        }
+    }
 }
-uasort($sensors, 'sortByOption');
-uasort($actuators, 'sortByOption');
-echo '<optgroup label="{{Actionneur}}">';
-foreach ($actuators as $key => $info) {
-	echo '<option value="' . $key . '">' . $info['name'] . '</option>';
+ksort($groups);
+foreach ($groups as $group) {
+     usort($group, function ($a, $b) {
+        return strcmp($a['name'], $b['name']);
+     });
+     foreach ($group as $key => $info){
+         if ($key == 0) {
+              echo '<optgroup label="{{'. $info['groupe'] . '}}">';
+         }
+         echo '<option value="' . $info['key'] . '">' . $info['name'] . '</option>';
+     }
+     echo '</optgroup>';
 }
-echo '</optgroup>';
-echo '<optgroup label="{{Capteur}}">';
-foreach ($sensors as $key => $info) {
-	echo '<option value="' . $key . '">' . $info['name'] . '</option>';
-}
-echo '</optgroup>';
-?>
 ?>
                </select>
            </div>

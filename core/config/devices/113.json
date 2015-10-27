@@ -1,7 +1,7 @@
 {
     "113": {
-        "name": "Micro-module lumière",
-        "actuator" : "1",
+        "name": "Micro-module EMV-400 (Lumière)",
+        "groupe" : "Micros-Modules Edisio",
         "commands": [
             {
                 "name": "On",
