@@ -1,0 +1,98 @@
+{
+    "0C": {
+        "name": "Module Fil Pilote",
+        "groupe" : "Micros-Modules DIO-2",
+        "category": {
+                    "heating": 1
+        },
+        "commands": [
+            {
+                "name": "On",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#1621050001640D0A",
+                "configuration" : 
+                {
+                    "group" : 1,
+                    "updateCmdId": "Etat",
+                    "updateCmdToValue": "On"
+                }
+            },
+            {
+                "name": "Off",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#1621050002640D0A",
+                "configuration" : 
+                {
+                    "group" : 1,
+                    "updateCmdId": "Etat",
+                    "updateCmdToValue": "Off"
+                }
+            },
+            {
+                "name": "Arrêt",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#1621050060640D0A",
+                "configuration" : 
+                {
+                    "group" : 1,
+                    "updateCmdId": "Etat",
+                    "updateCmdToValue": "Arrêt"
+                }
+            },
+            {
+                "name": "Hors-gel",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#1621050061640D0A",
+                "configuration" : 
+                {
+                    "group" : 1,
+                    "updateCmdId": "Etat",
+                    "updateCmdToValue": "Hors-gel"
+                }
+            },
+            {
+                "name": "Eco",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#1621050062640D0A",
+                "configuration" : 
+                {
+                    "group" : 1,
+                    "updateCmdId": "Etat",
+                    "updateCmdToValue": "Eco"
+                }
+            },
+            {
+                "name": "Confort",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#1621050063640D0A",
+                "configuration" : 
+                {
+                    "group" : 1,
+                    "updateCmdId": "Etat",
+                    "updateCmdToValue": "Confort"
+                }
+            },
+            {
+                "name": "Etat",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "eventOnly": 1
+            }
+        ]
+    }
+}

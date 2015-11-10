@@ -1,0 +1,46 @@
+{
+    "0F": {
+        "name": "Module Chaudière",
+        "groupe" : "Micros-Modules DIO-2",
+        "category": {
+                    "heating": 1
+        },
+        "commands": [
+            {
+                "name": "On",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#1621050001640D0A",
+                "configuration" : 
+                {
+                    "group" : 1,
+                    "updateCmdId": "Etat",
+                    "updateCmdToValue": "On"
+                }
+            },
+            {
+                "name": "Off",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#1621050002640D0A",
+                "configuration" : 
+                {
+                    "group" : 1,
+                    "updateCmdId": "Etat",
+                    "updateCmdToValue": "Off"
+                }
+            },
+            {
+                "name": "Etat",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "eventOnly": 1
+            }
+        ]
+    }
+}

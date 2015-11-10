@@ -641,9 +641,17 @@ def decodePacket(message):
 
 	if MID == '0F':
 		decode_string += "\nDecode model : \t\t= Receiver 1 Output (Heater On/Off)"
+		action['bt'] = str(BID)
+		action['value'] = str(value)
+		command = Command(config.trigger_url,action)
+		command.run(timeout=config.trigger_timeout)
 
 	if MID == '0C':
 		decode_string += "\nDecode model : \t\t= Receiver 1 Output (Pilot Wire Functions)"
+		action['bt'] = str(BID)
+		action['value'] = str(value)
+		command = Command(config.trigger_url,action)
+		command.run(timeout=config.trigger_timeout)
 
 	if MID == '0D':
 		decode_string += "\nDecode model : \t\t= Receiver 2 Outputs (1x Open/Close)"
