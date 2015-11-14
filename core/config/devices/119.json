@@ -48,7 +48,7 @@
                 }
             },
             {
-                "name": "+3%",
+                "name": "+3pourcent",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
@@ -59,7 +59,7 @@
                 }
             },
             {
-                "name": "-3%",
+                "name": "-3pourcent",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
@@ -114,7 +114,7 @@
                 }
             },
             {
-                "name": "+3% 2",
+                "name": "+3pourcent 2",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
@@ -125,7 +125,7 @@
                 }
             },
             {
-                "name": "-3% 2",
+                "name": "-3pourcent 2",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
@@ -180,7 +180,7 @@
                 }
             },
             {
-                "name": "+3% 3",
+                "name": "+3pourcent 3",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
@@ -191,7 +191,7 @@
                 }
             },
             {
-                "name": "-3% 3",
+                "name": "-3pourcent 3",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
@@ -246,7 +246,7 @@
                 }
             },
             {
-                "name": "+3% 4",
+                "name": "+3pourcent 4",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
@@ -257,7 +257,7 @@
                 }
             },
             {
-                "name": "-3% 4",
+                "name": "-3pourcent 4",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
