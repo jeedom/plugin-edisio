@@ -1,0 +1,147 @@
+{
+    "120": {
+        "name": "EDR-B4 (ON/OFF)",
+        "groupe" : "Modules Rail DIN",
+        "commands": [
+            {
+                "name": "On",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010001640D0A&&6C7663#ID##GROUP#051E010009640D0A",
+                "configuration" : 
+                {
+                    "group" : 1
+                }
+            },
+            {
+                "name": "Off",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010002640D0A&&6C7663#ID##GROUP#051E01001B640D0A",
+                "configuration" : 
+                {
+                    "group" : 1
+                }
+            },
+            {
+                "name": "Toggle",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#021E010003640D0A",
+                "configuration" : 
+                {
+                    "group" : 1
+                }
+            },
+            {
+                "name": "On 2",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010001640D0A&&6C7663#ID##GROUP#051E010009640D0A",
+                "configuration" : 
+                {
+                    "group" : 2
+                }
+            },
+            {
+                "name": "Off 2",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010002640D0A&&6C7663#ID##GROUP#051E01001B640D0A",
+                "configuration" : 
+                {
+                    "group" : 2
+                }
+            },
+            {
+                "name": "Toggle 2",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#021E010003640D0A",
+                "configuration" : 
+                {
+                    "group" : 2
+                }
+            },
+            {
+                "name": "On 3",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010001640D0A&&6C7663#ID##GROUP#051E010009640D0A",
+                "configuration" : 
+                {
+                    "group" : 3
+                }
+            },
+            {
+                "name": "Off 3",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010002640D0A&&6C7663#ID##GROUP#051E01001B640D0A",
+                "configuration" : 
+                {
+                    "group" : 3
+                }
+            },
+            {
+                "name": "Toggle 3",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#021E010003640D0A",
+                "configuration" : 
+                {
+                    "group" : 3
+                }
+            },
+            {
+                "name": "On 4",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010001640D0A&&6C7663#ID##GROUP#051E010009640D0A",
+                "configuration" : 
+                {
+                    "group" : 4
+                }
+            },
+            {
+                "name": "Off 4",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010002640D0A&&6C7663#ID##GROUP#051E01001B640D0A",
+                "configuration" : 
+                {
+                    "group" : 4
+                }
+            },
+            {
+                "name": "Toggle 4",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#021E010003640D0A",
+                "configuration" : 
+                {
+                    "group" : 4
+                }
+            },
+            {
+                "name": "E",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 0,
+                "logicalId" : "6C7663#ID#09051F000010640D0A"
+            }
+        ]
+    }
+}
