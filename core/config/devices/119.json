@@ -40,7 +40,7 @@
                 "name": "Inverser",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#051E010003640D0A",
                 "configuration" : 
                 {
@@ -51,7 +51,7 @@
                 "name": "+3pourcent",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#051E010005640D0A",
                 "configuration" : 
                 {
@@ -62,7 +62,7 @@
                 "name": "-3pourcent",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#051E010006640D0A",
                 "configuration" : 
                 {
@@ -106,7 +106,7 @@
                 "name": "Inverser 2",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#051E010003640D0A",
                 "configuration" : 
                 {
@@ -117,7 +117,7 @@
                 "name": "+3pourcent 2",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#051E010005640D0A",
                 "configuration" : 
                 {
@@ -128,7 +128,7 @@
                 "name": "-3pourcent 2",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#051E010006640D0A",
                 "configuration" : 
                 {
@@ -172,7 +172,7 @@
                 "name": "Inverser 3",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#051E010003640D0A",
                 "configuration" : 
                 {
@@ -183,7 +183,7 @@
                 "name": "+3pourcent 3",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#051E010005640D0A",
                 "configuration" : 
                 {
@@ -194,7 +194,7 @@
                 "name": "-3pourcent 3",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#051E010006640D0A",
                 "configuration" : 
                 {
@@ -238,7 +238,7 @@
                 "name": "Inverser 4",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#051E010003640D0A",
                 "configuration" : 
                 {
@@ -249,7 +249,7 @@
                 "name": "+3pourcent 4",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#051E010005640D0A",
                 "configuration" : 
                 {
@@ -260,7 +260,7 @@
                 "name": "-3pourcent 4",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#051E010006640D0A",
                 "configuration" : 
                 {

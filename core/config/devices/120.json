@@ -29,7 +29,7 @@
                 "name": "Inverser",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#021E010003640D0A",
                 "configuration" : 
                 {
@@ -62,7 +62,7 @@
                 "name": "Inverser 2",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#021E010003640D0A",
                 "configuration" : 
                 {
@@ -95,7 +95,7 @@
                 "name": "Inverser 3",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#021E010003640D0A",
                 "configuration" : 
                 {
@@ -128,7 +128,7 @@
                 "name": "Inverser 4",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#021E010003640D0A",
                 "configuration" : 
                 {
