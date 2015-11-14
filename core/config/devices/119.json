@@ -4,7 +4,7 @@
         "groupe" : "Modules Rail DIN",
         "commands": [
             {
-                "name": "On",
+                "name": "On 1",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
@@ -15,7 +15,7 @@
                 }
             },
             {
-                "name": "Off",
+                "name": "Off 1",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
@@ -26,7 +26,7 @@
                 }
             },
             {
-                "name": "Intensité",
+                "name": "Intensité 1",
                 "type": "action",
                 "subtype": "slider",
                 "isVisible": 1,
@@ -37,7 +37,7 @@
                 }
             },
             {
-                "name": "Inverser",
+                "name": "Inverser 1",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 0,
@@ -48,7 +48,7 @@
                 }
             },
             {
-                "name": "+3pourcent",
+                "name": "+3pourcent 1",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 0,
@@ -59,7 +59,7 @@
                 }
             },
             {
-                "name": "-3pourcent",
+                "name": "-3pourcent 1",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 0,

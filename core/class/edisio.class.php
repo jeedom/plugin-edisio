@@ -393,7 +393,11 @@ class edisioCmd extends cmd {
 				if (strlen($hexvalue)<2) {
 					$hexvalue = '0' . $hexvalue;
 				}
-				$value = str_replace('#slider#', $hexvalue, $value);
+                if ($hexvalue != '00') {
+                    $value = str_replace('#slider#', $hexvalue, $value);
+                } else {
+                    $value = str_replace('04#slider#', '02', $value);
+                }
 				break;
 			case 'color':
 				$value = str_replace('#color#', $_options['color'], $value);
