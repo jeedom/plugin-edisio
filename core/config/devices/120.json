@@ -26,7 +26,7 @@
                 }
             },
             {
-                "name": "Toggle",
+                "name": "Inverser",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
@@ -59,7 +59,7 @@
                 }
             },
             {
-                "name": "Toggle 2",
+                "name": "Inverser 2",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
@@ -92,7 +92,7 @@
                 }
             },
             {
-                "name": "Toggle 3",
+                "name": "Inverser 3",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
@@ -125,7 +125,7 @@
                 }
             },
             {
-                "name": "Toggle 4",
+                "name": "Inverser 4",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,

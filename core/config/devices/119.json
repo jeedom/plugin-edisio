@@ -1,6 +1,6 @@
 {
     "119": {
-        "name": "EDR-D4 (ON/OFF/DIMMER)",
+        "name": "EDR-D4 (ON/OFF/Intensité)",
         "groupe" : "Modules Rail DIN",
         "commands": [
             {
@@ -20,6 +20,50 @@
                 "subtype": "other",
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#051E010002640D0A&&6C7663#ID##GROUP#051E01001B640D0A",
+                "configuration" : 
+                {
+                    "group" : 1
+                }
+            },
+            {
+                "name": "Intensité",
+                "type": "action",
+                "subtype": "slider",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010004#slider#640D0A",
+                "configuration" : 
+                {
+                    "group" : 1
+                }
+            },
+            {
+                "name": "Inverser",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010003640D0A",
+                "configuration" : 
+                {
+                    "group" : 1
+                }
+            },
+            {
+                "name": "+3%",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010005640D0A",
+                "configuration" : 
+                {
+                    "group" : 1
+                }
+            },
+            {
+                "name": "-3%",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010006640D0A",
                 "configuration" : 
                 {
                     "group" : 1
@@ -48,6 +92,50 @@
                 }
             },
             {
+                "name": "Intensité 2",
+                "type": "action",
+                "subtype": "slider",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010004#slider#640D0A",
+                "configuration" : 
+                {
+                    "group" : 2
+                }
+            },
+            {
+                "name": "Inverser 2",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010003640D0A",
+                "configuration" : 
+                {
+                    "group" : 2
+                }
+            },
+            {
+                "name": "+3% 2",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010005640D0A",
+                "configuration" : 
+                {
+                    "group" : 2
+                }
+            },
+            {
+                "name": "-3% 2",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010006640D0A",
+                "configuration" : 
+                {
+                    "group" : 2
+                }
+            },
+            {
                 "name": "On 3",
                 "type": "action",
                 "subtype": "other",
@@ -64,6 +152,50 @@
                 "subtype": "other",
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#051E010002640D0A&&6C7663#ID##GROUP#051E01001B640D0A",
+                "configuration" : 
+                {
+                    "group" : 3
+                }
+            },
+            {
+                "name": "Intensité 3",
+                "type": "action",
+                "subtype": "slider",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010004#slider#640D0A",
+                "configuration" : 
+                {
+                    "group" : 3
+                }
+            },
+            {
+                "name": "Inverser 3",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010003640D0A",
+                "configuration" : 
+                {
+                    "group" : 3
+                }
+            },
+            {
+                "name": "+3% 3",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010005640D0A",
+                "configuration" : 
+                {
+                    "group" : 3
+                }
+            },
+            {
+                "name": "-3% 3",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010006640D0A",
                 "configuration" : 
                 {
                     "group" : 3
@@ -92,25 +224,47 @@
                 }
             },
             {
-                "name": "On 5",
+                "name": "Intensité 4",
                 "type": "action",
-                "subtype": "other",
+                "subtype": "slider",
                 "isVisible": 1,
-                "logicalId" : "6C7663#ID##GROUP#051E010001640D0A&&6C7663#ID##GROUP#051E010009640D0A",
+                "logicalId" : "6C7663#ID##GROUP#051E010004#slider#640D0A",
                 "configuration" : 
                 {
-                    "group" : 5
+                    "group" : 4
                 }
             },
             {
-                "name": "Off 5",
+                "name": "Inverser 4",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
-                "logicalId" : "6C7663#ID##GROUP#051E010002640D0A&&6C7663#ID##GROUP#051E01001B640D0A",
+                "logicalId" : "6C7663#ID##GROUP#051E010003640D0A",
                 "configuration" : 
                 {
-                    "group" : 5
+                    "group" : 4
+                }
+            },
+            {
+                "name": "+3% 4",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010005640D0A",
+                "configuration" : 
+                {
+                    "group" : 4
+                }
+            },
+            {
+                "name": "-3% 4",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "logicalId" : "6C7663#ID##GROUP#051E010006640D0A",
+                "configuration" : 
+                {
+                    "group" : 4
                 }
             },
             {
