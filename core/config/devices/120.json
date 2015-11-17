@@ -26,10 +26,10 @@
                 }
             },
             {
-                "name": "Toggle 1",
+                "name": "Inverser 1",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#021E010003640D0A",
                 "configuration" : 
                 {
@@ -59,10 +59,10 @@
                 }
             },
             {
-                "name": "Toggle 2",
+                "name": "Inverser 2",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#021E010003640D0A",
                 "configuration" : 
                 {
@@ -92,10 +92,10 @@
                 }
             },
             {
-                "name": "Toggle 3",
+                "name": "Inverser 3",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#021E010003640D0A",
                 "configuration" : 
                 {
@@ -125,10 +125,10 @@
                 }
             },
             {
-                "name": "Toggle 4",
+                "name": "Inverser 4",
                 "type": "action",
                 "subtype": "other",
-                "isVisible": 1,
+                "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#021E010003640D0A",
                 "configuration" : 
                 {
