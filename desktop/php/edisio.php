@@ -40,8 +40,8 @@ foreach ($eqLogics as $eqLogic) {
 	$opacity = ($eqLogic->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
 	echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
 	echo "<center>";
-    $alternateImg = $eqLogic->getConfiguration('iconModel');
-    if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $alternateImg . '.jpg')) {
+	$alternateImg = $eqLogic->getConfiguration('iconModel','');
+    if ($alternateImg != '' && file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $alternateImg . '.jpg')) {
         echo '<img class="lazy" src="plugins/edisio/core/config/devices/' . $alternateImg . '.jpg" height="105" width="95" />';
     } elseif (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $eqLogic->getConfiguration('device') . '.jpg')) {
 		echo '<img class="lazy" src="plugins/edisio/core/config/devices/' . $eqLogic->getConfiguration('device') . '.jpg" height="105" width="95" />';
