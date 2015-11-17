@@ -15,14 +15,37 @@
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
 
- $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
+$(document).ready(function() {
+$('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
   if($('.li_eqLogic.active').attr('data-eqlogic_id') != ''){
+    getModelList($(this).value(),$('.li_eqLogic.active').attr('data-eqlogic_id'));
     $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+$(this).value()+'.jpg');
 }else{
     $('#img_device').attr("src",'plugins/edisio/doc/images/edisio_icon.png');
+}  
+});
+ $('.eqLogicAttr[data-l1key=configuration][data-l2key=batteryStatus]').on('change', function () {
+  if($(this).html() != ''){
+    $('.hasBatterie').show();
+}else{
+    $('.hasBatterie').hide();
 }
 });
- 
+
+ $('.eqLogicAttr[data-l1key=status][data-l2key=lastCommunication]').on('change', function () {
+  if($(this).html() != ''){
+    $('.hasCommunication').show();
+}else{
+    $('.hasCommunication').hide();
+}
+});
+
+ $('.eqLogicAttr[data-l1key=configuration][data-l2key=iconModel]').on('change', function () {
+  if($(this).value() != '' && $(this).value() != null){
+    $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+$(this).value()+'.jpg');
+  }
+});
+});
  $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 
  function stopEDISIODeamon() {
@@ -43,6 +66,49 @@
         }
         $('#div_alert').showAlert({message: 'Le démon a été correctement arrêté : il se relancera automatiquement dans 1 minute', level: 'success'});
     }
+});
+}
+
+function getModelList(_conf,_id) {
+    $.ajax({// fonction permettant de faire de l'ajax
+        type: "POST", // methode de transmission des données au fichier php
+        url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
+        data: {
+            action: "getModelList",
+            conf: _conf,
+            id: _id,
+        },
+        dataType: 'json',
+        global: false,
+        error: function (request, status, error) {
+            handleAjaxError(request, status, error);
+        },
+        success: function (data) { // si l'appel a bien fonctionné
+        if (data.state != 'ok') {
+            $('#div_alert').showAlert({message: data.result, level: 'danger'});
+            return;
+        }
+        var options = '<option value="'+_conf+'">1 - Défaut</option>';
+        var initImg = _conf;
+        for (var i in data.result) {
+                var value = data.result[i]['value'];
+                var selected = data.result[i]['selected'];
+                if (selected == 1){
+                    initImg = i;
+                    options += '<option value="'+i+'" selected>'+value+'</option>';
+                } else {
+                    options += '<option value="'+i+'">'+value+'</option>';
+                }
+        }
+        if (options != '<option value="'+_conf+'">1 - Défaut</option>'){
+            $(".modelList").show();
+            $(".listModel").html(options);
+            $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+initImg+'.jpg');
+        } else {
+            $(".listModel").html(options);
+            $(".modelList").hide();
+        }
+        }
 });
 }
 

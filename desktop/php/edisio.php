@@ -40,7 +40,10 @@ foreach ($eqLogics as $eqLogic) {
 	$opacity = ($eqLogic->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
 	echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
 	echo "<center>";
-	if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $eqLogic->getConfiguration('device') . '.jpg')) {
+    $alternateImg = $eqLogic->getConfiguration('iconModel');
+    if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $alternateImg . '.jpg')) {
+        echo '<img class="lazy" src="plugins/edisio/core/config/devices/' . $alternateImg . '.jpg" height="105" width="95" />';
+    } elseif (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $eqLogic->getConfiguration('device') . '.jpg')) {
 		echo '<img class="lazy" src="plugins/edisio/core/config/devices/' . $eqLogic->getConfiguration('device') . '.jpg" height="105" width="95" />';
 	} else {
 		echo '<img class="lazy" src="plugins/edisio/doc/images/edisio_icon.png" height="105" width="95" />';
@@ -173,20 +176,27 @@ foreach ($groups as $group) {
           <div class="col-sm-3">
             <span class="eqLogicAttr label label-default" data-l1key="configuration" data-l2key="createtime"></span>
         </div>
-        <label class="col-sm-3 control-label">{{Communication}}</label>
-        <div class="col-sm-3">
-            <span class="eqLogicAttr label label-default" data-l1key="status" data-l2key="lastCommunication"></span>
-        </div>
-    </div>
-    <div class="form-group expertModeVisible">
-        <label class="col-sm-3 control-label">{{Batterie}}</label>
-        <div class="col-sm-3">
-            <span class="eqLogicAttr label label-default tooltips" data-l1key="configuration" data-l2key="batteryStatus"></span> %
-        </div>
         <label class="col-sm-3 control-label">{{Status}}</label>
         <div class="col-sm-2">
             <span class="eqLogicAttr label label-default tooltips" data-l1key="status" data-l2key="state"></span>
         </div>
+    </div>
+    <div class="form-group expertModeVisible">
+        <label class="col-sm-3 control-label hasCommunication">{{Communication}}</label>
+        <div class="col-sm-3 hasCommunication">
+            <span class="eqLogicAttr label label-default" data-l1key="status" data-l2key="lastCommunication"></span>
+        </div>
+        <label class="col-sm-3 control-label hasBatterie">{{Batterie}}</label>
+        <div class="col-sm-3 hasBatterie">
+            <span class="eqLogicAttr label label-default tooltips" data-l1key="configuration" data-l2key="batteryStatus"></span> %
+        </div>
+    </div>
+    <div class="form-group modelList" style="display:none;">
+                <label class="col-sm-3 control-label">Modèle</label>
+                <div class="col-sm-6">
+                   <select class="eqLogicAttr form-control listModel" data-l1key="configuration" data-l2key="iconModel">
+                    </select>
+                </div>
     </div>
     <center>
         <img src="core/img/no_image.gif" data-original=".jpg" id="img_device" class="img-responsive" style="max-height : 250px;" onerror="this.src='plugins/edisio/doc/images/edisio_icon.png'"/>
@@ -195,6 +205,15 @@ foreach ($groups as $group) {
 </form>
 </div>
 </div>
+
+<form class="form-horizontal">
+    <fieldset>
+        <div class="form-actions" align="right">
+            <a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> Supprimer</a>
+            <a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> Sauvegarder</a>
+        </div>
+    </fieldset>
+</form>
 
 <legend>Commandes</legend>
 

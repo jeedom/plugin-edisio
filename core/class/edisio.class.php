@@ -258,6 +258,26 @@ class edisio extends eqLogic {
 		exec('sudo fuser -k ' . config::byKey('socketport', 'edisio', 55005) . '/tcp > /dev/null 2>&1');
 		return self::deamonRunning();
 	}
+    
+    public static function getModelList($_conf,$_id) {
+        $edisio = eqlogic::byId($_id);
+        $iconModel = $edisio->getConfiguration('iconModel');
+        $modelList = array();
+		$path = dirname(__FILE__) . '/../config/devices/';
+        $files = ls($path, $_conf . '_*.jpg', false, array('files', 'quiet'));
+        sort($files);
+        foreach ($files as $imgname){
+            $selected = 0;
+            if (explode('.',$imgname)[0] == $iconModel) {
+                $selected = 1;
+            }
+            $modelList[explode('.',$imgname)[0]] = array(
+                'value' => ucfirst(explode( '_' , explode('.',$imgname)[0])[1]),
+                'selected' => $selected,
+               );
+        }
+		return $modelList;
+	}
 
 /*     * *********************Methode d'instance************************* */
 
@@ -393,7 +413,7 @@ class edisioCmd extends cmd {
 				if (strlen($hexvalue)<2) {
 					$hexvalue = '0' . $hexvalue;
 				}
-                if ($hexvalue != '00') {
+				if ($hexvalue != '00') {
                     $value = str_replace('#slider#', $hexvalue, $value);
                 } else {
                     $value = str_replace('04#slider#', '02', $value);

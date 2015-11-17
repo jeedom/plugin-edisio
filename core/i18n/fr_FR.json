@@ -12,13 +12,32 @@
         "Partager": "Partager",
         "Envoyer une configuration": "Envoyer une configuration",
         "Délai maximum autorisé entre 2 messages (min)": "Délai maximum autorisé entre 2 messages (min)",
-        "Vous n'avez pas encore d'équipement EDISIO, cliquez sur Ajouter pour commencer": "Vous n'avez pas encore d'équipement EDISIO, cliquez sur Ajouter pour commencer"
+        "Vous n'avez pas encore d'équipement EDISIO, cliquez sur Ajouter pour commencer": "Vous n'avez pas encore d'équipement EDISIO, cliquez sur Ajouter pour commencer",
+        "Mes équipements EDISIO": "Mes équipements EDISIO",
+        "Activer": "Activer",
+        "Visible": "Visible",
+        "Actionneurs Jeedom": "Actionneurs Jeedom",
+        "Capteurs": "Capteurs",
+        "Interrupteurs": "Interrupteurs",
+        "Micros-Modules DIO-2": "Micros-Modules DIO-2",
+        "Micros-Modules Edisio": "Micros-Modules Edisio",
+        "Modules Rail DIN": "Modules Rail DIN",
+        "Télécommandes": "Télécommandes",
+        "Création": "Création",
+        "Communication": "Communication",
+        "Batterie": "Batterie",
+        "Status": "Status"
     },
     "plugins\/edisio\/desktop\/js\/edisio.js": {
         "Partager sur le market": "Partager sur le market",
         "Vous devez d\\'abord sélectionner une configuration à partager": "Vous devez d\\'abord sélectionner une configuration à partager",
         "Valeur retour d\\'état": "Valeur retour d\\'état",
-        "Durée avant retour d\\'état (min)": "Durée avant retour d\\'état (min)"
+        "Durée avant retour d\\'état (min)": "Durée avant retour d\\'état (min)",
+        "ID": "ID",
+        "Groupe": "Groupe",
+        "Historiser": "Historiser",
+        "Afficher": "Afficher",
+        "Inverser": "Inverser"
     },
     "plugins\/edisio\/plugin_info\/configuration.php": {
         "Le démon EDISIO ne tourne pas": "Le démon EDISIO ne tourne pas",
@@ -46,7 +65,17 @@
         "Statut du démon : ": "Statut du démon : ",
         "Sur le maitre :": "Sur le maitre :",
         "Normale si vous etes en deporté": "Normale si vous etes en deporté",
-        "En local :": "En local :"
+        "En local :": "En local :",
+        "Retour local": "Retour local",
+        "Retour distant": "Retour distant",
+        "Démon local": "Démon local",
+        "Générale": "Générale",
+        "Enregistrer tous les messages, cela peut ralentir le système": "Enregistrer tous les messages, cela peut ralentir le système",
+        "Le démon a été correctement (re)demarré": "Le démon a été correctement (re)demarré",
+        "Le démon a été correctement arreté": "Le démon a été correctement arreté",
+        "Etes-vous sur de vouloir lancer le démon en mode debug ? N\\'oubliez pas de le relancer en mode normale une fois terminé": "Etes-vous sur de vouloir lancer le démon en mode debug ? N\\'oubliez pas de le relancer en mode normale une fois terminé",
+        "Edisio en mode debug": "Edisio en mode debug",
+        "Log des messages Edisio": "Log des messages Edisio"
     },
     "plugins\/edisio\/desktop\/modal\/show.debug.php": {
         "Attention le lancement en mode debug est très consommateur en ressources et en log, pensez bien à relancer le démon une fois l'analyse terminée": "Attention le lancement en mode debug est très consommateur en ressources et en log, pensez bien à relancer le démon une fois l'analyse terminée"
@@ -54,5 +83,9 @@
     "plugins\/edisio\/plugin_info\/info.xml": {
         "Plugin pour utiliser le protocole Edisio": "Plugin pour utiliser le protocole Edisio",
         "Aucune": "Aucune"
+    },
+    "plugins\/edisio\/core\/class\/edisio.class.php": {
+        "Démon local": "Démon local",
+        "OK": "OK"
     }
 }

@@ -23,6 +23,10 @@ try {
 	if (!isConnect('admin')) {
 		throw new Exception('401 Unauthorized');
 	}
+    
+    if (init('action') == 'getModelList') {
+      ajax::success(edisio::getModelList(init('conf'),init('id')));
+    }
 
 	if (init('action') == 'restartDeamon') {
 		config::save('allowStartDeamon', 1, 'edisio');
