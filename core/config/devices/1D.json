@@ -1,0 +1,17 @@
+{
+    "1D": {
+        "name": "EMC-CAR",
+        "groupe" : "Capteurs",
+        "commands": [
+            {
+                "name": "Etat",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "eventOnly": 1,
+                "logicalId": "state"
+            }
+        ]
+    }
+}

@@ -659,6 +659,17 @@ def decodePacket(message):
 	if MID == '1B':
 		decode_string += "\nDecode model : \t\t= IR transmitter (Trigger)"
 
+	if MID == '1D':
+		decode_string += "\nDecode model : \t\t= EMC-CAR (Trigger)"
+		if CMD == '0B':
+			action['state'] = '0'
+		if CMD == '01':
+			action['state'] = '1'
+		if CMD == '09':
+			action['state'] = '2'
+		command = Command(config.trigger_url,action)
+		command.run(timeout=config.trigger_timeout)
+
 	if MID == '1E':
 		decode_string += "\nDecode model : \t\t= Enocean Sensor (Door)"
 
