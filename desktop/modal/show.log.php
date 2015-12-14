@@ -27,26 +27,7 @@ sendVarToJs('debugMode_slaveId', init('slave_id'));
 <pre id='pre_edisiolog' style='overflow: auto; height: 80%;with:90%;'></pre>
 
 <script>
-   $('#bt_edisioLogStopStart').on('click',function(){
-    if($(this).attr('data-state') == 1){
-        $(this).attr('data-state',0);
-        $(this).removeClass('btn-warning').addClass('btn-success');
-        $(this).html('<i class="fa fa-play"></i> {{Reprise}}');
-    }else{
-        $(this).removeClass('btn-success').addClass('btn-warning');
-        $(this).html('<i class="fa fa-pause"></i> {{Pause}}');
-        $(this).attr('data-state',1);
-        jeedom.log.autoupdate({
-            log : 'edisiocmd.message',
-            slaveId : debugMode_slaveId,
-            display : $('#pre_edisiolog'),
-            search : $('#in_edisioLogSearch'),
-            control : $('#bt_edisioLogStopStart'),
-        });
-    }
-});
-
-   jeedom.log.autoupdate({
+ jeedom.log.autoupdate({
     log : 'edisiocmd.message',
     slaveId : debugMode_slaveId,
     display : $('#pre_edisiolog'),
