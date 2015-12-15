@@ -19,20 +19,11 @@
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
 function edisio_update() {
-	$pid_file = dirname(__FILE__) .'/../../../tmp/edisio.pid';
-	if (file_exists($pid_file)) {
-		rename($pid_file,'/tmp/edisio.pid');
-	}
-	try {
-		edisio::stopDeamon();
-		edisio::runDeamon();
-	} catch (Exception  $e) {
 
-	}
 }
 
 function edisio_remove() {
-	edisio::stopDeamon();
+
 }
 
 ?>
