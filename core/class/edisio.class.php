@@ -217,11 +217,11 @@ class edisio extends eqLogic {
 			$i++;
 		}
 		if ($i >= 30) {
-			log::add('edisio', 'error', 'Impossible de lancer le démon EDISIO, vérifiez la configuration et le log edisiocmd', 'unableStartDeamon');
+			log::add('edisiocmd', 'error', 'Impossible de lancer le démon EDISIO, vérifiez la configuration et le log edisiocmd', 'unableStartDeamon');
 			return false;
 		}
 		message::removeAll('edisio', 'unableStartDeamon');
-		log::add('edisio', 'info', 'Démon EDISIO lancé');
+		log::add('edisiocmd', 'info', 'Démon EDISIO lancé');
 		return true;
 	}
 
