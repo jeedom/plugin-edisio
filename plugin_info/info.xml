@@ -4,7 +4,6 @@
     <name>Edisio</name>
     <licence>AGPL</licence>
     <author>Loïc Gevrey</author>
-    <installation>Aucune</installation>
     <require>2</require>
     <category>automation protocol</category>
     <allowRemote>1</allowRemote>
