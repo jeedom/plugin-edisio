@@ -33,7 +33,7 @@ class edisio extends eqLogic {
 		if (config::byKey('allowStartDeamon', 'edisio', 1) == 1 && config::byKey('port', 'edisio', 'none') != 'none') {
 			self::runDeamon();
 		}
-		foreach (eqLogic::byType('edisio') as $eqLogic){
+		foreach (eqLogic::byType('edisio') as $eqLogic) {
 			$deviceParameter = edisio::devicesParameters($eqLogic->getConfiguration('device'));
 			if (isset($deviceParameter) && isset($deviceParameter['battery_type'])) {
 				$eqLogic->setConfiguration('battery_type', $deviceParameter['battery_type']);
@@ -254,28 +254,27 @@ class edisio extends eqLogic {
 				exec('kill -9 ' . $pid . ' > /dev/null 2>&1');
 			}
 		}
-		exec('fuser -k ' . config::byKey('socketport', 'edisio', 55005) . '/tcp > /dev/null 2>&1');
-		exec('sudo fuser -k ' . config::byKey('socketport', 'edisio', 55005) . '/tcp > /dev/null 2>&1');
+		jeedom::fuserk(config::byKey('socketport', 'edisio', 55005));
 		return self::deamonRunning();
 	}
-    
-    public static function getModelList($_conf,$_id) {
-        $edisio = eqlogic::byId($_id);
-        $iconModel = $edisio->getConfiguration('iconModel');
-        $modelList = array();
+
+	public static function getModelList($_conf, $_id) {
+		$edisio = eqlogic::byId($_id);
+		$iconModel = $edisio->getConfiguration('iconModel');
+		$modelList = array();
 		$path = dirname(__FILE__) . '/../config/devices/';
-        $files = ls($path, $_conf . '_*.jpg', false, array('files', 'quiet'));
-        sort($files);
-        foreach ($files as $imgname){
-            $selected = 0;
-            if (explode('.',$imgname)[0] == $iconModel) {
-                $selected = 1;
-            }
-            $modelList[explode('.',$imgname)[0]] = array(
-                'value' => ucfirst(explode( '_' , explode('.',$imgname)[0])[1]),
-                'selected' => $selected,
-               );
-        }
+		$files = ls($path, $_conf . '_*.jpg', false, array('files', 'quiet'));
+		sort($files);
+		foreach ($files as $imgname) {
+			$selected = 0;
+			if (explode('.', $imgname)[0] == $iconModel) {
+				$selected = 1;
+			}
+			$modelList[explode('.', $imgname)[0]] = array(
+				'value' => ucfirst(explode('_', explode('.', $imgname)[0])[1]),
+				'selected' => $selected,
+			);
+		}
 		return $modelList;
 	}
 
@@ -410,14 +409,14 @@ class edisioCmd extends cmd {
 		switch ($this->getSubType()) {
 			case 'slider':
 				$hexvalue = strtoupper(dechex(intval($_options['slider'])));
-				if (strlen($hexvalue)<2) {
+				if (strlen($hexvalue) < 2) {
 					$hexvalue = '0' . $hexvalue;
 				}
 				if ($hexvalue != '00') {
-                    $value = str_replace('#slider#', $hexvalue, $value);
-                } else {
-                    $value = str_replace('04#slider#', '02', $value);
-                }
+					$value = str_replace('#slider#', $hexvalue, $value);
+				} else {
+					$value = str_replace('04#slider#', '02', $value);
+				}
 				break;
 			case 'color':
 				$value = str_replace('#color#', $_options['color'], $value);

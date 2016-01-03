@@ -2,13 +2,10 @@
 <info>
     <id>edisio</id>
     <name>Edisio</name>
-    <description>Plugin pour utiliser le protocole Edisio</description>
-    <icon>fa fa-paper-plane</icon>
     <licence>AGPL</licence>
     <author>Loïc Gevrey</author>
     <installation>Aucune</installation>
-    <require>1.164</require>
-    <version>1.0</version>
+    <require>2.0.0</require>
     <category>automation protocol</category>
     <allowRemote>1</allowRemote>
 </info>
