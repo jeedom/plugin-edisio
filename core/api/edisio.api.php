@@ -24,30 +24,5 @@ if (!is_object($jsonrpc)) {
 }
 $params = $jsonrpc->getParams();
 
-if ($jsonrpc->getMethod() == 'deamonRunning') {
-	$jsonrpc->makeSuccess(edisio::deamonRunning());
-}
-
-if ($jsonrpc->getMethod() == 'stopDeamon') {
-	config::save('allowStartDeamon', 0, 'edisio');
-	$jsonrpc->makeSuccess(edisio::stopDeamon());
-}
-
-if ($jsonrpc->getMethod() == 'restartDeamon') {
-	config::save('allowStartDeamon', 1, 'edisio');
-	$port = config::byKey('port', 'edisio', 'none');
-	if ($port == 'none') {
-		ajax::success();
-	}
-	edisio::stopDeamon();
-	if (edisio::deamonRunning()) {
-		throw new Exception(__('Impossible d\'arrêter le démon', __FILE__));
-	}
-	log::clear('edisiocmd');
-	$params['debug'] = (!isset($params['debug'])) ? 0 : $params['debug'];
-	edisio::runDeamon($params['debug']);
-	$jsonrpc->makeSuccess();
-}
-
 throw new Exception(__('Aucune methode correspondante pour le plugin edisio : ' . $jsonrpc->getMethod(), __FILE__));
 ?>

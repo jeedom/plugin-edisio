@@ -25,14 +25,11 @@ class edisio extends eqLogic {
 	/*     * ***********************Methode static*************************** */
 
 	public static function slaveReload() {
-		self::stopDeamon();
-		self::runDeamon();
+		self::deamon_stop();
+		self::deamon_start();
 	}
 
 	public static function cronDaily() {
-		if (config::byKey('allowStartDeamon', 'edisio', 1) == 1 && config::byKey('port', 'edisio', 'none') != 'none') {
-			self::runDeamon();
-		}
 		foreach (eqLogic::byType('edisio') as $eqLogic) {
 			$deviceParameter = edisio::devicesParameters($eqLogic->getConfiguration('device'));
 			if (isset($deviceParameter) && isset($deviceParameter['battery_type'])) {
@@ -40,45 +37,6 @@ class edisio extends eqLogic {
 				$eqLogic->save();
 			}
 		}
-	}
-
-	public static function start() {
-		if (config::byKey('allowStartDeamon', 'edisio', 1) == 1 && config::byKey('port', 'edisio', 'none') != 'none' && !self::deamonRunning()) {
-			self::runDeamon();
-		}
-	}
-
-	public static function cron15() {
-		if (config::byKey('allowStartDeamon', 'edisio', 1) == 1 && config::byKey('port', 'edisio', 'none') != 'none' && !self::deamonRunning()) {
-			self::runDeamon();
-		}
-	}
-
-	public static function health() {
-		$return = array();
-		$demon_state = self::deamonRunning();
-		$return[] = array(
-			'test' => __('Démon local', __FILE__),
-			'result' => ($demon_state) ? __('OK', __FILE__) : __('NOK', __FILE__),
-			'advice' => ($demon_state) ? '' : __('Peut être normal si vous êtes en déporté', __FILE__),
-			'state' => $demon_state,
-		);
-		if (config::byKey('jeeNetwork::mode') == 'master') {
-			foreach (jeeNetwork::byPlugin('edisio') as $jeeNetwork) {
-				try {
-					$demon_state = $jeeNetwork->sendRawRequest('deamonRunning', array('plugin' => 'edisio'));
-				} catch (Exception $e) {
-					$demon_state = false;
-				}
-				$return[] = array(
-					'test' => __('Démon sur', __FILE__) . $jeeNetwork->getName(),
-					'result' => ($demon_state) ? __('OK', __FILE__) : __('NOK', __FILE__),
-					'advice' => '',
-					'state' => $demon_state,
-				);
-			}
-		}
-		return $return;
 	}
 
 	public static function createFromDef($_def) {
@@ -148,18 +106,50 @@ class edisio extends eqLogic {
 		return $return;
 	}
 
-	public static function runDeamon($_debug = false) {
-		if (config::byKey('allowStartDeamon', 'edisio', 1) == 0) {
-			return;
+	public static function deamon_info() {
+		$return = array();
+		$return['log'] = 'edisiocmd';
+		$return['state'] = 'nok';
+		$pid_file = '/tmp/edisio.pid';
+		if (file_exists($pid_file)) {
+			if (posix_getsid(trim(file_get_contents($pid_file)))) {
+				$return['state'] = 'ok';
+			} else {
+				unlink($pid_file);
+			}
 		}
-		self::stopDeamon();
+		$return['launchable'] = 'ok';
 		$port = config::byKey('port', 'edisio');
 		if ($port != 'auto') {
 			$port = jeedom::getUsbMapping($port);
 			if (@!file_exists($port)) {
-				throw new Exception(__('Le port : ', __FILE__) . print_r($port, true) . __(' n\'éxiste pas', __FILE__));
+				$return['launchable'] = 'nok';
+				$return['launchable_message'] = __('Le port n\'est pas configuré', __FILE__);
 			}
 			exec('sudo chmod 777 ' . $port . ' > /dev/null 2>&1');
+		}
+		return $return;
+	}
+
+	public static function deamon_stop() {
+		$pid_file = '/tmp/edisio.pid';
+		if (file_exists($pid_file)) {
+			$pid = intval(trim(file_get_contents($pid_file)));
+			system::kill($pid);
+		}
+		system::fuserk(config::byKey('socketport', 'edisio', 55005));
+	}
+
+	public static function deamon_start($_debug = false) {
+		self::deamon_stop();
+		$deamon_info = self::deamon_info();
+		if ($deamon_info['launchable'] != 'ok') {
+			throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
+		}
+		log::remove('edisiocmd');
+		$port = config::byKey('port', 'edisio');
+		if ($port != 'auto') {
+			$port = jeedom::getUsbMapping($port);
 		}
 		$edisio_path = realpath(dirname(__FILE__) . '/../../ressources/edisiocmd');
 
@@ -205,57 +195,23 @@ class edisio extends eqLogic {
 		}
 		log::add('edisiocmd', 'info', 'Lancement démon edisiocmd : ' . $cmd);
 		$result = exec($cmd . ' >> ' . log::getPathToLog('edisiocmd') . ' 2>&1 &');
-		if (strpos(strtolower($result), 'error') !== false || strpos(strtolower($result), 'traceback') !== false) {
-			log::add('edisio', 'error', $result);
-			return false;
-		}
 
 		$i = 0;
 		while ($i < 30) {
-			if (self::deamonRunning()) {
+			$deamon_info = self::deamon_info();
+			if ($deamon_info['state'] == 'ok') {
 				break;
 			}
 			sleep(1);
 			$i++;
 		}
 		if ($i >= 30) {
-			log::add('edisio', 'error', 'Impossible de lancer le démon EDISIO, vérifiez le log edisiocmd', 'unableStartDeamon');
+			log::add('edisiocmd', 'error', 'Impossible de lancer le démon EDISIO, vérifiez la configuration et le log edisiocmd', 'unableStartDeamon');
 			return false;
 		}
 		message::removeAll('edisio', 'unableStartDeamon');
-		log::add('edisio', 'info', 'Démon EDISIO lancé');
+		log::add('edisiocmd', 'info', 'Démon EDISIO lancé');
 		return true;
-	}
-
-	public static function deamonRunning() {
-		$pid_file = '/tmp/edisio.pid';
-		if (!file_exists($pid_file)) {
-			return false;
-		}
-		$pid = trim(file_get_contents($pid_file));
-		if (posix_getsid($pid)) {
-			return true;
-		}
-		unlink($pid_file);
-		return false;
-	}
-
-	public static function stopDeamon() {
-		$pid_file = '/tmp/edisio.pid';
-		if (file_exists($pid_file)) {
-			$pid = intval(trim(file_get_contents($pid_file)));
-			posix_kill($pid, 15);
-			if (self::deamonRunning()) {
-				sleep(1);
-				posix_kill($pid, 9);
-			}
-			if (self::deamonRunning()) {
-				sleep(1);
-				exec('kill -9 ' . $pid . ' > /dev/null 2>&1');
-			}
-		}
-		jeedom::fuserk(config::byKey('socketport', 'edisio', 55005));
-		return self::deamonRunning();
 	}
 
 	public static function getModelList($_conf, $_id) {

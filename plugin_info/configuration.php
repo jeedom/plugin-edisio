@@ -21,76 +21,7 @@ if (!isConnect()) {
 	include_file('desktop', '404', 'php');
 	die();
 }
-$port = config::byKey('port', 'edisio');
-$deamonRunningMaster = edisio::deamonRunning();
-$deamonRunningSlave = array();
-$urlMasterLocal = false;
-try {
-	$request_http = new com_http(network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp') . '/plugins/edisio/core/php/jeeEdisio.php?apikey=' . config::byKey('api') . '&test=1');
-	if ($request_http->exec(1, 1) == 'OK') {
-		$urlMasterLocal = true;
-	}
-} catch (Exception $e) {
-
-}
-$urlMasterDistant = false;
-try {
-	$request_http = new com_http(network::getNetworkAccess('internal', 'proto:ip:port:comp') . '/plugins/enocean/core/php/jeeEnocean.php?apikey=' . config::byKey('api') . '&test=1');
-	if ($request_http->exec(1, 1) == 'OK') {
-		$urlMasterDistant = true;
-	}
-} catch (Exception $e) {
-
-}
-if (config::byKey('jeeNetwork::mode') == 'master') {
-	foreach (jeeNetwork::byPlugin('edisio') as $jeeNetwork) {
-		try {
-			$deamonRunningSlave[$jeeNetwork->getName()] = $jeeNetwork->sendRawRequest('deamonRunning', array('plugin' => 'edisio'));
-		} catch (Exception $e) {
-			$deamonRunningSlave[$jeeNetwork->getName()] = false;
-		}
-	}
-}
 ?>
-
-
-<form class="form-horizontal">
-    <fieldset>
-        <?php
-echo '<div class="form-group">';
-echo '<label class="col-sm-4 control-label">{{Retour local}}</label>';
-if (!$urlMasterLocal) {
-	echo '<div class="col-sm-1"><span class="label label-danger tooltips" style="font-size : 1em;" title="{{Vérifiez votre configuration sur la page de configuration réseaux, celle-ci est incorrecte et le démon ne pourra communiquer avec Jeedom}}">NOK</span></div>';
-} else {
-	echo '<div class="col-sm-1"><span class="label label-success" style="font-size : 1em;">OK</span></div>';
-}
-echo '<label class="col-sm-2 control-label">{{Retour distant}}</label>';
-if (!$urlMasterDistant) {
-	echo '<div class="col-sm-1"><span class="label label-danger tooltips" style="font-size : 1em;" title="{{Vérifiez votre configuration sur la page de configuration réseaux, celle-ci est incorrecte et le démon ne pourra communiquer avec Jeedom}}">NOK</span></div>';
-} else {
-	echo '<div class="col-sm-1"><span class="label label-success" style="font-size : 1em;">OK</span></div>';
-}
-echo '</div>';
-echo '<div class="form-group">';
-echo '<label class="col-sm-4 control-label">{{Démon local}}</label>';
-if (!$deamonRunningMaster) {
-	echo '<div class="col-sm-1"><span class="label label-danger tooltips" style="font-size : 1em;" title="{{Peut être normale si vous etes en deporté}}">NOK</span></div>';
-} else {
-	echo '<div class="col-sm-1"><span class="label label-success" style="font-size : 1em;">OK</span></div>';
-}
-echo '</div>';
-foreach ($deamonRunningSlave as $name => $status) {
-	echo ' <div class="form-group"><label class="col-sm-4 control-label">{{Sur l\'esclave}} ' . $name . '</label>';
-	if (!$status) {
-		echo '<div class="col-sm-1"><span class="label label-danger" style="font-size : 1em;">NOK</span></div>';
-	} else {
-		echo '<div class="col-sm-1"><span class="label label-success" style="font-size : 1em;">OK</span></div>';
-	}
-	echo '</div>';
-}
-?>
-  </fieldset>
-</form>
 <form class="form-horizontal">
     <fieldset>
        <legend><i class="fa fa-list-alt"></i> {{Générale}}</legend>
@@ -148,14 +79,6 @@ foreach (jeedom::getUsbMapping() as $name => $value) {
         <input class="configKey form-control" data-l1key="repeatMessageTime" />
     </div>
 </div>
-<div class="form-group">
-    <label class="col-lg-4 control-label">{{Gestion du démon}}</label>
-    <div class="col-lg-8">
-        <a class="btn btn-success" id="bt_restartEdisioDeamon"><i class='fa fa-play'></i> {{(Re)démarrer}}</a>
-        <a class="btn btn-danger" id="bt_stopEdisioDeamon"><i class='fa fa-stop'></i> {{Arrêter}}</a>
-        <a class="btn btn-warning" id="bt_launchEdisioInDebug"><i class="fa fa-exclamation-triangle"></i> {{Lancer en mode debug}}</a>
-    </div>
-</div>
 </fieldset>
 </form>
 
@@ -163,9 +86,9 @@ foreach (jeedom::getUsbMapping() as $name => $value) {
 if (config::byKey('jeeNetwork::mode') == 'master') {
 	foreach (jeeNetwork::byPlugin('edisio') as $jeeNetwork) {
 		?>
-        <form class="form-horizontal slaveConfig" data-slave_id="<?php echo $jeeNetwork->getId();?>">
+        <form class="form-horizontal slaveConfig" data-slave_id="<?php echo $jeeNetwork->getId(); ?>">
             <fieldset>
-                <legend><i class="icon loisir-darth"></i> {{Démon sur l'esclave}} <?php echo $jeeNetwork->getName()?></legend>
+                <legend><i class="icon loisir-darth"></i> {{Démon sur l'esclave}} <?php echo $jeeNetwork->getName() ?></legend>
                 <div class="form-group">
                     <label class="col-lg-4 control-label">{{Port Edisio}}</label>
                     <div class="col-lg-4">
@@ -207,14 +130,6 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
                     <input class="slaveConfigKey form-control" data-l1key="repeatMessageTime" />
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label">{{Gestion du démon}}</label>
-                <div class="col-lg-8">
-                    <a class="btn btn-success bt_restartEdisioDeamon"><i class='fa fa-play'></i> {{(Re)démarrer}}</a>
-                    <a class="btn btn-danger bt_stopEdisioDeamon"><i class='fa fa-stop'></i> {{Arrêter}}</a>
-                    <a class="btn btn-warning bt_launchEdisioInDebug"><i class="fa fa-exclamation-triangle"></i> {{Lancer en mode debug}}</a>
-                </div>
-            </div>
         </fieldset>
     </form>
 
@@ -225,112 +140,6 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
 
 
 <script>
-   $('.bt_restartEdisioDeamon').on('click', function () {
-        $.ajax({// fonction permettant de faire de l'ajax
-            type: "POST", // methode de transmission des données au fichier php
-            url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
-            data: {
-                action: "restartSlaveDeamon",
-                id : $(this).closest('.slaveConfig').attr('data-slave_id')
-            },
-            dataType: 'json',
-            error: function (request, status, error) {
-                handleAjaxError(request, status, error);
-            },
-            success: function (data) { // si l'appel a bien fonctionné
-            if (data.state != 'ok') {
-                $('#div_alert').showAlert({message: data.result, level: 'danger'});
-                return;
-            }
-            $('#div_alert').showAlert({message: '{{Le démon a été correctement (re)demarré}}', level: 'success'});
-            $('#ul_plugin .li_plugin[data-plugin_id=edisio]').click();
-        }
-    });
-    });
-
-   $('.bt_stopEdisioDeamon').on('click', function () {
-        $.ajax({// fonction permettant de faire de l'ajax
-            type: "POST", // methode de transmission des données au fichier php
-            url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
-            data: {
-                action: "stopSlaveDeamon",
-                id : $(this).closest('.slaveConfig').attr('data-slave_id')
-            },
-            dataType: 'json',
-            error: function (request, status, error) {
-                handleAjaxError(request, status, error);
-            },
-            success: function (data) { // si l'appel a bien fonctionné
-            if (data.state != 'ok') {
-                $('#div_alert').showAlert({message: data.result, level: 'danger'});
-                return;
-            }
-            $('#div_alert').showAlert({message: '{{Le démon a été correctement arreté}}', level: 'success'});
-            $('#ul_plugin .li_plugin[data-plugin_id=edisio]').click();
-        }
-    });
-    });
-
-   $('.bt_launchEdisioInDebug').on('click', function () {
-    var slave_id = $(this).closest('.slaveConfig').attr('data-slave_id');
-    bootbox.confirm('{{Etes-vous sur de vouloir lancer le démon en mode debug ? N\'oubliez pas de le relancer en mode normale une fois terminé}}', function (result) {
-        if (result) {
-            $('#md_modal').dialog({title: "{{Edisio en mode debug}}"});
-            $('#md_modal').load('index.php?v=d&plugin=edisio&modal=show.debug&slave_id='+slave_id).dialog('open');
-        }
-    });
-});
-
-
-   $('#bt_restartEdisioDeamon').on('click', function () {
-        $.ajax({// fonction permettant de faire de l'ajax
-            type: "POST", // methode de transmission des données au fichier php
-            url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
-            data: {
-                action: "restartDeamon",
-            },
-            dataType: 'json',
-            error: function (request, status, error) {
-                handleAjaxError(request, status, error);
-            },
-            success: function (data) { // si l'appel a bien fonctionné
-            if (data.state != 'ok') {
-                $('#div_alert').showAlert({message: data.result, level: 'danger'});
-                return;
-            }
-            $('#div_alert').showAlert({message: '{{Le démon a été correctement (re)démarré}}', level: 'success'});
-            $('#ul_plugin .li_plugin[data-plugin_id=edisio]').click();
-        }
-    });
-    });
-
-   $('#bt_stopEdisioDeamon').on('click', function () {
-        $.ajax({// fonction permettant de faire de l'ajax
-            type: "POST", // methode de transmission des données au fichier php
-            url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
-            data: {
-                action: "stopDeamon",
-            },
-            dataType: 'json',
-            error: function (request, status, error) {
-                handleAjaxError(request, status, error);
-            },
-            success: function (data) { // si l'appel a bien fonctionné
-            if (data.state != 'ok') {
-                $('#div_alert').showAlert({message: data.result, level: 'danger'});
-                return;
-            }
-            $('#div_alert').showAlert({message: '{{Le démon a été correctement arrêté}}', level: 'success'});
-            $('#ul_plugin .li_plugin[data-plugin_id=edisio]').click();
-        }
-    });
-    });
-
-   $('#bt_manageEdisioComProtocole').on('click', function () {
-    $('#md_modal').dialog({title: "{{Gestion des protocoles EDISIO}}"});
-    $('#md_modal').load('index.php?v=d&plugin=edisio&modal=manage.protocole').dialog('open');
-});
-
    $('.bt_logEdisioMessage').on('click', function () {
      var slave_id = $(this).closest('.slaveConfig').attr('data-slave_id');
      $('#md_modal').dialog({title: "{{Log des messages Edisio}}"});
@@ -341,56 +150,4 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
     $('#md_modal').dialog({title: "{{Log des messages EDISIO}}"});
     $('#md_modal').load('index.php?v=d&plugin=edisio&modal=show.log').dialog('open');
 });
-
-   $('#bt_launchEdisioInDebug').on('click', function () {
-    bootbox.confirm('{{Etes-vous sur de vouloir lancer le démon en mode debug ? N\'oubliez pas d\arrêter/redemarrer le démon une fois terminé}}', function (result) {
-        if (result) {
-            $('#md_modal').dialog({title: "{{EDISIO en mode debug}}"});
-            $('#md_modal').load('index.php?v=d&plugin=edisio&modal=show.debug').dialog('open');
-        }
-    });
-});
-
-   function edisio_postSaveConfiguration(){
-             $.ajax({// fonction permettant de faire de l'ajax
-            type: "POST", // methode de transmission des données au fichier php
-            url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
-            data: {
-                action: "restartDeamon",
-            },
-            dataType: 'json',
-            error: function (request, status, error) {
-                handleAjaxError(request, status, error);
-            },
-            success: function (data) { // si l'appel a bien fonctionné
-            if (data.state != 'ok') {
-                $('#div_alert').showAlert({message: data.result, level: 'danger'});
-                return;
-            }
-        }
-    });
-         }
-
-
-
-         function edisio_postSaveSlaveConfiguration(_slave_id){
-             $.ajax({// fonction permettant de faire de l'ajax
-            type: "POST", // methode de transmission des données au fichier php
-            url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
-            data: {
-                action: "restartSlaveDeamon",
-                id : _slave_id
-            },
-            dataType: 'json',
-            error: function (request, status, error) {
-                handleAjaxError(request, status, error);
-            },
-            success: function (data) { // si l'appel a bien fonctionné
-            if (data.state != 'ok') {
-                $('#div_alert').showAlert({message: data.result, level: 'danger'});
-                return;
-            }
-        }
-    });
-         }
-     </script>
+</script>

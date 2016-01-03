@@ -23,55 +23,9 @@ try {
 	if (!isConnect('admin')) {
 		throw new Exception('401 Unauthorized');
 	}
-    
-    if (init('action') == 'getModelList') {
-      ajax::success(edisio::getModelList(init('conf'),init('id')));
-    }
 
-	if (init('action') == 'restartDeamon') {
-		config::save('allowStartDeamon', 1, 'edisio');
-		$port = config::byKey('port', 'edisio', 'none');
-		if ($port == 'none') {
-			ajax::success();
-		}
-		edisio::stopDeamon();
-		if (edisio::deamonRunning()) {
-			throw new Exception(__('Impossible d\'arrêter le démon', __FILE__));
-		}
-		log::clear('edisiocmd');
-		edisio::runDeamon(init('debug', 0));
-		ajax::success();
-	}
-
-	if (init('action') == 'stopDeamon') {
-		edisio::stopDeamon();
-		if (edisio::deamonRunning()) {
-			throw new Exception(__('Impossible d\'arrêter le démon', __FILE__));
-		}
-		config::save('allowStartDeamon', 0, 'edisio');
-		ajax::success();
-	}
-
-	if (init('action') == 'restartSlaveDeamon') {
-		if (config::byKey('jeeNetwork::mode') == 'master') {
-			$jeeNetwork = jeeNetwork::byId(init('id'));
-			if (!is_object($jeeNetwork)) {
-				throw new Exception(__('Impossible de trouver l\'esclave : ', __FILE__) . init('id'));
-			}
-			$jeeNetwork->sendRawRequest('restartDeamon', array('plugin' => 'edisio', 'debug' => init('debug', 0)));
-		}
-		ajax::success();
-	}
-
-	if (init('action') == 'stopSlaveDeamon') {
-		if (config::byKey('jeeNetwork::mode') == 'master') {
-			$jeeNetwork = jeeNetwork::byId(init('id'));
-			if (!is_object($jeeNetwork)) {
-				throw new Exception(__('Impossible de trouver l\'esclave : ', __FILE__) . init('id'));
-			}
-			$jeeNetwork->sendRawRequest('stopDeamon', array('plugin' => 'edisio'));
-		}
-		ajax::success();
+	if (init('action') == 'getModelList') {
+		ajax::success(edisio::getModelList(init('conf'), init('id')));
 	}
 
 	throw new Exception('Aucune methode correspondante');
