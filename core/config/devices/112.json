@@ -7,6 +7,9 @@
                 "name": "Monter",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "FLAP_UP"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#011E010009640D0A",
                 "configuration" : 
@@ -20,6 +23,9 @@
                 "name": "Descendre",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "FLAP_DOWN"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#011E01001B640D0A",
                 "configuration" : 
@@ -33,6 +39,9 @@
                 "name": "Stop",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "FLAP_STOP"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#031E01000B640D0A",
                 "configuration" : 
@@ -44,6 +53,9 @@
                 "name": "E",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "DONT"
+                },
                 "isVisible": 0,
                 "logicalId" : "6C7663#ID#09011F000010640D0A"
             },
@@ -51,6 +63,9 @@
                 "name": "Etat",
                 "type": "info",
                 "subtype": "binary",
+                "display": {
+                    "generic_type": "FLAP_STATE"
+                },
                 "isVisible": 1,
                 "isHistorized": 0,
                 "unite": "",

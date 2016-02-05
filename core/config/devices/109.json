@@ -7,6 +7,9 @@
                 "name": "On",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "ENERGY_ON"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#031E010001640D0A&&6C7663#ID##GROUP#031E010009640D0A",
                 "configuration" : 
@@ -18,6 +21,9 @@
                 "name": "Off",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "ENERGY_OFF"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#031E010002640D0A&&6C7663#ID##GROUP#031E01001B640D0A",
                 "configuration" : 
@@ -29,6 +35,9 @@
                 "name": "On 2",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "ENERGY_ON"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#031E010001640D0A&&6C7663#ID##GROUP#031E010009640D0A",
                 "configuration" : 
@@ -40,6 +49,9 @@
                 "name": "Off 2",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "ENERGY_OFF"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#031E010002640D0A&&6C7663#ID##GROUP#031E01001B640D0A",
                 "configuration" : 
@@ -51,6 +63,9 @@
                 "name": "On 3",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "ENERGY_ON"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#031E010001640D0A&&6C7663#ID##GROUP#031E010009640D0A",
                 "configuration" : 
@@ -62,6 +77,9 @@
                 "name": "Off 3",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "ENERGY_OFF"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#031E010002640D0A&&6C7663#ID##GROUP#031E01001B640D0A",
                 "configuration" : 
@@ -73,6 +91,9 @@
                 "name": "E",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "DONT"
+                },
                 "isVisible": 0,
                 "logicalId" : "6C7663#ID#09031F000010640D0A"
             }

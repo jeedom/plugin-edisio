@@ -11,6 +11,9 @@
                 "name": "Batterie",
                 "type": "info",
                 "subtype": "numeric",
+                "display": {
+                    "generic_type": "BATTERY"
+                },
                 "isVisible": 0,
                 "isHistorized": 0,
                 "unite": "%",
@@ -27,7 +30,8 @@
                 "eventOnly": 1,
                 "logicalId": "bt01",
                 "display": {
-                    "invertBinary": "1"
+                    "invertBinary": "1",
+                    "generic_type": "OPENING"
                 },
                 "template": {
                     "dashboard": "door",

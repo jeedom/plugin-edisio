@@ -8,6 +8,9 @@
                 "name": "Batterie",
                 "type": "info",
                 "subtype": "numeric",
+                "display": {
+                    "generic_type": "BATTERY"
+                },
                 "isVisible": 0,
                 "isHistorized": 0,
                 "unite": "%",

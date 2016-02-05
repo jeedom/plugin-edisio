@@ -7,6 +7,9 @@
                 "name": "Etat",
                 "type": "info",
                 "subtype": "numeric",
+                "display": {
+                    "generic_type": "ENERGY_STATE"
+                },
                 "isVisible": 1,
                 "isHistorized": 0,
                 "eventOnly": 1,

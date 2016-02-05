@@ -10,6 +10,9 @@
                 "name": "On",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "HEATING_ON"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#1621050001640D0A",
                 "configuration" : 
@@ -23,6 +26,9 @@
                 "name": "Off",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "HEATING_OFF"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#1621050002640D0A",
                 "configuration" : 
@@ -36,6 +42,9 @@
                 "name": "Arrêt",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "HEATING_OFF"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#1621050060640D0A",
                 "configuration" : 
@@ -49,6 +58,9 @@
                 "name": "Hors-gel",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "HEATING_OTHER"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#1621050061640D0A",
                 "configuration" : 
@@ -62,6 +74,9 @@
                 "name": "Eco",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "HEATING_OTHER"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#1621050062640D0A",
                 "configuration" : 
@@ -75,6 +90,9 @@
                 "name": "Confort",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "HEATING_OTHER"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#1621050001640D0A",
                 "configuration" : 
@@ -88,6 +106,9 @@
                 "name": "Etat",
                 "type": "info",
                 "subtype": "string",
+                "display": {
+                    "generic_type": "HEATING_STATE"
+                },
                 "isVisible": 1,
                 "isHistorized": 0,
                 "unite": "",

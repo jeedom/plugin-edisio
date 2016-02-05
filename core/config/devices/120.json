@@ -7,6 +7,9 @@
                 "name": "On 1",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "ENERGY_ON"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#051E010001640D0A&&6C7663#ID##GROUP#051E010009640D0A",
                 "configuration" : 
@@ -18,6 +21,9 @@
                 "name": "Off 1",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "ENERGY_OFF"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#051E010002640D0A&&6C7663#ID##GROUP#051E01001B640D0A",
                 "configuration" : 
@@ -29,6 +35,9 @@
                 "name": "Inverser 1",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "DONT"
+                },
                 "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#021E010003640D0A",
                 "configuration" : 
@@ -40,6 +49,9 @@
                 "name": "On 2",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "ENERGY_ON"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#051E010001640D0A&&6C7663#ID##GROUP#051E010009640D0A",
                 "configuration" : 
@@ -51,6 +63,9 @@
                 "name": "Off 2",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "ENERGY_OFF"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#051E010002640D0A&&6C7663#ID##GROUP#051E01001B640D0A",
                 "configuration" : 
@@ -62,6 +77,9 @@
                 "name": "Inverser 2",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "DONT"
+                },
                 "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#021E010003640D0A",
                 "configuration" : 
@@ -73,6 +91,9 @@
                 "name": "On 3",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "ENERGY_ON"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#051E010001640D0A&&6C7663#ID##GROUP#051E010009640D0A",
                 "configuration" : 
@@ -84,6 +105,9 @@
                 "name": "Off 3",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "ENERGY_OFF"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#051E010002640D0A&&6C7663#ID##GROUP#051E01001B640D0A",
                 "configuration" : 
@@ -95,6 +119,9 @@
                 "name": "Inverser 3",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "DONT"
+                },
                 "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#021E010003640D0A",
                 "configuration" : 
@@ -106,6 +133,9 @@
                 "name": "On 4",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "ENERGY_ON"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#051E010001640D0A&&6C7663#ID##GROUP#051E010009640D0A",
                 "configuration" : 
@@ -117,6 +147,9 @@
                 "name": "Off 4",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "ENERGY_OFF"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#051E010002640D0A&&6C7663#ID##GROUP#051E01001B640D0A",
                 "configuration" : 
@@ -128,6 +161,9 @@
                 "name": "Inverser 4",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "DONT"
+                },
                 "isVisible": 0,
                 "logicalId" : "6C7663#ID##GROUP#021E010003640D0A",
                 "configuration" : 
@@ -139,6 +175,9 @@
                 "name": "E",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "DONT"
+                },
                 "isVisible": 0,
                 "logicalId" : "6C7663#ID#09051F000010640D0A"
             }

@@ -7,6 +7,9 @@
                 "name": "On",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "LIGHT_ON"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#021E010001640D0A&&6C7663#ID##GROUP#021E010009640D0A",
                 "configuration" : 
@@ -20,6 +23,9 @@
                 "name": "Off",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "LIGHT_OFF"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#021E010002640D0A&&6C7663#ID##GROUP#021E01001B640D0A",
                 "configuration" : 
@@ -33,6 +39,9 @@
                 "name": "On 2",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "LIGHT_ON"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#021E010001640D0A&&6C7663#ID##GROUP#021E010009640D0A",
                 "configuration" : 
@@ -46,6 +55,9 @@
                 "name": "Off 2",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "LIGHT_OFF"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID##GROUP#021E010002640D0A&&6C7663#ID##GROUP#021E01001B640D0A",
                 "configuration" : 
@@ -59,6 +71,9 @@
                 "name": "Minuterie Off",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "DONT"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID#09021F000010640D0A&&6C7663#ID#09021F000010640D0A&&6C7663#ID#09021F000010640D0A&&6C7663#ID#09021F000010640D0A"
             },
@@ -66,6 +81,9 @@
                 "name": "Minuterie On",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "DONT"
+                },
                 "isVisible": 1,
                 "logicalId" : "6C7663#ID#09021F000010640D0A&&6C7663#ID#09021F000010640D0A&&6C7663#ID#09021F000010640D0A&&6C7663#ID#09021F000010640D0A&&6C7663#ID#09021F000010640D0A"
             },
@@ -73,6 +91,9 @@
                 "name": "E",
                 "type": "action",
                 "subtype": "other",
+                "display": {
+                    "generic_type": "DONT"
+                },
                 "isVisible": 0,
                 "logicalId" : "6C7663#ID#09021F000010640D0A"
             },
@@ -80,6 +101,9 @@
                 "name": "Etat 1",
                 "type": "info",
                 "subtype": "binary",
+                "display": {
+                    "generic_type": "LIGHT_STATE"
+                },
                 "isVisible": 1,
                 "isHistorized": 0,
                 "unite": "",
@@ -89,6 +113,9 @@
                 "name": "Etat 2",
                 "type": "info",
                 "subtype": "binary",
+                "display": {
+                    "generic_type": "LIGHT_STATE"
+                },
                 "isVisible": 1,
                 "isHistorized": 0,
                 "unite": "",
