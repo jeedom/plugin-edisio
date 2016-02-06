@@ -19,7 +19,16 @@
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
 function edisio_update() {
-
+	foreach (eqLogic::byType('edisio') as $eqLogic) {
+		$device = edisio::devicesParameters($eqLogic->getConfiguration('device'));
+		foreach ($device['commands'] as $command) {
+			$cmd = $eqLogic->getCmd(null, $command['logicalId']);
+			if (is_object($cmd) && $cmd->getDisplay('generic_type') == '' && isset($command['display']['generic_type'])) {
+				$cmd->setDisplay('generic_type', $command['display']['generic_type']);
+				$cmd->save();
+			}
+		}
+	}
 }
 
 function edisio_remove() {
