@@ -174,21 +174,21 @@ foreach ($groups as $group) {
        <div class="form-group expertModeVisible">
           <label class="col-sm-3 control-label">{{Création}}</label>
           <div class="col-sm-3">
-            <span class="eqLogicAttr label label-default" data-l1key="configuration" data-l2key="createtime"></span>
+            <span class="eqLogicAttr label label-default" data-l1key="configuration" data-l2key="createtime" style="font-size : 1em;cursor : default;"></span>
         </div>
         <label class="col-sm-3 control-label">{{Status}}</label>
         <div class="col-sm-2">
-            <span class="eqLogicAttr label label-default tooltips" data-l1key="status" data-l2key="state"></span>
+            <span class="eqLogicAttr label label-default tooltips" data-l1key="status" data-l2key="state" style="font-size : 1em;cursor : default;"></span>
         </div>
     </div>
     <div class="form-group expertModeVisible">
         <label class="col-sm-3 control-label hasCommunication">{{Communication}}</label>
         <div class="col-sm-3 hasCommunication">
-            <span class="eqLogicAttr label label-default" data-l1key="status" data-l2key="lastCommunication"></span>
+            <span class="eqLogicAttr label label-default" data-l1key="status" data-l2key="lastCommunication" style="font-size : 1em;cursor : default;"></span>
         </div>
         <label class="col-sm-3 control-label hasBatterie">{{Batterie}}</label>
         <div class="col-sm-3 hasBatterie">
-            <span class="eqLogicAttr label label-default tooltips" data-l1key="configuration" data-l2key="batteryStatus"></span> %
+            <span class="eqLogicAttr label label-default tooltips" data-l1key="configuration" data-l2key="batteryStatus" style="font-size : 1em;cursor : default;"></span> %
         </div>
     </div>
     <div class="form-group modelList" style="display:none;">
