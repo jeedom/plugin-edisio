@@ -35,31 +35,31 @@ foreach ($eqLogics as $eqLogic) {
         </center>
         <span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#94ca02"><center>{{Ajouter}}</center></span>
     </div>
-   <div class="cursor" id="bt_configEdisio" style="background-color : #ffffff; height : 120px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" onclick="window.location='index.php?v=d&p=plugin&id=edisio';" >
+   <div class="cursor eqLogicAction" data-action="gotoPluginConf" style="background-color : #ffffff; height : 120px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;">
         <center>
         <i class="fa fa-wrench" style="font-size : 5em;color:#767676;"></i>
       </center>
-      <span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Configuration}}</center></span>      
+      <span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Configuration}}</center></span>
       </div>
       <div class="cursor" id="bt_healthEdisio" style="background-color : #ffffff; height : 120px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
         <center>
         <i class="fa fa-medkit" style="font-size : 5em;color:#767676;"></i>
       </center>
-      <span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Santé}}</center></span>      
+      <span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Santé}}</center></span>
       </div>
 	</div>
     <legend><i class="fa fa-table"></i>  {{Mes équipements EDISIO}}</legend>
     <div class="eqLogicThumbnailContainer">
-       
+
     <?php
 foreach ($eqLogics as $eqLogic) {
 	$opacity = ($eqLogic->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
 	echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
 	echo "<center>";
-    $alternateImg = $eqLogic->getConfiguration('iconModel');
-    if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $alternateImg . '.jpg')) {
-        echo '<img class="lazy" src="plugins/edisio/core/config/devices/' . $alternateImg . '.jpg" height="105" width="95" />';
-    } elseif (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $eqLogic->getConfiguration('device') . '.jpg')) {
+	$alternateImg = $eqLogic->getConfiguration('iconModel');
+	if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $alternateImg . '.jpg')) {
+		echo '<img class="lazy" src="plugins/edisio/core/config/devices/' . $alternateImg . '.jpg" height="105" width="95" />';
+	} elseif (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $eqLogic->getConfiguration('device') . '.jpg')) {
 		echo '<img class="lazy" src="plugins/edisio/core/config/devices/' . $eqLogic->getConfiguration('device') . '.jpg" height="105" width="95" />';
 	} else {
 		echo '<img class="lazy" src="plugins/edisio/doc/images/edisio_icon.png" height="105" width="95" />';
@@ -161,27 +161,27 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
 $groups = array();
 
 foreach (edisio::devicesParameters() as $key => $info) {
-    if (isset($info['groupe'])) {
-        $info['key'] = $key;
-        if (!isset($groups[$info['groupe']])) {
-           $groups[$info['groupe']][0] = $info;
-        } else {
-           array_push($groups[$info['groupe']], $info);
-        }
-    }
+	if (isset($info['groupe'])) {
+		$info['key'] = $key;
+		if (!isset($groups[$info['groupe']])) {
+			$groups[$info['groupe']][0] = $info;
+		} else {
+			array_push($groups[$info['groupe']], $info);
+		}
+	}
 }
 ksort($groups);
 foreach ($groups as $group) {
-     usort($group, function ($a, $b) {
-        return strcmp($a['name'], $b['name']);
-     });
-     foreach ($group as $key => $info){
-         if ($key == 0) {
-              echo '<optgroup label="{{'. $info['groupe'] . '}}">';
-         }
-         echo '<option value="' . $info['key'] . '">' . $info['name'] . '</option>';
-     }
-     echo '</optgroup>';
+	usort($group, function ($a, $b) {
+		return strcmp($a['name'], $b['name']);
+	});
+	foreach ($group as $key => $info) {
+		if ($key == 0) {
+			echo '<optgroup label="{{' . $info['groupe'] . '}}">';
+		}
+		echo '<option value="' . $info['key'] . '">' . $info['name'] . '</option>';
+	}
+	echo '</optgroup>';
 }
 ?>
                </select>
