@@ -27,21 +27,37 @@ foreach ($eqLogics as $eqLogic) {
    </div>
 
    <div class="col-lg-10 col-md-9 col-sm-8 eqLogicThumbnailDisplay" style="border-left: solid 1px #EEE; padding-left: 25px;">
-    <legend>{{Mes équipements EDISIO}}</legend>
-    <div class="eqLogicThumbnailContainer">
-       <div class="cursor eqLogicAction" data-action="add" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
+   <legend><i class="fa fa-cog"></i>  {{Gestion}}</legend>
+   <div class="eqLogicThumbnailContainer">
+   <div class="cursor eqLogicAction" data-action="add" style="background-color : #ffffff; height : 120px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
          <center>
-            <i class="fa fa-plus-circle" style="font-size : 7em;color:#94ca02;"></i>
+            <i class="fa fa-plus-circle" style="font-size : 5em;color:#94ca02;"></i>
         </center>
-        <span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#94ca02"><center>{{Ajouter}}</center></span>
+        <span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#94ca02"><center>{{Ajouter}}</center></span>
     </div>
+   <div class="cursor" id="bt_configEdisio" style="background-color : #ffffff; height : 120px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" onclick="window.location='index.php?v=d&p=plugin&id=edisio';" >
+        <center>
+        <i class="fa fa-wrench" style="font-size : 5em;color:#767676;"></i>
+      </center>
+      <span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Configuration}}</center></span>      
+      </div>
+      <div class="cursor" id="bt_healthEdisio" style="background-color : #ffffff; height : 120px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
+        <center>
+        <i class="fa fa-medkit" style="font-size : 5em;color:#767676;"></i>
+      </center>
+      <span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Santé}}</center></span>      
+      </div>
+	</div>
+    <legend><i class="fa fa-table"></i>  {{Mes équipements EDISIO}}</legend>
+    <div class="eqLogicThumbnailContainer">
+       
     <?php
 foreach ($eqLogics as $eqLogic) {
 	$opacity = ($eqLogic->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
 	echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
 	echo "<center>";
-	$alternateImg = $eqLogic->getConfiguration('iconModel','');
-    if ($alternateImg != '' && file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $alternateImg . '.jpg')) {
+    $alternateImg = $eqLogic->getConfiguration('iconModel');
+    if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $alternateImg . '.jpg')) {
         echo '<img class="lazy" src="plugins/edisio/core/config/devices/' . $alternateImg . '.jpg" height="105" width="95" />';
     } elseif (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $eqLogic->getConfiguration('device') . '.jpg')) {
 		echo '<img class="lazy" src="plugins/edisio/core/config/devices/' . $eqLogic->getConfiguration('device') . '.jpg" height="105" width="95" />';
@@ -135,7 +151,7 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
 <div class="col-sm-6">
     <form class="form-horizontal">
         <fieldset>
-            <legend>Informations</legend>
+            <legend><i class="fa fa-info-circle"></i>  Informations</legend>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Equipement</label>
                 <div class="col-sm-6">
@@ -215,10 +231,10 @@ foreach ($groups as $group) {
     </fieldset>
 </form>
 
-<legend>Commandes</legend>
+<legend><i class="fa fa-list-alt"></i>  {{Commandes}}</legend>
 
 
-<a class="btn btn-success btn-sm cmdAction" data-action="add"><i class="fa fa-plus-circle"></i> Ajouter une commande</a><br/><br/>
+<a class="btn btn-success btn-sm cmdAction" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter une commande}}</a><br/><br/>
 <table id="table_cmd" class="table table-bordered table-condensed">
     <thead>
         <tr>
