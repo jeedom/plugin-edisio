@@ -70,7 +70,7 @@ if (config::byKey('autoDiscoverEqLogic', 'edisio', 0) == 1) {
     <span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Santé}}</center></span>
   </div>
 </div>
-<legend><i class="fa fa-table"></i>  {{Mes équipements EDISIO}}</legend>
+<legend><i class="fa fa-table"></i> {{Mes équipements EDISIO}}</legend>
 <div class="eqLogicThumbnailContainer">
 
   <?php
