@@ -43,12 +43,28 @@ class edisio extends eqLogic {
 		if (config::byKey('autoDiscoverEqLogic', 'edisio') == 0) {
 			return false;
 		}
+		event::add('jeedom::alert', array(
+			'level' => 'warning',
+			'page' => 'edisio',
+			'message' => __('Nouveau module detecté', __FILE__),
+		));
+		sleep(2);
 		$banId = explode(' ', config::byKey('banRfxId', 'edisio'));
 		if (in_array($_def['id'], $banId)) {
+			event::add('jeedom::alert', array(
+				'level' => 'danger',
+				'page' => 'edisio',
+				'message' => __('Le module a un id banni. Inclusion impossible', __FILE__),
+			));
 			return false;
 		}
 		if (!isset($_def['mid']) || !isset($_def['id'])) {
 			log::add('edisio', 'error', 'Information manquante pour ajouter l\'équipement : ' . print_r($_def, true));
+			event::add('jeedom::alert', array(
+				'level' => 'danger',
+				'page' => 'edisio',
+				'message' => __('Information manquante pour ajouter l\'équipement. Inclusion impossible', __FILE__),
+			));
 			return false;
 		}
 
@@ -64,6 +80,12 @@ class edisio extends eqLogic {
 		$eqLogic->setConfiguration('device', $_def['mid']);
 		$eqLogic->save();
 		$eqLogic->applyModuleConfiguration();
+		event::add('jeedom::alert', array(
+			'level' => 'warning',
+			'page' => 'edisio',
+			'message' => __('Module inclu avec succès', __FILE__),
+		));
+		sleep(2);
 		return $eqLogic;
 	}
 

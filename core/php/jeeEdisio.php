@@ -39,6 +39,12 @@ if (!is_object($edisio)) {
 		log::add('edisio', 'debug', 'Aucun équipement trouvé pour : ' . secureXSS($_GET['id']));
 		die();
 	}
+	event::add('jeedom::alert', array(
+		'level' => 'warning',
+		'page' => 'edisio',
+		'message' => '',
+	));
+	event::add('edisio::includeDevice', $edisio->getId());
 }
 
 if ($_GET['mid'] == 1 || $_GET['mid'] == 2 || $_GET['mid'] == 3 || $_GET['mid'] == 4 || $_GET['mid'] == 5 || $_GET['mid'] == 7 || $_GET['mid'] == 9) {
