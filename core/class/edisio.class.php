@@ -68,8 +68,8 @@ class edisio extends eqLogic {
 			return false;
 		}
 
-		$edisio = edisio::byLogicalId($_def['id'], 'edisio');
-		if (!is_object($edisio)) {
+		$eqLogic = edisio::byLogicalId($_def['id'], 'edisio');
+		if (!is_object($eqLogic)) {
 			$eqLogic = new edisio();
 			$eqLogic->setName($_def['id']);
 		}
