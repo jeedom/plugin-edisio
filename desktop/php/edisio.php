@@ -253,7 +253,7 @@ foreach ($groups as $group) {
   </fieldset>
 </form>
 
-<legend><i class="fa fa-list-alt"></i>  {{Commandes}}</legend>
+<legend><i class="fa fa-list-alt"></i> {{Commandes}}</legend>
 
 
 <a class="btn btn-success btn-sm cmdAction" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter une commande}}</a><br/><br/>
