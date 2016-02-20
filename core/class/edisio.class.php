@@ -67,7 +67,7 @@ class edisio extends eqLogic {
 			));
 			return false;
 		}
-
+		config::save('autoDiscoverEqLogic', 0, 'edisio');
 		$eqLogic = edisio::byLogicalId($_def['id'], 'edisio');
 		if (!is_object($eqLogic)) {
 			$eqLogic = new edisio();
