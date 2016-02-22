@@ -104,14 +104,14 @@ foreach ($eqLogics as $eqLogic) {
             <a class="btn btn-xs btn-default pull-right eqLogicAction" data-action="copy"><i class="fa fa-files-o"></i> {{Dupliquer}}</a>
           </legend>
           <div class="form-group">
-            <label class="col-sm-3 control-label">Nom de l'équipement EDISIO</label>
+            <label class="col-sm-3 control-label">{{Nom de l'équipement EDISIO}}</label>
             <div class="col-sm-4">
               <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
               <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="Nom de l'équipement EDISIO"/>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-3 control-label">ID</label>
+            <label class="col-sm-3 control-label">{{ID}}</label>
             <div class="col-sm-4">
               <input type="text" class="eqLogicAttr form-control" data-l1key="logicalId" placeholder="Logical ID"/>
             </div>
@@ -124,10 +124,10 @@ foreach ($eqLogics as $eqLogic) {
            </div>
          </div>
          <div class="form-group">
-          <label class="col-sm-3 control-label" >Objet parent</label>
+          <label class="col-sm-3 control-label" >{{Objet parent}}</label>
           <div class="col-sm-4">
             <select class="eqLogicAttr form-control" data-l1key="object_id">
-              <option value="">Aucun</option>
+              <option value="">{{Aucun}}</option>
               <?php
 foreach (object::all() as $object) {
 	echo '<option value="' . $object->getId() . '">' . $object->getName() . '</option>';
@@ -137,7 +137,7 @@ foreach (object::all() as $object) {
          </div>
        </div>
        <div class="form-group">
-        <label class="col-sm-3 control-label">Catégorie</label>
+        <label class="col-sm-3 control-label">{{Catégorie}}</label>
         <div class="col-sm-9">
           <?php
 foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
@@ -173,12 +173,12 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
 <div class="col-sm-6">
   <form class="form-horizontal">
     <fieldset>
-      <legend><i class="fa fa-info-circle"></i>  Informations</legend>
+      <legend><i class="fa fa-info-circle"></i>  {{Informations}}</legend>
       <div class="form-group">
-        <label class="col-sm-3 control-label">Equipement</label>
+        <label class="col-sm-3 control-label">{{Equipement}}</label>
         <div class="col-sm-6">
          <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="device">
-          <option value="">Aucun</option>
+          <option value="">{{Aucun}}</option>
           <?php
 $groups = array();
 
@@ -214,7 +214,7 @@ foreach ($groups as $group) {
   <div class="col-sm-3">
     <span class="eqLogicAttr label label-default" data-l1key="configuration" data-l2key="createtime" style="font-size : 1em;cursor : default;"></span>
   </div>
-  <label class="col-sm-3 control-label">{{Status}}</label>
+  <label class="col-sm-3 control-label">{{Statut}}</label>
   <div class="col-sm-2">
     <span class="eqLogicAttr label label-default tooltips" data-l1key="status" data-l2key="state" style="font-size : 1em;cursor : default;"></span>
   </div>
@@ -230,7 +230,7 @@ foreach ($groups as $group) {
   </div>
 </div>
 <div class="form-group modelList" style="display:none;">
-  <label class="col-sm-3 control-label">Modèle</label>
+  <label class="col-sm-3 control-label">{{Modèle}}</label>
   <div class="col-sm-6">
    <select class="eqLogicAttr form-control listModel" data-l1key="configuration" data-l2key="iconModel">
    </select>
@@ -247,8 +247,8 @@ foreach ($groups as $group) {
 <form class="form-horizontal">
   <fieldset>
     <div class="form-actions" align="right">
-      <a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> Supprimer</a>
-      <a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> Sauvegarder</a>
+      <a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
+      <a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
     </div>
   </fieldset>
 </form>
@@ -260,11 +260,11 @@ foreach ($groups as $group) {
 <table id="table_cmd" class="table table-bordered table-condensed">
   <thead>
     <tr>
-      <th style="width: 300px;">Nom</th>
-      <th style="width: 130px;" class="expertModeVisible">Type</th>
-      <th class="expertModeVisible">Logical ID (info) ou Commande brute (action)</th>
-      <th >Paramètres</th>
-      <th style="width: 100px;">Options</th>
+      <th style="width: 300px;">{{Nom}}</th>
+      <th style="width: 130px;" class="expertModeVisible">{{Type}}</th>
+      <th class="expertModeVisible">{{Logical ID (info) ou Commande brute (action)}}</th>
+      <th>{{Paramètres}}</th>
+      <th style="width: 100px;">{{Options}}</th>
       <th></th>
     </tr>
   </thead>
@@ -276,8 +276,8 @@ foreach ($groups as $group) {
 <form class="form-horizontal">
   <fieldset>
     <div class="form-actions">
-      <a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> Supprimer</a>
-      <a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> Sauvegarder</a>
+      <a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
+      <a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
     </div>
   </fieldset>
 </form>
