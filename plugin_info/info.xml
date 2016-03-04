@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <info>
-    <id>edisio</id>
-    <name>Edisio</name>
-    <licence>AGPL</licence>
-    <author>Loïc Gevrey</author>
-    <require>2.0</require>
-    <category>automation protocol</category>
-    <allowRemote>1</allowRemote>
-    <hasOwnDeamon>1</hasOwnDeamon>
+	<id>edisio</id>
+	<name>Edisio</name>
+	<licence>AGPL</licence>
+	<author>Loïc Gevrey</author>
+	<require>2.0</require>
+	<category>automation protocol</category>
+	<allowRemote>1</allowRemote>
+	<hasOwnDeamon>1</hasOwnDeamon>
+	<hasDependency>1</hasDependency>
 </info>
 
