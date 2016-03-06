@@ -9,3 +9,5 @@ include::configuration.asciidoc[]
 
 == Liste des modules compatible
 Vous trouverez la liste des modules compatibles link:https://jeedom.fr/doc/documentation/edisio-modules/fr_FR/doc-edisio-modules-equipement.compatible.html[ici]
+
+include::faq.asciidoc[]
