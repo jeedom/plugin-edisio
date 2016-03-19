@@ -47,6 +47,10 @@ if (!is_object($edisio)) {
 	event::add('edisio::includeDevice', $edisio->getId());
 }
 
+if (!$edisio->getIsEnable()) {
+	die();
+}
+
 if ($_GET['mid'] == 1 || $_GET['mid'] == 2 || $_GET['mid'] == 3 || $_GET['mid'] == 4 || $_GET['mid'] == 5 || $_GET['mid'] == 7 || $_GET['mid'] == 9) {
 	$logicalId = 'bt' . $_GET['bt'];
 	$value = $_GET['value'];
@@ -101,9 +105,7 @@ if ($_GET['mid'] == 1 || $_GET['mid'] == 2 || $_GET['mid'] == 3 || $_GET['mid'] 
 		if ($_GET['battery'] > 100) {
 			$_GET['battery'] = 100;
 		}
-		if ($edisio->getIsEnable() == 1 && $edisio->getConfiguration('noBatterieCheck', 0) != 1) {
-			$edisio->batteryStatus($_GET['battery']);
-		}
+		$edisio->batteryStatus($_GET['battery']);
 		if (null !== $edisio->getCmd('info', 'battery')) {
 			$edisio->getCmd('info', 'battery')->event($_GET['battery']);
 		}
@@ -119,9 +121,7 @@ foreach ($edisio->getCmd('info') as $cmd) {
 				$_GET[$logicalId] = 100;
 			}
 			$cmd->event($_GET[$logicalId]);
-			if ($edisio->getIsEnable() == 1 && $edisio->getConfiguration('noBatterieCheck', 0) != 1) {
-				$edisio->batteryStatus($_GET[$logicalId]);
-			}
+			$edisio->batteryStatus($_GET[$logicalId]);
 		} else {
 			$value = trim($_GET[$logicalId]);
 			$cmd->event($value);
