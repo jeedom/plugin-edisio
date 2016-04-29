@@ -50,12 +50,11 @@ if (!is_object($edisio)) {
 if (!$edisio->getIsEnable()) {
 	die();
 }
-
-if ($_GET['mid'] == 1 || $_GET['mid'] == 2 || $_GET['mid'] == 3 || $_GET['mid'] == 4 || $_GET['mid'] == 5 || $_GET['mid'] == 7 || $_GET['mid'] == 9) {
+if ($_GET['mid'] == '1' || $_GET['mid'] == '2' || $_GET['mid'] == '3' || $_GET['mid'] == '4' || $_GET['mid'] == '5' || $_GET['mid'] == '7' || $_GET['mid'] == '9') {
 	$logicalId = 'bt' . $_GET['bt'];
 	$value = $_GET['value'];
 	$cmdArray = array($logicalId);
-	if ($_GET['mid'] == 1) {
+	if ($_GET['mid'] == '1') {
 		$cmdArray = array($logicalId, $logicalId . 'long');
 	}
 	foreach ($cmdArray as $logicalIdToCheck) {
@@ -123,7 +122,10 @@ foreach ($edisio->getCmd('info') as $cmd) {
 			$cmd->event($_GET[$logicalId]);
 			$edisio->batteryStatus($_GET[$logicalId]);
 		} else {
+		log::add('edisio', 'debug', $logicalId);
 			$value = trim($_GET[$logicalId]);
+			
+		log::add('edisio', 'debug', $value);
 			$cmd->event($value);
 		}
 	}

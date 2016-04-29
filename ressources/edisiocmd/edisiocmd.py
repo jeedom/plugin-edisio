@@ -662,11 +662,11 @@ def decodePacket(message):
 	if MID == '1D':
 		decode_string += "\nDecode model : \t\t= EMC-CAR (Trigger)"
 		if CMD == '0B':
-			action['state'] = '0'
-		if CMD == '01':
 			action['state'] = '1'
-		if CMD == '09':
+		if CMD == '0A':
 			action['state'] = '2'
+		if CMD == '09':
+			action['state'] = '3'
 		command = Command(config.trigger_url,action)
 		command.run(timeout=config.trigger_timeout)
 
