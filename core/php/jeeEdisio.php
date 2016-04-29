@@ -122,10 +122,7 @@ foreach ($edisio->getCmd('info') as $cmd) {
 			$cmd->event($_GET[$logicalId]);
 			$edisio->batteryStatus($_GET[$logicalId]);
 		} else {
-		log::add('edisio', 'debug', $logicalId);
 			$value = trim($_GET[$logicalId]);
-			
-		log::add('edisio', 'debug', $value);
 			$cmd->event($value);
 		}
 	}
