@@ -18,7 +18,7 @@
 if (!isConnect('admin')) {
 	throw new Exception('401 Unauthorized');
 }
-$eqLogics = edisio::byType('edisio');
+$eqLogics = openzwave::byType('edisio');
 ?>
 
 <table class="table table-condensed tablesorter" id="table_healthedisio">
@@ -44,11 +44,11 @@ foreach ($eqLogics as $eqLogic) {
 	echo '<td>' . $status . '</td>';
 	$battery_status = '<span class="label label-success" style="font-size : 1em;">{{OK}}</span>';
 	$battery = $eqLogic->getConfiguration('batteryStatus');
-	if ($battery < 20) {
+	if ($battery < 20 && $battery != '') {
 		$battery_status = '<span class="label label-danger" style="font-size : 1em;">' . $battery . '%</span>';
-	} elseif ($battery < 60) {
+	} elseif ($battery < 60 && $battery != '') {
 		$battery_status = '<span class="label label-warning" style="font-size : 1em;">' . $battery . '%</span>';
-	} elseif ($battery > 60) {
+	} elseif ($battery > 60 && $battery != '') {
 		$battery_status = '<span class="label label-success" style="font-size : 1em;">' . $battery . '%</span>';
 	} else {
 		$battery_status = '<span class="label label-primary" style="font-size : 1em;" title="{{Secteur}}"><i class="fa fa-plug"></i></span>';
