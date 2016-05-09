@@ -187,7 +187,7 @@ class edisio extends eqLogic {
 		if ($deamon_info['launchable'] != 'ok') {
 			throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
 		}
-		log::remove('edisiocmd');
+		//log::remove('edisiocmd');
 		$port = config::byKey('port', 'edisio');
 		if ($port != 'auto') {
 			$port = jeedom::getUsbMapping($port);
@@ -195,7 +195,7 @@ class edisio extends eqLogic {
 		$edisio_path = realpath(dirname(__FILE__) . '/../../ressources/edisiocmd');
 		$cmd = '/usr/bin/python ' . $edisio_path . '/edisiocmd.py';
 		$cmd .= ' --device=' . $port;
-		$cmd .= ' --loglevel=debug';
+		$cmd .= ' --loglevel=' . log::convertLogLevel(log::getLogLevel('edisio'));
 		$cmd .= ' --pidfile=' . '/tmp/edisio.pid';
 		$cmd .= ' --socketport=' . config::byKey('socketport', 'edisio', 55005);
 		if (config::byKey('jeeNetwork::mode') == 'slave') {
@@ -208,8 +208,7 @@ class edisio extends eqLogic {
 			$cmd .= ' --apikey=' . config::byKey('api');
 		}
 		log::add('edisiocmd', 'info', 'Lancement démon edisiocmd : ' . $cmd);
-		$result = exec($cmd . ' >> ' . log::getPathToLog('edisiocmd') . ' 2>&1 &');
-
+		$result = exec($cmd . ' >> ' . log::getPathToLog('edisio') . ' 2>&1 &');
 		$i = 0;
 		while ($i < 30) {
 			$deamon_info = self::deamon_info();
@@ -224,7 +223,7 @@ class edisio extends eqLogic {
 			return false;
 		}
 		message::removeAll('edisio', 'unableStartDeamon');
-		log::add('edisiocmd', 'info', 'Démon EDISIO lancé');
+		log::add('edisio', 'info', 'Démon EDISIO lancé');
 		return true;
 	}
 

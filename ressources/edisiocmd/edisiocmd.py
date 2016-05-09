@@ -37,12 +37,6 @@ from os.path import join
 import serial
 
 try:
-	from lib.edisio_utils import *
-except ImportError:
-	print "Error: module lib/edisio_utils not found"
-	sys.exit(1)
-
-try:
 	from jeedom.jeedom import *
 except ImportError:
 	print "Error: importing module from jeedom folder"
@@ -67,26 +61,26 @@ def decodePacket(message):
 	unixtime_utc_check = datetime.datetime.utcnow()
 	logging.debug(unixtime_utc)
 	# Verify incoming message
-	if not test_edisio( ByteToHex(message) ):
-		logging.error("The incoming message is invalid (" + ByteToHex(message) + ")")
+	if not test_edisio( jeedom_utils.ByteToHex(message) ):
+		logging.error("The incoming message is invalid (" + jeedom_utils.ByteToHex(message) + ")")
 		return
 	
-	raw_message = ByteToHex(message)
+	raw_message = jeedom_utils.ByteToHex(message)
 	raw_message = raw_message.replace(' ', '')
 
-	PID = ByteToHex(message[3]) + ByteToHex(message[4]) + ByteToHex(message[5]) + ByteToHex(message[6])
-	BID = ByteToHex(message[7])
-	MID = ByteToHex(message[8])
-	BL = ByteToHex(message[9])
-	RMAX = ByteToHex(message[10])
-	RC = ByteToHex(message[11])
-	CMD = ByteToHex(message[12])
+	PID = jeedom_utils.ByteToHex(message[3]) + jeedom_utils.ByteToHex(message[4]) + jeedom_utils.ByteToHex(message[5]) + jeedom_utils.ByteToHex(message[6])
+	BID = jeedom_utils.ByteToHex(message[7])
+	MID = jeedom_utils.ByteToHex(message[8])
+	BL = jeedom_utils.ByteToHex(message[9])
+	RMAX = jeedom_utils.ByteToHex(message[10])
+	RC = jeedom_utils.ByteToHex(message[11])
+	CMD = jeedom_utils.ByteToHex(message[12])
 	DATA = 'None'
 
 	if len(message) > 16:
 		DATA = ''
 		for i in range(0,len(message) - 16):
-			DATA += ByteToHex(message[13 + i])
+			DATA += jeedom_utils.ByteToHex(message[13 + i])
 
 	clean_message = str(PID) + str(BID) + str(MID) + str(RMAX) + str(CMD) + str(DATA)
 
@@ -133,7 +127,7 @@ def decodePacket(message):
 
 	action = {'id' : str(PID), 'battery' : str(BL), 'mid' : str(MID)}
 
-	key = str(PID)+str(MID)+str(CMD)
+	key = str(PID)+str(MID)+str(CMD)+str(BID)
 	value = ''
 
 	if CMD == '01':
@@ -258,31 +252,31 @@ def decodePacket(message):
 		decode_string += "\nDecode model : \t\t= Emitter Channel 1"
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes(str(PID),action);
+		jeedom_com.add_changes('devices::'+str(key),action);
 
 	if MID == '02':
 		decode_string += "\nDecode model : \t\t= Emitter Channel 2"
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes(str(PID),action);
+		jeedom_com.add_changes('devices::'+str(key),action);
 
 	if MID == '03':
 		decode_string += "\nDecode model : \t\t= Emitter Channel 3"
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes(str(PID),action);
+		jeedom_com.add_changes('devices::'+str(key),action);
 
 	if MID == '04':
 		decode_string += "\nDecode model : \t\t= Emitter Channel 4"
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes(str(PID),action);
+		jeedom_com.add_changes('devices::'+str(key),action);
 
 	if MID == '05':
 		decode_string += "\nDecode model : \t\t= Emitter Channel 5"
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes(str(PID),action);
+		jeedom_com.add_changes('devices::'+str(key),action);
 
 	if MID == '06':
 		decode_string += "\nDecode model : \t\t= Energy Meter"
@@ -291,7 +285,7 @@ def decodePacket(message):
 		decode_string += "\nDecode model : \t\t= Motion Sensor (On/Off/Pulse)"
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes(str(PID),action);
+		jeedom_com.add_changes('devices::'+str(key),action);
 
 	if MID == '08':
 		decode_string += "\nDecode model : \t\t= Temperature Sensor"
@@ -301,13 +295,13 @@ def decodePacket(message):
 			logging.debug("Error on temperature decode "+str(e))
 			return
 		action['temperature'] = str(temperature)
-		jeedom_com.add_changes(str(PID),action);
+		jeedom_com.add_changes('devices::'+str(key),action);
 
 	if MID == '09':
 		decode_string += "\nDecode model : \t\t= Door Sensor (On/Off/Pulse)"
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes(str(PID),action);
+		jeedom_com.add_changes('devices::'+str(key),action);
 
 	if MID == '10':
 		decode_string += "\nDecode model : \t\t= Receiver 1 Output (On/Off/Pulse)"
@@ -334,13 +328,13 @@ def decodePacket(message):
 		decode_string += "\nDecode model : \t\t= Emitter 2 Channels (Button)"
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes(str(PID),action);
+		jeedom_com.add_changes('devices::'+str(key),action);
 
 	if MID == '18':
 		decode_string += "\nDecode model : \t\t= Emitter 2 Channels (Button)"
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes(str(PID),action);
+		jeedom_com.add_changes('devices::'+str(key),action);
 
 	if MID == '0B':
 		decode_string += "\nDecode model : \t\t= Receiver 1 Output (On/Off)"
@@ -352,13 +346,13 @@ def decodePacket(message):
 		decode_string += "\nDecode model : \t\t= Receiver 1 Output (Heater On/Off)"
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes(str(PID),action);
+		jeedom_com.add_changes('devices::'+str(key),action);
 
 	if MID == '0C':
 		decode_string += "\nDecode model : \t\t= Receiver 1 Output (Pilot Wire Functions)"
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes(str(PID),action);
+		jeedom_com.add_changes('devices::'+str(key),action);
 
 	if MID == '0D':
 		decode_string += "\nDecode model : \t\t= Receiver 2 Outputs (1x Open/Close)"
@@ -374,7 +368,7 @@ def decodePacket(message):
 			action['state'] = '2'
 		if CMD == '09':
 			action['state'] = '3'
-		jeedom_com.add_changes(str(PID),action);
+		jeedom_com.add_changes('devices::'+str(key),action);
 
 	if MID == '1E':
 		decode_string += "\nDecode model : \t\t= Enocean Sensor (Door)"
@@ -402,7 +396,7 @@ def decodePacket(message):
 
 def test_edisio( message ):
 	# Remove all invalid characters
-	message = stripped(message)
+	message = jeedom_utils.stripped(message)
 	
 	# Remove any whitespaces
 	try:
@@ -428,28 +422,28 @@ def test_edisio( message ):
 		return False
 	
 	# Check that first byte is not 6C
-	if ByteToHex(message.decode('hex')[0]) <> "6C":
-		logging.debug("Error: Packet first byte is not 6C : "+str(ByteToHex(message.decode('hex')[0])))
+	if jeedom_utils.ByteToHex(message.decode('hex')[0]) <> "6C":
+		logging.debug("Error: Packet first byte is not 6C : "+str(jeedom_utils.ByteToHex(message.decode('hex')[0])))
 		return False
 
-	if ByteToHex(message.decode('hex')[1]) <> "76":
-		logging.debug("Error: Packet second byte is not 76 : "+str(ByteToHex(message.decode('hex')[0])))
+	if jeedom_utils.ByteToHex(message.decode('hex')[1]) <> "76":
+		logging.debug("Error: Packet second byte is not 76 : "+str(jeedom_utils.ByteToHex(message.decode('hex')[0])))
 		return False
 
-	if ByteToHex(message.decode('hex')[2]) <> "63":
-		logging.debug("Error: Packet third byte is not 63 : "+str(ByteToHex(message.decode('hex')[0])))
+	if jeedom_utils.ByteToHex(message.decode('hex')[2]) <> "63":
+		logging.debug("Error: Packet third byte is not 63 : "+str(jeedom_utils.ByteToHex(message.decode('hex')[0])))
 		return False
 
-	if ByteToHex(message.decode('hex')[-1]) <> "0A":
-		logging.debug("Error: Packet last byte is not 0A : "+str(ByteToHex(message.decode('hex')[-1])))
+	if jeedom_utils.ByteToHex(message.decode('hex')[-1]) <> "0A":
+		logging.debug("Error: Packet last byte is not 0A : "+str(jeedom_utils.ByteToHex(message.decode('hex')[-1])))
 		return False
 
-	if ByteToHex(message.decode('hex')[-2]) <> "0D":
-		logging.debug("Error: Packet -2 byte is not 0D : "+str(ByteToHex(message.decode('hex')[-2])))
+	if jeedom_utils.ByteToHex(message.decode('hex')[-2]) <> "0D":
+		logging.debug("Error: Packet -2 byte is not 0D : "+str(jeedom_utils.ByteToHex(message.decode('hex')[-2])))
 		return False
 
-	if ByteToHex(message.decode('hex')[-3]) <> "64":
-		logging.debug("Error: Packet -3 byte is not 64 : "+str(ByteToHex(message.decode('hex')[-3])))
+	if jeedom_utils.ByteToHex(message.decode('hex')[-3]) <> "64":
+		logging.debug("Error: Packet -3 byte is not 64 : "+str(jeedom_utils.ByteToHex(message.decode('hex')[-3])))
 		return False
 	
 	# Length more than one byte
@@ -465,22 +459,22 @@ def read_edisio():
 	message = None
 	byte = jeedom_serial.read()
 	try:
-		if str(ByteToHex(byte)) == '6C' :
+		if str(jeedom_utils.ByteToHex(byte)) == '6C' :
 			message = byte + jeedom_serial.readbytes(15)
-			if str(ByteToHex(message[-3]+message[-2]+message[-1])) <> '64 0D 0A' :
+			if str(jeedom_utils.ByteToHex(message[-3]+message[-2]+message[-1])) <> '64 0D 0A' :
 				message += jeedom_serial.readbytes(1)
-			if str(ByteToHex(message[-3]+message[-2]+message[-1])) <> '64 0D 0A' :
+			if str(jeedom_utils.ByteToHex(message[-3]+message[-2]+message[-1])) <> '64 0D 0A' :
 				message += jeedom_serial.readbytes(1)
-			if str(ByteToHex(message[-3]+message[-2]+message[-1])) <> '64 0D 0A' :
+			if str(jeedom_utils.ByteToHex(message[-3]+message[-2]+message[-1])) <> '64 0D 0A' :
 				message += jeedom_serial.readbytes(1)
-			if str(ByteToHex(message[-3]+message[-2]+message[-1])) <> '64 0D 0A' :
+			if str(jeedom_utils.ByteToHex(message[-3]+message[-2]+message[-1])) <> '64 0D 0A' :
 				message += jeedom_serial.readbytes(1)
-			logging.debug("Message: " + str(ByteToHex(message)))
+			logging.debug("Message: " + str(jeedom_utils.ByteToHex(message)))
 			decodePacket(message);
 	except OSError, e:
 		logging.error("Traceback: " + traceback.format_exc())
 		logging.error("------------------------------------------------")
-		logging.error("Received\t\t= " + ByteToHex(message))
+		logging.error("Received\t\t= " + jeedom_utils.ByteToHex(message))
 
 # ----------------------------------------------------------------------------
 
@@ -509,13 +503,13 @@ def read_socket():
 	global JEEDOM_SOCKET_MESSAGE
 	if not JEEDOM_SOCKET_MESSAGE.empty():
 		logging.debug("Message received in socket JEEDOM_SOCKET_MESSAGE")
-		message = stripped(JEEDOM_SOCKET_MESSAGE.get())
+		message = jeedom_utils.stripped(JEEDOM_SOCKET_MESSAGE.get())
 		if test_edisio( message ):
 			logging.debug("------------------------------------------------")
 			logging.debug("Incoming message from socket")
-			logging.debug("Send\t\t\t= " + ByteToHex(message.decode('hex')))
-			logging.debug("Packet Length\t\t= " + ByteToHex(message.decode('hex')[0]))
-			logging.debug("Write message to serial port : " + ByteToHex( message.decode('hex')))
+			logging.debug("Send\t\t\t= " + jeedom_utils.ByteToHex(message.decode('hex')))
+			logging.debug("Packet Length\t\t= " + jeedom_utils.ByteToHex(message.decode('hex')[0]))
+			logging.debug("Write message to serial port : " + jeedom_utils.ByteToHex( message.decode('hex')))
 			jeedom_serial.write( message.decode('hex'))
 			logging.debug("Write 1")
 			time.sleep(0.14)
@@ -584,8 +578,11 @@ for arg in sys.argv:
 		temp, _apikey = arg.split("=")
 	elif arg.startswith("--callback="):
 		temp, _callback = arg.split("=")
+	elif arg.startswith("--cycle="):
+		temp, _cycle = arg.split("=")
 
 _socket_port = int(_socket_port)
+_cycle = float(_cycle)
 
 logging.info('Start edisiocmd')
 logging.info('Log level : '+str(_log_level))

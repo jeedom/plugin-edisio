@@ -118,9 +118,11 @@ class jeedom_utils():
 	def convert_log_level(level = 'error'):
 		LEVELS = {'debug': logging.DEBUG,
           'info': logging.INFO,
+          'notice': logging.WARNING,
           'warning': logging.WARNING,
           'error': logging.ERROR,
-          'critical': logging.CRITICAL}
+          'critical': logging.CRITICAL,
+          'none': logging.NOTSET}
 		return LEVELS.get(level, logging.NOTSET)
 
 	@staticmethod
@@ -149,6 +151,32 @@ class jeedom_utils():
 					for subsubdir in os.listdir(join(dn, subdir)):
 						if subsubdir.startswith('ttyUSB'):
 							return join('/dev', subsubdir)
+
+	@staticmethod
+	def stripped(str):
+		return "".join([i for i in str if ord(i) in range(32, 127)])
+
+	@staticmethod
+	def ByteToHex( byteStr ):
+		return ''.join( [ "%02X " % ord( x ) for x in str(byteStr) ] ).strip()
+
+	@staticmethod
+	def dec2bin(x, width=8):
+		return ''.join(str((x>>i)&1) for i in xrange(width-1,-1,-1))
+
+	@staticmethod
+	def testBit(int_type, offset):
+		mask = 1 << offset
+		return(int_type & mask)
+
+	@staticmethod
+	def clearBit(int_type, offset):
+		mask = ~(1 << offset)
+		return(int_type & mask)
+
+	@staticmethod
+	def split_len(seq, length):
+		return [seq[i:i+length] for i in range(0, len(seq), length)]
 
 # ------------------------------------------------------------------------------
 # END
