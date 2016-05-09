@@ -410,7 +410,7 @@ class edisioCmd extends cmd {
 				socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio', 55005));
 				socket_write($socket, $message, strlen($message));
 				socket_close($socket);
-				sleep(1);
+				usleep(40000);
 			}
 		}
 		log::add('edisio', 'debug', 'Début fonction d\'envoi commandes edisio');
