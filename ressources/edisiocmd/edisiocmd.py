@@ -35,6 +35,7 @@ import select
 import inspect
 from os.path import join
 import serial
+import json
 
 try:
 	from jeedom.jeedom import *
@@ -465,44 +466,63 @@ def listen():
 	logging.debug("Start listening...")
 	jeedom_serial.open()
 	jeedom_socket.open()
+	jeedom_serial.flushOutput()
+	jeedom_serial.flushInput()
 	try:
 		while 1:
 			time.sleep(0.02)
-			rawcmd = read_edisio()
-			if rawcmd:
-				logging.debug("Processed: " + str(rawcmd))
-			read_socket()
+			try:
+				read_edisio()
+				read_socket()
+			except KeyboardInterrupt:
+				shutdown()
+			except Exception,e:
+				logging.error(str(e))
+				try:
+					jeedom_serial.close()
+					time.sleep(0.5)
+					jeedom_serial.open()
+					time.sleep(0.5)
+				except KeyboardInterrupt:
+					shutdown()
+				except Exception,e:
+					logging.error(str(e))
+					shutdown()
 	except KeyboardInterrupt:
-		logging.debug("Received keyboard interrupt")
-		logging.debug("Close server socket")
-		serversocket.netAdapter.shutdown()
-		logging.debug("Close serial port")
-		jeedom_serial.close()
-		pass
+		shutdown()
 
 # ----------------------------------------------------------------------------
 	
 def read_socket():
-	global JEEDOM_SOCKET_MESSAGE
-	if not JEEDOM_SOCKET_MESSAGE.empty():
-		logging.debug("Message received in socket JEEDOM_SOCKET_MESSAGE")
-		message = jeedom_utils.stripped(JEEDOM_SOCKET_MESSAGE.get())
-		if test_edisio( message ):
-			logging.debug("------------------------------------------------")
-			logging.debug("Incoming message from socket")
-			logging.debug("Send\t\t\t= " + jeedom_utils.ByteToHex(message.decode('hex')))
-			logging.debug("Packet Length\t\t= " + jeedom_utils.ByteToHex(message.decode('hex')[0]))
-			logging.debug("Write message to serial port : " + jeedom_utils.ByteToHex( message.decode('hex')))
-			jeedom_serial.write( message.decode('hex'))
-			logging.debug("Write 1")
-			time.sleep(0.14)
-			jeedom_serial.write( message.decode('hex'))
-			logging.debug("Write 2")
-			time.sleep(0.14)
-			jeedom_serial.write( message.decode('hex'))
-			logging.debug("Write 3")
-		else:
-			logging.error("Invalid message from socket : " + str(message))
+	try:
+		global JEEDOM_SOCKET_MESSAGE
+		if not JEEDOM_SOCKET_MESSAGE.empty():
+			logging.debug("Message received in socket JEEDOM_SOCKET_MESSAGE")
+			message = json.loads(jeedom_utils.stripped(JEEDOM_SOCKET_MESSAGE.get()))
+			if message['apikey'] != _apikey:
+				logging.error("Invalid apikey from socket : " + str(message))
+				return
+			if test_edisio(message['data']):
+				jeedom_serial.flushOutput()
+				jeedom_serial.flushInput()
+				logging.debug("------------------------------------------------")
+				logging.debug("Incoming message from socket")
+				logging.debug("Send\t\t\t= " + jeedom_utils.ByteToHex(message['data'].decode('hex')))
+				logging.debug("Packet Length\t\t= " + jeedom_utils.ByteToHex(message['data'].decode('hex')[0]))
+				logging.debug("Write message to serial port : " + jeedom_utils.ByteToHex(message['data'].decode('hex')))
+				logging.debug("Write 1")
+				jeedom_serial.write(message['data'].decode('hex'))
+				time.sleep(0.14)
+				logging.debug("Write 2")
+				jeedom_serial.write(message['data'].decode('hex'))
+				time.sleep(0.14)
+				logging.debug("Write 3")
+				jeedom_serial.write(message['data'].decode('hex'))
+				time.sleep(0.14)
+			else:
+				logging.error("Invalid message from socket : " + str(message))
+	except Exception,e:
+		logging.error(str(e))
 
 # ----------------------------------------------------------------------------
 

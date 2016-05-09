@@ -20,7 +20,6 @@ import threading
 import requests
 import datetime
 import collections
-import sys
 import serial
 import os
 from os.path import join
@@ -200,56 +199,57 @@ class jeedom_serial():
 		self.port = None
 
 	def open(self):
-		# Check that serial module is loaded
-		try:
-			logging.debug("Serial extension version: " + serial.VERSION)
-		except:
-			logging.error("Error: Serial extension for Python could not be loaded")
-			sys.exit(1)
-		# Check for serial device
 		if self.device:
 			logging.debug("Open serial port on device: " + str(self.device)+', rate '+str(self.rate)+', timeout : '+str(self.timeout))
 		else:
 			logging.error("Device name missing.")
-			sys.exit(1)
-		# Open serial port
+			return False
 		logging.debug("Open Serialport")
 		try:  
 			self.port = serial.Serial(self.device,self.rate,timeout=self.timeout)
 		except serial.SerialException, e:
 			logging.error("Error: Failed to connect on device " + self.device + " Details : " + str(e))
-			sys.exit(1)
+			return False
 		if not self.port.isOpen():
 			self.port.open()
+		self.flushOutput()
+		self.flushInput()
+		return True
 
 	def close(self):
 		logging.debug("Close serial port")
 		try:
 			self.port.close()
 			logging.debug("Serial port closed")
+			return True
 		except:
 			logging.error("Failed to close the serial port (" + self.device + ")")
-			sys.exit(1)
+			return False
 
 	def write(self,data):
-		logging.debug("Write into serial port")
-		logging.debug("Open serial port")
-		self.open()
-		logging.debug("Write data to serial port : "+str(data))
+		logging.debug("Write data to serial port : "+str(jeedom_utils.ByteToHex(data)))
 		self.port.write(data)
-		time.sleep(1)
-		logging.debug("Read serial port")
-		read = ''
-		logging.debug("Close serial port")
-		self.close()
-		return read
+
+	def flushOutput(self,):
+		logging.debug("flushOutput serial port ")
+		self.port.flushOutput()
+
+	def flushInput(self):
+		logging.debug("flushInput serial port ")
+		self.port.flushInput()
 
 	def read(self):
 		try:
 			if self.port.inWaiting() != 0:
 				return self.port.read()
-		except IOError, err:
-			logging.error("Serial read error: %s" % (str(err)))
+		except IOError, e:
+			self.close()
+			time.sleep(0.5)
+			self.open()
+			time.sleep(0.5)
+			if self.port.inWaiting() != 0:
+				return self.port.read()
+			logging.error("Serial read error: %s" % (str(e)))
 		return None
 
 	def readbytes(self,number):
