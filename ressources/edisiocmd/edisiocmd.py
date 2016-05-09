@@ -587,6 +587,7 @@ signal.signal(signal.SIGINT, handler)
 signal.signal(signal.SIGTERM, handler)	
 
 try:
+	jeedom_utils.wrtie_pid(str(_pidfile))
 	jeedom_com = jeedom_com(apikey = _apikey,url = _callback,cycle=_cycle)
 	jeedom_serial = jeedom_serial(device=_device,rate=_serial_rate,timeout=_serial_timeout)
 	jeedom_socket = jeedom_socket(port=_socket_port,address=_socket_host)
