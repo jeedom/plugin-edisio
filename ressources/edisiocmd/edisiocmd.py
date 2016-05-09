@@ -503,8 +503,6 @@ def read_socket():
 				logging.error("Invalid apikey from socket : " + str(message))
 				return
 			if test_edisio(message['data']):
-				jeedom_serial.flushOutput()
-				jeedom_serial.flushInput()
 				logging.debug("------------------------------------------------")
 				logging.debug("Incoming message from socket")
 				logging.debug("Send\t\t\t= " + jeedom_utils.ByteToHex(message['data'].decode('hex')))
@@ -518,7 +516,6 @@ def read_socket():
 				time.sleep(0.14)
 				logging.debug("Write 3")
 				jeedom_serial.write(message['data'].decode('hex'))
-				time.sleep(0.14)
 			else:
 				logging.error("Invalid message from socket : " + str(message))
 	except Exception,e:

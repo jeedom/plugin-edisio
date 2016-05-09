@@ -227,6 +227,8 @@ class jeedom_serial():
 			return False
 
 	def write(self,data):
+		self.flushOutput()
+		self.flushInput()
 		logging.debug("Write data to serial port : "+str(jeedom_utils.ByteToHex(data)))
 		self.port.write(data)
 
