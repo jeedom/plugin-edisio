@@ -50,24 +50,17 @@ def sendDimOff(action, url, trigger_timeout,dictkey):
 	del DimOff_threads[dictkey]
 
 def decodePacket(message):
-	"""
-	Decode incoming EDISIO message.
-	"""
 	global _prevMessage;
 	global _prevDatetime;
 	global _timerDatetime;
 	timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
 	unixtime_utc = int(time.time())
 	unixtime_utc_check = datetime.datetime.utcnow()
-	logging.debug(unixtime_utc)
-	# Verify incoming message
 	if not test_edisio( jeedom_utils.ByteToHex(message) ):
 		logging.error("The incoming message is invalid (" + jeedom_utils.ByteToHex(message) + ")")
 		return
-	
 	raw_message = jeedom_utils.ByteToHex(message)
 	raw_message = raw_message.replace(' ', '')
-
 	PID = jeedom_utils.ByteToHex(message[3]) + jeedom_utils.ByteToHex(message[4]) + jeedom_utils.ByteToHex(message[5]) + jeedom_utils.ByteToHex(message[6])
 	BID = jeedom_utils.ByteToHex(message[7])
 	MID = jeedom_utils.ByteToHex(message[8])
@@ -76,14 +69,11 @@ def decodePacket(message):
 	RC = jeedom_utils.ByteToHex(message[11])
 	CMD = jeedom_utils.ByteToHex(message[12])
 	DATA = 'None'
-
 	if len(message) > 16:
 		DATA = ''
 		for i in range(0,len(message) - 16):
 			DATA += jeedom_utils.ByteToHex(message[13 + i])
-
 	clean_message = str(PID) + str(BID) + str(MID) + str(RMAX) + str(CMD) + str(DATA)
-
 	if CMD in ['07'] and MID in ['01']:
 		if  DimOff_threads.has_key(str(PID)+str(BID)):
 			if clean_message == _prevMessage and unixtime_utc_check < (_timerDatetime+datetime.timedelta(milliseconds=800)) :
@@ -104,16 +94,13 @@ def decodePacket(message):
 			_timerDatetime = unixtime_utc_check
 			dimmingOff.start()
 		if clean_message == _prevMessage and unixtime_utc_check < (_prevDatetime+datetime.timedelta(milliseconds=4000)) :
-			#logging.debug("Dimming in progress, ignore")
 			return
 	else:
 		if clean_message == _prevMessage and unixtime_utc_check < (_prevDatetime+datetime.timedelta(milliseconds=200)) :
 			logging.debug("Message already decode, ignore")
 			return
-
 	_prevMessage = clean_message
 	_prevDatetime = unixtime_utc_check
-
 	decode_string = "\nPID\t\t\t= " + str(PID);
 	decode_string += "\nBID\t\t\t= " + str(BID);
 	decode_string += "\nMID\t\t\t= " + str(MID);
@@ -122,11 +109,8 @@ def decodePacket(message):
 	decode_string += "\nRC\t\t\t= " + str(RC);
 	decode_string += "\nCMD\t\t\t= " + str(CMD);
 	decode_string += "\nDATA\t\t\t= " + str(DATA);
-
 	BL = int((int(BL, 16) / 3.3) * 10)
-
 	action = {'id' : str(PID), 'battery' : str(BL), 'mid' : str(MID)}
-
 	key = str(PID)+str(MID)+str(CMD)+str(BID)
 	value = ''
 
@@ -389,7 +373,6 @@ def decodePacket(message):
 		decode_string += "\nDecode model : \t\t= Enocean socket"
 
 	logging.debug("Decode packet : "+decode_string)
-
 	return
 
 # ----------------------------------------------------------------------------
