@@ -46,31 +46,10 @@ foreach (jeedom::getUsbMapping() as $name => $value) {
            </select>
        </div>
    </div>
-   <div class="form-group">
-       <label class="col-lg-4 control-label">{{Enregistrer tous les messages, cela peut ralentir le système}}</label>
-       <div class="col-lg-1">
-        <input type="checkbox" class="configKey bootstrapSwitch" data-l1key="enableLogging" />
-    </div>
-    <div class="col-lg-7">
-        <a class="btn btn-default" id="bt_logEdisioMessage"><i class="fa fa-file-o"></i> {{Voir les messages}}</a>
-    </div>
-</div>
 <div class="form-group expertModeVisible">
     <label class="col-lg-4 control-label">{{Port socket interne (modification dangereuse, doit etre le meme surtout les esclaves)}}</label>
     <div class="col-lg-2">
         <input class="configKey form-control" data-l1key="socketport" value='55005' />
-    </div>
-</div>
-<div class="form-group">
-    <label class="col-sm-4 control-label">{{Traiter la répétition des messages}}</label>
-    <div class="col-sm-2">
-        <input type="checkbox" class="configKey bootstrapSwitch" data-l1key="processRepeatMessage" />
-    </div>
-</div>
-<div class="form-group">
-    <label class="col-sm-4 control-label">{{Forcer la répétition des messages toutes les (min)}}</label>
-    <div class="col-sm-2">
-        <input class="configKey form-control" data-l1key="repeatMessageTime" />
     </div>
 </div>
 </fieldset>
@@ -97,31 +76,10 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
                      </select>
                  </div>
              </div>
-             <div class="form-group">
-               <label class="col-lg-4 control-label">{{Enregistrer tous les messages, cela peut ralentir le système}}</label>
-               <div class="col-lg-1">
-                <input type="checkbox" class="slaveConfigKey bootstrapSwitch" data-l1key="enableLogging" />
-            </div>
-            <div class="col-lg-7">
-                <a class="btn btn-default bt_logEdisioMessage"><i class="fa fa-file-o"></i> {{Voir les messages}}</a>
-            </div>
-        </div>
         <div class="form-group expertModeVisible">
             <label class="col-lg-4 control-label">{{Port socket interne (modification dangereuse, doit etre le meme surtout les esclaves)}}</label>
             <div class="col-lg-2">
                 <input class="slaveConfigKey form-control" data-l1key="socketport" value='55005' />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-4 control-label">{{Traiter la répétition des messages}}</label>
-            <div class="col-sm-2">
-                <input type="checkbox" class="slaveConfigKey bootstrapSwitch" data-l1key="processRepeatMessage" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-4 control-label">{{Forcer la répétition des messages toutes les (min)}}</label>
-            <div class="col-sm-2">
-                <input class="slaveConfigKey form-control" data-l1key="repeatMessageTime" />
             </div>
         </div>
     </fieldset>
@@ -131,17 +89,3 @@ foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value
 }
 }
 ?>
-
-
-<script>
- $('.bt_logEdisioMessage').on('click', function () {
-   var slave_id = $(this).closest('.slaveConfig').attr('data-slave_id');
-   $('#md_modal').dialog({title: "{{Log des messages Edisio}}"});
-   $('#md_modal').load('index.php?v=d&plugin=edisio&modal=show.log&slave_id='+slave_id).dialog('open');
-});
-
- $('#bt_logEdisioMessage').on('click', function () {
-    $('#md_modal').dialog({title: "{{Log des messages EDISIO}}"});
-    $('#md_modal').load('index.php?v=d&plugin=edisio&modal=show.log').dialog('open');
-});
-</script>
