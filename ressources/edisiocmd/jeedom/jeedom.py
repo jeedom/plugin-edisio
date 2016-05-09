@@ -227,8 +227,6 @@ class jeedom_serial():
 			return False
 
 	def write(self,data):
-		self.flushOutput()
-		self.flushInput()
 		logging.debug("Write data to serial port : "+str(jeedom_utils.ByteToHex(data)))
 		self.port.write(data)
 
@@ -245,12 +243,6 @@ class jeedom_serial():
 			if self.port.inWaiting() != 0:
 				return self.port.read()
 		except IOError, e:
-			self.close()
-			time.sleep(0.5)
-			self.open()
-			time.sleep(0.5)
-			if self.port.inWaiting() != 0:
-				return self.port.read()
 			logging.error("Serial read error: %s" % (str(e)))
 		return None
 

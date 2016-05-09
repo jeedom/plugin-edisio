@@ -471,23 +471,8 @@ def listen():
 	try:
 		while 1:
 			time.sleep(0.02)
-			try:
-				read_edisio()
-				read_socket()
-			except KeyboardInterrupt:
-				shutdown()
-			except Exception,e:
-				logging.error(str(e))
-				try:
-					jeedom_serial.close()
-					time.sleep(0.5)
-					jeedom_serial.open()
-					time.sleep(0.5)
-				except KeyboardInterrupt:
-					shutdown()
-				except Exception,e:
-					logging.error(str(e))
-					shutdown()
+			read_edisio()
+			read_socket()
 	except KeyboardInterrupt:
 		shutdown()
 
@@ -503,6 +488,8 @@ def read_socket():
 				logging.error("Invalid apikey from socket : " + str(message))
 				return
 			if test_edisio(message['data']):
+				jeedom_serial.flushOutput()
+				jeedom_serial.flushInput()
 				logging.debug("------------------------------------------------")
 				logging.debug("Incoming message from socket")
 				logging.debug("Send\t\t\t= " + jeedom_utils.ByteToHex(message['data'].decode('hex')))
