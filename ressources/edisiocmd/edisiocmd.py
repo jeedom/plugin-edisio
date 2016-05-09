@@ -502,7 +502,7 @@ def read_socket():
 			jeedom_serial.write( message.decode('hex'))
 			logging.debug("Write 3")
 		else:
-			logging.error("Invalid message from socket.")
+			logging.error("Invalid message from socket : " + str(message))
 
 # ----------------------------------------------------------------------------
 
@@ -532,7 +532,7 @@ def shutdown():
 # ----------------------------------------------------------------------------
 
 _log_level = "Error"
-_socket_port = 55006
+_socket_port = 55005
 _socket_host = 'localhost'
 _device = 'auto'
 _pidfile = '/tmp/edisio.pid'
