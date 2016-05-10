@@ -587,7 +587,7 @@ def shutdown():
 
 # ----------------------------------------------------------------------------
 
-_log_level = "Error"
+_log_level = "error"
 _socket_port = 55005
 _socket_host = 'localhost'
 _device = 'auto'
