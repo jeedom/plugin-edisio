@@ -183,6 +183,10 @@ class jeedom_utils():
 		logging.debug("Writing PID " + pid + " to " + str(path))
 		file(path, 'w').write("%s\n" % pid)
 		
+	@staticmethod
+	def remove_accents(input_str):
+		nkfd_form = unicodedata.normalize('NFKD', unicode(input_str))
+		return u"".join([c for c in nkfd_form if not unicodedata.combining(c)])
 
 # ------------------------------------------------------------------------------
 # END
