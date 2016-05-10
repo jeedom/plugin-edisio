@@ -197,6 +197,7 @@ class edisio extends eqLogic {
 		$cmd .= ' --loglevel=' . log::convertLogLevel(log::getLogLevel('edisio'));
 		$cmd .= ' --pidfile=' . '/tmp/edisio.pid';
 		$cmd .= ' --socketport=' . config::byKey('socketport', 'edisio', 55005);
+
 		if (config::byKey('jeeNetwork::mode') == 'slave') {
 			$cmd .= ' --sockethost=' . network::getNetworkAccess('internal', 'ip', '127.0.0.1');
 			$cmd .= ' --callback=' . config::byKey('jeeNetwork::master::ip') . '/plugins/edisio/core/php/jeeEdisio.php';
