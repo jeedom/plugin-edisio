@@ -151,7 +151,7 @@ class edisio extends eqLogic {
 		$return = array();
 		$return['log'] = 'edisio';
 		$return['state'] = 'nok';
-		$pid_file = '/tmp/edisio.pid';
+		$pid_file = '/tmp/edisiod.pid';
 		if (file_exists($pid_file)) {
 			if (posix_getsid(trim(file_get_contents($pid_file)))) {
 				$return['state'] = 'ok';
@@ -178,7 +178,12 @@ class edisio extends eqLogic {
 			$pid = intval(trim(file_get_contents($pid_file)));
 			system::kill($pid);
 		}
+		system::kill('edisiod.py');
 		system::fuserk(config::byKey('socketport', 'edisio', 55005));
+		$port = config::byKey('port', 'edisio');
+		if ($port != 'auto') {
+			system::fuserk(jeedom::getUsbMapping($port));
+		}
 	}
 
 	public static function deamon_start($_debug = false) {
@@ -191,13 +196,11 @@ class edisio extends eqLogic {
 		if ($port != 'auto') {
 			$port = jeedom::getUsbMapping($port);
 		}
-		$edisio_path = realpath(dirname(__FILE__) . '/../../ressources/edisiocmd');
-		$cmd = '/usr/bin/python ' . $edisio_path . '/edisiocmd.py';
+		$edisio_path = realpath(dirname(__FILE__) . '/../../ressources/edisiod');
+		$cmd = '/usr/bin/python ' . $edisio_path . '/edisiod.py';
 		$cmd .= ' --device=' . $port;
 		$cmd .= ' --loglevel=' . log::convertLogLevel(log::getLogLevel('edisio'));
-		$cmd .= ' --pidfile=' . '/tmp/edisio.pid';
 		$cmd .= ' --socketport=' . config::byKey('socketport', 'edisio', 55005);
-
 		if (config::byKey('jeeNetwork::mode') == 'slave') {
 			$cmd .= ' --sockethost=' . network::getNetworkAccess('internal', 'ip', '127.0.0.1');
 			$cmd .= ' --callback=' . config::byKey('jeeNetwork::master::ip') . '/plugins/edisio/core/php/jeeEdisio.php';
@@ -207,7 +210,7 @@ class edisio extends eqLogic {
 			$cmd .= ' --callback=' . network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp') . '/plugins/edisio/core/php/jeeEdisio.php';
 			$cmd .= ' --apikey=' . config::byKey('api');
 		}
-		log::add('edisio', 'info', 'Lancement démon edisiocmd : ' . $cmd);
+		log::add('edisio', 'info', 'Lancement démon edisiod : ' . $cmd);
 		$result = exec($cmd . ' >> ' . log::getPathToLog('edisio') . ' 2>&1 &');
 		$i = 0;
 		while ($i < 30) {
@@ -219,7 +222,7 @@ class edisio extends eqLogic {
 			$i++;
 		}
 		if ($i >= 30) {
-			log::add('edisio', 'error', 'Impossible de lancer le démon EDISIO, vérifiez la configuration et le log edisiocmd', 'unableStartDeamon');
+			log::add('edisio', 'error', 'Impossible de lancer le démon EDISIO, vérifiez la configuration et le log edisiod', 'unableStartDeamon');
 			return false;
 		}
 		message::removeAll('edisio', 'unableStartDeamon');

@@ -591,7 +591,7 @@ _log_level = "error"
 _socket_port = 55005
 _socket_host = 'localhost'
 _device = 'auto'
-_pidfile = '/tmp/edisio.pid'
+_pidfile = '/tmp/edisiod.pid'
 _apikey = ''
 _callback = ''
 _serial_rate = 9600
@@ -623,7 +623,7 @@ for arg in sys.argv:
 _socket_port = int(_socket_port)
 _cycle = float(_cycle)
 
-logging.info('Start edisiocmd')
+logging.info('Start edisiod')
 logging.info('Log level : '+str(_log_level))
 logging.info('Socket port : '+str(_socket_port))
 logging.info('Socket host : '+str(_socket_host))
