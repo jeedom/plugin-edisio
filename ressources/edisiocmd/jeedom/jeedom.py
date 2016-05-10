@@ -28,6 +28,7 @@ from Queue import Queue
 import SocketServer
 from SocketServer import (TCPServer, StreamRequestHandler)
 import signal
+import unicodedata
 
 # ------------------------------------------------------------------------------
 
