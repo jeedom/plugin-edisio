@@ -621,6 +621,7 @@ for arg in sys.argv:
 
 _socket_port = int(_socket_port)
 _cycle = float(_cycle)
+
 jeedom_utils.set_log_level(_log_level)
 
 logging.info('Start edisiod')
