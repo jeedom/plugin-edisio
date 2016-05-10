@@ -50,7 +50,7 @@ if (isset($result['devices'])) {
 		if (!$edisio->getIsEnable()) {
 			continue;
 		}
-		if ($datas['mid'] == '1' || $datas['mid'] == '2' || $datas['mid'] == '3' || $datas['mid'] == '4' || $datas['mid'] == '5' || $datas['mid'] == '7' || $datas['mid'] == '9') {
+		if ($datas['mid'] == '01' || $datas['mid'] == '02' || $datas['mid'] == '03' || $datas['mid'] == '04' || $datas['mid'] == '05' || $datas['mid'] == '07' || $datas['mid'] == '09') {
 			$logicalId = 'bt' . $datas['bt'];
 			$value = $datas['value'];
 			$cmdArray = array($logicalId);
@@ -76,7 +76,7 @@ if (isset($result['devices'])) {
 					$cmd->save();
 				}
 			}
-			if (in_array($datas, array("up", "down")) and $datas['mid'] == 1) {
+			if (in_array($datas['value'], array("up", "down")) and $datas['mid'] == '01') {
 				$cmd = $edisio->getCmd('info', $logicalId . 'long');
 			} else {
 				$cmd = $edisio->getCmd('info', $logicalId);
