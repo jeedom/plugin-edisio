@@ -142,7 +142,7 @@ class edisio extends eqLogic {
 
 	public static function dependancy_install() {
 		log::remove('edisio_update');
-		$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install.sh';
+		$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../resources/install.sh';
 		$cmd .= ' >> ' . log::getPathToLog('edisio_update') . ' 2>&1 &';
 		exec($cmd);
 	}
@@ -196,7 +196,7 @@ class edisio extends eqLogic {
 		if ($port != 'auto') {
 			$port = jeedom::getUsbMapping($port);
 		}
-		$edisio_path = realpath(dirname(__FILE__) . '/../../ressources/edisiod');
+		$edisio_path = realpath(dirname(__FILE__) . '/../../resources/edisiod');
 		$cmd = '/usr/bin/python ' . $edisio_path . '/edisiod.py';
 		$cmd .= ' --device=' . $port;
 		$cmd .= ' --loglevel=' . log::convertLogLevel(log::getLogLevel('edisio'));
