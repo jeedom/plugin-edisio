@@ -45,10 +45,9 @@ except ImportError:
 
 DimOff_threads = {}
 
-def sendDimOff(action, url, trigger_timeout,dictkey):
-	command = Command(url,action)
-	command.run(timeout=trigger_timeout)
-	del DimOff_threads[dictkey]
+def sendDimOff(key,value):
+	jeedom_com.add_changes('devices::'+str(key),action);
+	del DimOff_threads[key]
 
 def decodePacket(message):
 	global _prevMessage;
@@ -75,6 +74,11 @@ def decodePacket(message):
 		for i in range(0,len(message) - 16):
 			DATA += jeedom_utils.ByteToHex(message[13 + i])
 	clean_message = str(PID) + str(BID) + str(MID) + str(RMAX) + str(CMD) + str(DATA)
+
+	BL = int((int(BL, 16) / 3.3) * 10)
+	action = {'id' : str(PID), 'battery' : str(BL), 'mid' : str(MID)}
+	key = str(PID)+str(MID)+str(CMD)+str(BID)
+
 	if CMD in ['07'] and MID in ['01']:
 		if  DimOff_threads.has_key(str(PID)+str(BID)):
 			if clean_message == _prevMessage and unixtime_utc_check < (_timerDatetime+datetime.timedelta(milliseconds=800)) :
@@ -87,11 +91,11 @@ def decodePacket(message):
 		else:
 			logging.debug("Thread not exists creating")
 			BLDIM = int((int(BL, 16) / 3.3) * 10)
-			dimOff = {'id' : str(PID), 'battery' : str(BLDIM), 'mid' : str(MID),'apikey' : str(config.apikey)}
+			dimOff = {'id' : str(PID), 'battery' : str(BLDIM), 'mid' : str(MID)}
 			dimOff['bt'] = str(BID)
 			dimOff['value'] = 'down'
-			dimmingOff = TimerReset(1, function=sendDimOff, args=(dimOff, config.trigger_url, config.trigger_timeout,str(PID)+str(BID)))
-			DimOff_threads[str(PID)+str(BID)] = dimmingOff
+			dimmingOff = TimerReset(1, function=sendDimOff, args=(key,dimOff))
+			DimOff_threads[key] = dimmingOff
 			_timerDatetime = unixtime_utc_check
 			dimmingOff.start()
 		if clean_message == _prevMessage and unixtime_utc_check < (_prevDatetime+datetime.timedelta(milliseconds=4000)) :
@@ -110,9 +114,7 @@ def decodePacket(message):
 	decode_string += "\nRC\t\t\t= " + str(RC);
 	decode_string += "\nCMD\t\t\t= " + str(CMD);
 	decode_string += "\nDATA\t\t\t= " + str(DATA);
-	BL = int((int(BL, 16) / 3.3) * 10)
-	action = {'id' : str(PID), 'battery' : str(BL), 'mid' : str(MID)}
-	key = str(PID)+str(MID)+str(CMD)+str(BID)
+	
 	value = ''
 
 	if CMD == '01':
