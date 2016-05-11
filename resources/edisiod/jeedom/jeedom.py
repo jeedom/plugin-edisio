@@ -39,6 +39,7 @@ class jeedom_com():
 		self.cycle = cycle
 		self.changes = {}
 		self.send_changes_async()
+		logging.debug('Init request module v%s' % (str(requests.__version__),))
 
 	def send_changes_async(self):
 		try:
@@ -105,10 +106,6 @@ class jeedom_com():
 	            self.merge_dict(v1, v2)
 	        else:
 	            d1[k] = v2
-
-# ------------------------------------------------------------------------------
-# END
-# ------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------
 
@@ -190,10 +187,6 @@ class jeedom_utils():
 		return u"".join([c for c in nkfd_form if not unicodedata.combining(c)])
 
 # ------------------------------------------------------------------------------
-# END
-# ------------------------------------------------------------------------------
-
-# ------------------------------------------------------------------------------
 
 class jeedom_serial():
 
@@ -202,6 +195,7 @@ class jeedom_serial():
 		self.rate = rate
 		self.timeout = timeout
 		self.port = None
+		logging.debug('Init serial module v%s' % (str(serial.__version__),))
 
 	def open(self):
 		if self.device:
@@ -262,11 +256,6 @@ class jeedom_serial():
 				logging.error("Error: %s" % e)
 			buf += byte
 		return buf
-
-
-# ------------------------------------------------------------------------------
-# END
-# ------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------
 
