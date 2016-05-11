@@ -15,25 +15,18 @@
 
 import logging
 import requests
-import pdb
 import string
 import sys
 import os
 import time
 import datetime
 import binascii
-import traceback
-import subprocess
 import threading
 from threading import Thread, Event, Timer
 import re
 import signal
 from optparse import OptionParser
-import socket
-import select
-import inspect
 from os.path import join
-import serial
 import json
 
 try:
@@ -150,7 +143,7 @@ def decodePacket(message):
 		if clean_message == _prevMessage and unixtime_utc_check < (_prevDatetime+datetime.timedelta(milliseconds=200)) :
 			logging.debug("Message already decode, ignore")
 			return
-			
+
 	_prevMessage = clean_message
 	_prevDatetime = unixtime_utc_check
 	BL = int((int(BL, 16) / 3.3) * 10)
@@ -398,7 +391,6 @@ def read_edisio():
 			logging.debug("Message: " + str(jeedom_utils.ByteToHex(message)))
 			decodePacket(message);
 	except OSError, e:
-		logging.error("Traceback: " + traceback.format_exc())
 		logging.error("------------------------------------------------")
 		logging.error("Received\t\t= " + jeedom_utils.ByteToHex(message))
 
