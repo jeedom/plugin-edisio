@@ -195,7 +195,6 @@ class jeedom_serial():
 		self.rate = rate
 		self.timeout = timeout
 		self.port = None
-		logging.debug('Init serial module v%s' % (str(serial.__version__),))
 
 	def open(self):
 		if self.device:
