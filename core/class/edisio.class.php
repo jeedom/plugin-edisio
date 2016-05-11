@@ -173,7 +173,7 @@ class edisio extends eqLogic {
 	}
 
 	public static function deamon_stop() {
-		$pid_file = '/tmp/edisio.pid';
+		$pid_file = '/tmp/edisiod.pid';
 		if (file_exists($pid_file)) {
 			$pid = intval(trim(file_get_contents($pid_file)));
 			system::kill($pid);
@@ -211,7 +211,7 @@ class edisio extends eqLogic {
 			$cmd .= ' --apikey=' . config::byKey('api');
 		}
 		log::add('edisio', 'info', 'Lancement démon edisiod : ' . $cmd);
-		$result = exec($cmd . ' >> ' . log::getPathToLog('edisio') . ' 2>&1 &');
+		exec($cmd . ' >> ' . log::getPathToLog('edisio') . ' 2>&1 &');
 		$i = 0;
 		while ($i < 30) {
 			$deamon_info = self::deamon_info();
