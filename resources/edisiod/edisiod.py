@@ -151,84 +151,10 @@ def decodePacket(message):
 	key = str(PID)+str(MID)+str(CMD)+str(BID)
 	value = ''
 
-	if CMD == '01':
-		value = 1
-	if CMD == '02':
-		value = 0
-	if CMD == '03':
-		value = 'toggle'
-	if CMD == '04':
-		value = 'toggle'
-	if CMD == '05':
-		value = 'toggle'
-	if CMD == '06':
-		value = 'toggle'
-	if CMD == '07':
-		value = 'up'
-	if CMD == '08':
-		value = 'toggle'
-	if CMD == '09':
-		value = 1
-	if CMD == '0A':
-		value = 0
-	if CMD == '0B':
-		value = 0
-	if CMD == '0C':
-		value = 0
-	if CMD == '0D':
-		value = 0
-	if CMD == '0E':
-		value = 0
-	if CMD == '0F':
-		value = 0
-	if CMD == '10':
-		value = 0
-	if CMD == '11':
-		value = 0
-	if CMD == '12':
-		value = 0
-	if CMD == '13':
-		value = 0
-	if CMD == '14':
-		value = 0
-	if CMD == '15':
-		value = 0
-	if CMD == '16':
-		value = 0
-	if CMD == '17':
-		value = 0
-	if CMD == '18':
-		value = 0
-	if CMD == '19':
-		value = 0
-	if CMD == '1A':
-		value = 1
-	if CMD == '1F':
-		value = 0
-	if CMD == '20':
-		value = 0
-	if CMD == '21':
-		value = 0
-	if CMD == 'F1':
-		value = 10
-	if CMD == 'F2':
-		value = 20
-	if CMD == 'F3':
-		value = 30
-	if CMD == 'F4':
-		value = 40
-	if CMD == 'F5':
-		value = 50
-	if CMD == 'F6':
-		value = 60
-	if CMD == 'F7':
-		value = 70
-	if CMD == 'F8':
-		value = 80
-	if CMD == 'F9':
-		value = 90
-	if CMD == 'FA':
-		value = 100
+	decode_value = {'01' : 1,'02' : 0,'03' : 'toggle','04' : 'toggle','05' : 'toggle','06' : 'toggle','07' : 'up','08' : 'toggle','09' : 1,'0A' : 0,'0B' : 0,'0C' : 0,'0D' : 0,'0E' : 0,'0F' : 0,'10' : 0,'11' : 0,'12' : 0,'13' : 0,'14' : 0,'15' : 0,'16' : 0,'17' : 0,'18' : 0,'19' : 0,'1A' : 1,'1F' : 0,'20' : 0,'21' : 0,'F1' : 20,'F2' : 20,'F3' : 30,'F4' : 40,'F5' : 50,'F6' : 60,'F7' : 70,'F8' : 80,'F9' : 90,'FA' : 100}
+	
+	if CMD in decode_value:
+		value = decode_value[CMD]
 
 	if MID == '01':
 		action['bt'] = str(BID)
