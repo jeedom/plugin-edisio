@@ -128,25 +128,6 @@ class edisio extends eqLogic {
 		return $return;
 	}
 
-	public static function dependancy_info() {
-		$return = array();
-		$return['log'] = 'edisio_update';
-		$return['progress_file'] = '/tmp/dependancy_edisio_in_progress';
-		if (exec('sudo dpkg --get-selections | grep python-serial | grep install | wc -l') != 0) {
-			$return['state'] = 'ok';
-		} else {
-			$return['state'] = 'nok';
-		}
-		return $return;
-	}
-
-	public static function dependancy_install() {
-		log::remove('edisio_update');
-		$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../resources/install.sh';
-		$cmd .= ' >> ' . log::getPathToLog('edisio_update') . ' 2>&1 &';
-		exec($cmd);
-	}
-
 	public static function deamon_info() {
 		$return = array();
 		$return['log'] = 'edisio';
