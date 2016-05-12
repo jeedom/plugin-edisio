@@ -18,7 +18,7 @@
 if (!isConnect('admin')) {
 	throw new Exception('401 Unauthorized');
 }
-$eqLogics = openzwave::byType('edisio');
+$eqLogics = edisio::byType('edisio');
 ?>
 
 <table class="table table-condensed tablesorter" id="table_healthedisio">
