@@ -35,6 +35,8 @@ except ImportError:
 	print "Error: importing module from jeedom folder"
 	sys.exit(1)
 	
+_decode_value = {'01' : 1,'02' : 0,'03' : 'toggle','04' : 'toggle','05' : 'toggle','06' : 'toggle','07' : 'up','08' : 'toggle','09' : 1,'0A' : 0,'0B' : 0,'0C' : 0,'0D' : 0,'0E' : 0,'0F' : 0,'10' : 0,'11' : 0,'12' : 0,'13' : 0,'14' : 0,'15' : 0,'16' : 0,'17' : 0,'18' : 0,'19' : 0,'1A' : 1,'1F' : 0,'20' : 0,'21' : 0,'F1' : 20,'F2' : 20,'F3' : 30,'F4' : 40,'F5' : 50,'F6' : 60,'F7' : 70,'F8' : 80,'F9' : 90,'FA' : 100}
+
 def TimerReset(*args, **kwargs):
     """ Global function for Timer """
     return _TimerReset(*args, **kwargs)
@@ -96,6 +98,7 @@ def decodePacket(message):
 	global _prevMessage;
 	global _prevDatetime;
 	global _timerDatetime;
+	global _decode_value;
 	timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
 	unixtime_utc = int(time.time())
 	unixtime_utc_check = datetime.datetime.utcnow()
@@ -151,10 +154,9 @@ def decodePacket(message):
 	key = str(PID)+str(MID)+str(CMD)+str(BID)
 	value = ''
 
-	decode_value = {'01' : 1,'02' : 0,'03' : 'toggle','04' : 'toggle','05' : 'toggle','06' : 'toggle','07' : 'up','08' : 'toggle','09' : 1,'0A' : 0,'0B' : 0,'0C' : 0,'0D' : 0,'0E' : 0,'0F' : 0,'10' : 0,'11' : 0,'12' : 0,'13' : 0,'14' : 0,'15' : 0,'16' : 0,'17' : 0,'18' : 0,'19' : 0,'1A' : 1,'1F' : 0,'20' : 0,'21' : 0,'F1' : 20,'F2' : 20,'F3' : 30,'F4' : 40,'F5' : 50,'F6' : 60,'F7' : 70,'F8' : 80,'F9' : 90,'FA' : 100}
 	
-	if CMD in decode_value:
-		value = decode_value[CMD]
+	if CMD in _decode_value:
+		value = _decode_value[CMD]
 
 	if MID == '01':
 		action['bt'] = str(BID)
@@ -191,7 +193,6 @@ def decodePacket(message):
 		action['temperature'] = str(temperature)
 		jeedom_com.add_changes('devices::'+str(key),action);
 	if MID == '09':
-		decode_string += "\nDecode model : \t\t= Door Sensor (On/Off/Pulse)"
 		action['bt'] = str(BID)
 		action['value'] = str(value)
 		jeedom_com.add_changes('devices::'+str(key),action);
