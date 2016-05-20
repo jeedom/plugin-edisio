@@ -455,6 +455,8 @@ signal.signal(signal.SIGTERM, handler)
 try:
 	jeedom_utils.wrtie_pid(str(_pidfile))
 	jeedom_com = jeedom_com(apikey = _apikey,url = _callback,cycle=_cycle)
+	if not jeedom_com.test():
+		sys.exit(1)
 	jeedom_serial = jeedom_serial(device=_device,rate=_serial_rate,timeout=_serial_timeout)
 	jeedom_socket = jeedom_socket(port=_socket_port,address=_socket_host)
 	listen()

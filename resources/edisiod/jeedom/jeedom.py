@@ -107,6 +107,17 @@ class jeedom_com():
 	        else:
 	            d1[k] = v2
 
+	def test(self):
+		try:
+			response = requests.get(self.url + '?apikey=' + self.apikey, verify=False)
+			if response.status_code != requests.codes.ok:
+				logging.error('Callback error: %s %s. Please check your network configuration page'% (response.status.code, response.status.message,))
+				return False
+		except Exception as e:
+			logging.error('Callback result as a unknown error: %s. Please check your network configuration page'% (e.message,))
+			return False
+		return True
+
 # ------------------------------------------------------------------------------
 
 class jeedom_utils():
