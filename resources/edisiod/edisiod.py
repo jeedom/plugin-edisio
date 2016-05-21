@@ -154,7 +154,6 @@ def decodePacket(message):
 	key = str(PID)+str(MID)+str(CMD)+str(BID)
 	value = ''
 
-	
 	if CMD in _decode_value:
 		value = _decode_value[CMD]
 
@@ -405,7 +404,7 @@ _apikey = ''
 _callback = ''
 _serial_rate = 9600
 _serial_timeout = 9
-_cycle = 0.3;
+_cycle = 0.5;
 _prevMessage = '';
 _prevDatetime = datetime.datetime.utcnow();
 _timerDatetime = datetime.datetime.utcnow();
