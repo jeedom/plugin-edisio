@@ -169,6 +169,14 @@ class jeedom_utils():
 		return ''.join( [ "%02X " % ord( x ) for x in str(byteStr) ] ).strip()
 
 	@staticmethod
+	def HexToByte( hexStr ):
+		bytes = []
+		hexStr = ''.join( hexStr.split(" ") )
+		for i in range(0, len(hexStr), 2):
+			bytes.append( chr( int (hexStr[i:i+2], 16 ) ) )
+		return ''.join( bytes )
+
+	@staticmethod
 	def dec2bin(x, width=8):
 		return ''.join(str((x>>i)&1) for i in xrange(width-1,-1,-1))
 

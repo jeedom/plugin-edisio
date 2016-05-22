@@ -378,28 +378,20 @@ class edisioCmd extends cmd {
 		$values = explode('&&', $value);
 		if (config::byKey('jeeNetwork::mode') == 'master') {
 			foreach (jeeNetwork::byPlugin('edisio') as $jeeNetwork) {
-				foreach ($values as $value) {
-					$message = json_encode(array('apikey' => config::byKey('api'), 'data' => $value));
-					$socket = socket_create(AF_INET, SOCK_STREAM, 0);
-					socket_connect($socket, $jeeNetwork->getRealIp(), config::byKey('socketport', 'edisio', 55005));
-					socket_write($socket, $message, strlen($message));
-					socket_close($socket);
-					usleep(40000);
-				}
+				$message = json_encode(array('apikey' => config::byKey('api'), 'data' => $values));
+				$socket = socket_create(AF_INET, SOCK_STREAM, 0);
+				socket_connect($socket, $jeeNetwork->getRealIp(), config::byKey('socketport', 'edisio', 55005));
+				socket_write($socket, $message, strlen($message));
+				socket_close($socket);
 			}
 		}
 		if (config::byKey('port', 'edisio', 'none') != 'none') {
-			foreach ($values as $value) {
-				$message = trim(json_encode(array('apikey' => config::byKey('api'), 'data' => $value)));
-				$socket = socket_create(AF_INET, SOCK_STREAM, 0);
-				socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio', 55005));
-				socket_write($socket, $message, strlen($message));
-				socket_close($socket);
-				usleep(40000);
-			}
+			$message = trim(json_encode(array('apikey' => config::byKey('api'), 'data' => $values)));
+			$socket = socket_create(AF_INET, SOCK_STREAM, 0);
+			socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio', 55005));
+			socket_write($socket, $message, strlen($message));
+			socket_close($socket);
 		}
-		log::add('edisio', 'debug', 'Début fonction d\'envoi commandes edisio');
-
 	}
 
 	/*     * **********************Getteur Setteur*************************** */

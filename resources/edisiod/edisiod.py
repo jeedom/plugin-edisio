@@ -150,51 +150,42 @@ def decodePacket(message):
 	_prevMessage = clean_message
 	_prevDatetime = unixtime_utc_check
 	BL = int((int(BL, 16) / 3.3) * 10)
-	action = {'id' : str(PID), 'battery' : str(BL), 'mid' : str(MID)}
+	action = {'id' : str(PID), 'battery' : str(BL), 'mid' : str(MID), 'raw' : str(raw_message)}
 	key = str(PID)+str(MID)+str(CMD)+str(BID)
 	value = ''
 
 	if CMD in _decode_value:
 		value = _decode_value[CMD]
-
 	if MID == '01':
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes('devices::'+str(key),action);
 	if MID == '02':
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes('devices::'+str(key),action);
 	if MID == '03':
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes('devices::'+str(key),action);
 	if MID == '04':
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes('devices::'+str(key),action);
 	if MID == '05':
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes('devices::'+str(key),action);
 	if MID == '06':
 		return
 	if MID == '07':
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes('devices::'+str(key),action);
 	if MID == '08':
 		try:
 			temperature = float(int(DATA[3:4]+DATA[0:2],16)) / 100
 		except Exception, e:
-			logging.debug("Error on temperature decode "+str(e))
+			logging.error("Error on temperature decode "+str(e))
 			return
 		action['temperature'] = str(temperature)
-		jeedom_com.add_changes('devices::'+str(key),action);
 	if MID == '09':
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes('devices::'+str(key),action);
 	if MID == '10':
 		return
 	if MID == '11':
@@ -212,11 +203,9 @@ def decodePacket(message):
 	if MID == '17':
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes('devices::'+str(key),action);
 	if MID == '18':
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes('devices::'+str(key),action);
 	if MID == '0B':
 		return
 	if MID == '0E':
@@ -224,11 +213,9 @@ def decodePacket(message):
 	if MID == '0F':
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes('devices::'+str(key),action);
 	if MID == '0C':
 		action['bt'] = str(BID)
 		action['value'] = str(value)
-		jeedom_com.add_changes('devices::'+str(key),action);
 	if MID == '0D':
 		return
 	if MID == '1B':
@@ -240,7 +227,6 @@ def decodePacket(message):
 			action['state'] = '2'
 		if CMD == '09':
 			action['state'] = '3'
-		jeedom_com.add_changes('devices::'+str(key),action);
 	if MID == '1E':
 		return
 	if MID == '1F':
@@ -253,6 +239,14 @@ def decodePacket(message):
 		return
 	if MID == '23':
 		return
+
+	logging.debug('Decode data : '+str(action))
+	try:
+		if len(action) > 4:
+			jeedom_com.add_changes('devices::'+key,action);
+	except Exception, e:
+		pass
+
 	return
 
 # ----------------------------------------------------------------------------
@@ -347,26 +341,42 @@ def read_socket():
 			if message['apikey'] != _apikey:
 				logging.error("Invalid apikey from socket : " + str(message))
 				return
-			if test_edisio(message['data']):
-				jeedom_serial.flushOutput()
-				jeedom_serial.flushInput()
-				logging.debug("------------------------------------------------")
-				logging.debug("Incoming message from socket")
-				logging.debug("Send\t\t\t= " + jeedom_utils.ByteToHex(message['data'].decode('hex')))
-				logging.debug("Packet Length\t\t= " + jeedom_utils.ByteToHex(message['data'].decode('hex')[0]))
-				logging.debug("Write message to serial port : " + jeedom_utils.ByteToHex(message['data'].decode('hex')))
-				logging.debug("Write 1")
-				jeedom_serial.write(message['data'].decode('hex'))
-				time.sleep(0.14)
-				logging.debug("Write 2")
-				jeedom_serial.write(message['data'].decode('hex'))
-				time.sleep(0.14)
-				logging.debug("Write 3")
-				jeedom_serial.write(message['data'].decode('hex'))
+			if isinstance(message['data'], list):
+				for data in message['data']:
+					try:
+						send_edisio(data);
+					except Exception, e:
+						logging.error('Send command to edisio error : '+str(e))
 			else:
-				logging.error("Invalid message from socket : " + str(message))
+				try:
+					send_edisio(message['data']);
+				except Exception, e:
+					logging.error('Send command to edisio error : '+str(e))
 	except Exception,e:
 		logging.error(str(e))
+
+# ----------------------------------------------------------------------------
+
+def send_edisio(message):
+	if test_edisio(message):
+		jeedom_serial.flushOutput()
+		jeedom_serial.flushInput()
+		logging.debug("------------------------------------------------")
+		logging.debug("Incoming message from socket")
+		logging.debug("Send\t\t\t= " + jeedom_utils.ByteToHex(message.decode('hex')))
+		logging.debug("Packet Length\t\t= " + jeedom_utils.ByteToHex(message.decode('hex')[0]))
+		logging.debug("Write message to serial port : " + jeedom_utils.ByteToHex(message.decode('hex')))
+		logging.debug("Write 1")
+		jeedom_serial.write(message.decode('hex'))
+		time.sleep(0.14)
+		logging.debug("Write 2")
+		jeedom_serial.write(message.decode('hex'))
+		time.sleep(0.14)
+		logging.debug("Write 3")
+		jeedom_serial.write(message.decode('hex'))
+		time.sleep(0.02)
+	else:
+		logging.error("Invalid message from socket : " + str(message))
 
 # ----------------------------------------------------------------------------
 
@@ -426,6 +436,11 @@ for arg in sys.argv:
 		temp, _callback = arg.split("=")
 	elif arg.startswith("--cycle="):
 		temp, _cycle = arg.split("=")
+	elif arg.startswith("--simulate="):
+		temp, _simulate = arg.split("=")
+		jeedom_utils.set_log_level('debug')
+		decodePacket(jeedom_utils.HexToByte(_simulate))
+		sys.exit(1)
 
 _socket_port = int(_socket_port)
 _cycle = float(_cycle)
