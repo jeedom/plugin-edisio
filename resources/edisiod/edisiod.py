@@ -95,10 +95,10 @@ def sendDimOff(key,action):
 	del DimOff_threads[key]
 
 def decodePacket(message):
-	global _prevMessage;
-	global _prevDatetime;
-	global _timerDatetime;
-	global _decode_value;
+	global _prevMessage
+	global _prevDatetime
+	global _timerDatetime
+	global _decode_value
 	timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
 	unixtime_utc = int(time.time())
 	unixtime_utc_check = datetime.datetime.utcnow()
@@ -243,7 +243,7 @@ def decodePacket(message):
 	logging.debug('Decode data : '+str(action))
 	try:
 		if len(action) > 4:
-			jeedom_com.add_changes('devices::'+key,action);
+			jeedom_com.add_changes('devices::'+key,action)
 	except Exception, e:
 		pass
 
@@ -309,7 +309,7 @@ def read_edisio():
 			if str(jeedom_utils.ByteToHex(message[-3]+message[-2]+message[-1])) <> '64 0D 0A' :
 				message += jeedom_serial.readbytes(1)
 			logging.debug("Message: " + str(jeedom_utils.ByteToHex(message)))
-			decodePacket(message);
+			decodePacket(message)
 	except OSError, e:
 		logging.error("------------------------------------------------")
 		logging.error("Received\t\t= " + jeedom_utils.ByteToHex(message))
@@ -344,12 +344,12 @@ def read_socket():
 			if isinstance(message['data'], list):
 				for data in message['data']:
 					try:
-						send_edisio(data);
+						send_edisio(data)
 					except Exception, e:
 						logging.error('Send command to edisio error : '+str(e))
 			else:
 				try:
-					send_edisio(message['data']);
+					send_edisio(message['data'])
 				except Exception, e:
 					logging.error('Send command to edisio error : '+str(e))
 	except Exception,e:
@@ -414,10 +414,10 @@ _apikey = ''
 _callback = ''
 _serial_rate = 9600
 _serial_timeout = 9
-_cycle = 0.5;
-_prevMessage = '';
-_prevDatetime = datetime.datetime.utcnow();
-_timerDatetime = datetime.datetime.utcnow();
+_cycle = 0.3
+_prevMessage = ''
+_prevDatetime = datetime.datetime.utcnow()
+_timerDatetime = datetime.datetime.utcnow()
 
 for arg in sys.argv:
 	if arg.startswith("--loglevel="):
