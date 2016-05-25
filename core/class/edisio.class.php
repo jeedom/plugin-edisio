@@ -160,7 +160,7 @@ class edisio extends eqLogic {
 			system::kill($pid);
 		}
 		system::kill('edisiod.py');
-		system::fuserk(config::byKey('socketport', 'edisio', 55005));
+		system::fuserk(config::byKey('socketport', 'edisio'));
 		$port = config::byKey('port', 'edisio');
 		if ($port != 'auto') {
 			system::fuserk(jeedom::getUsbMapping($port));
@@ -181,7 +181,7 @@ class edisio extends eqLogic {
 		$cmd = '/usr/bin/python ' . $edisio_path . '/edisiod.py';
 		$cmd .= ' --device=' . $port;
 		$cmd .= ' --loglevel=' . log::convertLogLevel(log::getLogLevel('edisio'));
-		$cmd .= ' --socketport=' . config::byKey('socketport', 'edisio', 55005);
+		$cmd .= ' --socketport=' . config::byKey('socketport', 'edisio');
 		if (config::byKey('jeeNetwork::mode') == 'slave') {
 			$cmd .= ' --sockethost=' . network::getNetworkAccess('internal', 'ip', '127.0.0.1');
 			$cmd .= ' --callback=' . config::byKey('jeeNetwork::master::ip') . '/plugins/edisio/core/php/jeeEdisio.php';
