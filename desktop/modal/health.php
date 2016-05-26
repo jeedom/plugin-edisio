@@ -24,6 +24,7 @@ $eqLogics = edisio::byType('edisio');
 <table class="table table-condensed tablesorter" id="table_healthedisio">
 	<thead>
 		<tr>
+			<th>{{Image}}</th>
 			<th>{{Module}}</th>
 			<th>{{ID}}</th>
 			<th>{{Statut}}</th>
@@ -35,7 +36,15 @@ $eqLogics = edisio::byType('edisio');
 	<tbody>
 	 <?php
 foreach ($eqLogics as $eqLogic) {
-	echo '<tr><td><a href="' . $eqLogic->getLinkToConfiguration() . '" style="text-decoration: none;">' . $eqLogic->getHumanName(true) . '</a></td>';
+	$alternateImg = $eqLogic->getConfiguration('iconModel');
+	if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $alternateImg . '.jpg')) {
+		$img = '<img class="lazy" src="plugins/edisio/core/config/devices/' . $alternateImg . '.jpg" height="65" width="55" />';
+	} elseif (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $eqLogic->getConfiguration('device') . '.jpg')) {
+		$img = '<img class="lazy" src="plugins/edisio/core/config/devices/' . $eqLogic->getConfiguration('device') . '.jpg" height="65" width="55" />';
+	} else {
+		$img = '<img class="lazy" src="plugins/edisio/doc/images/edisio_icon.png" height="65" width="55" />';
+	}
+	echo '<tr><td>'.$img.'</td><td><a href="' . $eqLogic->getLinkToConfiguration() . '" style="text-decoration: none;">' . $eqLogic->getHumanName(true) . '</a></td>';
 	echo '<td><span class="label label-info" style="font-size : 1em; cursor : default;">' . $eqLogic->getId() . '</span></td>';
 	$status = '<span class="label label-success" style="font-size : 1em; cursor : default;">{{OK}}</span>';
 	if ($eqLogic->getStatus('state') == 'nok') {
