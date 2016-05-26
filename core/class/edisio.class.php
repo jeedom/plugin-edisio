@@ -1,5 +1,4 @@
 <?php
-
 /* This file is part of Jeedom.
  *
  * Jeedom is free software: you can redistribute it and/or modify
@@ -15,20 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
-
 /* * ***************************Includes********************************* */
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
-
 class edisio extends eqLogic {
 	/*     * *************************Attributs****************************** */
-
 	/*     * ***********************Methode static*************************** */
-
 	public static function slaveReload() {
 		self::deamon_stop();
 		self::deamon_start();
 	}
-
 	public static function cronDaily() {
 		foreach (eqLogic::byType('edisio') as $eqLogic) {
 			$deviceParameter = edisio::devicesParameters($eqLogic->getConfiguration('device'));
@@ -38,7 +32,6 @@ class edisio extends eqLogic {
 			}
 		}
 	}
-
 	public static function createFromDef($_def) {
 		if (config::byKey('autoDiscoverEqLogic', 'edisio') == 0) {
 			return false;
@@ -88,7 +81,6 @@ class edisio extends eqLogic {
 		sleep(2);
 		return $eqLogic;
 	}
-
 	public static function devicesParameters($_device = '') {
 		$path = dirname(__FILE__) . '/../config/devices';
 		if (isset($_device) && $_device != '') {
@@ -115,10 +107,8 @@ class edisio extends eqLogic {
 					$return += json_decode($content, true);
 				}
 			} catch (Exception $e) {
-
 			}
 		}
-
 		if (isset($_device) && $_device != '') {
 			if (isset($return[$_device])) {
 				return $return[$_device];
@@ -127,7 +117,6 @@ class edisio extends eqLogic {
 		}
 		return $return;
 	}
-
 	public static function deamon_info() {
 		$return = array();
 		$return['log'] = 'edisio';
@@ -152,7 +141,6 @@ class edisio extends eqLogic {
 		}
 		return $return;
 	}
-
 	public static function deamon_stop() {
 		$pid_file = '/tmp/edisiod.pid';
 		if (file_exists($pid_file)) {
@@ -166,7 +154,6 @@ class edisio extends eqLogic {
 			system::fuserk(jeedom::getUsbMapping($port));
 		}
 	}
-
 	public static function deamon_start() {
 		self::deamon_stop();
 		$deamon_info = self::deamon_info();
@@ -210,7 +197,6 @@ class edisio extends eqLogic {
 		log::add('edisio', 'info', 'Démon EDISIO lancé');
 		return true;
 	}
-
 	public static function getModelList($_conf, $_id) {
 		$edisio = eqlogic::byId($_id);
 		$iconModel = $edisio->getConfiguration('iconModel');
@@ -230,9 +216,7 @@ class edisio extends eqLogic {
 		}
 		return $modelList;
 	}
-
 /*     * *********************Methode d'instance************************* */
-
 	public function preInsert() {
 		if ($this->getLogicalId() == '') {
 			for ($i = 0; $i < 20; $i++) {
@@ -245,7 +229,6 @@ class edisio extends eqLogic {
 			}
 		}
 	}
-
 	public function postSave() {
 		if ($this->getConfiguration('applyDevice') != $this->getConfiguration('device')) {
 			$this->applyModuleConfiguration();
@@ -257,7 +240,7 @@ class edisio extends eqLogic {
 			$this->applyModuleConfiguration();
 		}
 	}
-
+	
 	public function applyModuleConfiguration() {
 		$this->setConfiguration('applyDevice', $this->getConfiguration('device'));
 		$this->save();
@@ -331,7 +314,6 @@ class edisio extends eqLogic {
 				}
 			}
 		}
-
 		if (count($link_cmds) > 0) {
 			foreach ($this->getCmd() as $eqLogic_cmd) {
 				foreach ($link_cmds as $cmd_id => $link_cmd) {
@@ -358,20 +340,14 @@ class edisio extends eqLogic {
 				}
 			}
 		}
-
 		$this->save();
 	}
-
 /*     * **********************Getteur Setteur*************************** */
 }
-
 class edisioCmd extends cmd {
 	/*     * *************************Attributs****************************** */
-
 	/*     * ***********************Methode static*************************** */
-
 	/*     * *********************Methode d'instance************************* */
-
 	public function execute($_options = null) {
 		if ($this->getType() != 'action') {
 			return;
@@ -418,8 +394,6 @@ class edisioCmd extends cmd {
 			socket_close($socket);
 		}
 	}
-
 	/*     * **********************Getteur Setteur*************************** */
 }
-
 ?>
