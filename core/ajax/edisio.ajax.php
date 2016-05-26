@@ -24,6 +24,8 @@ try {
 		throw new Exception('401 Unauthorized');
 	}
 
+	ajax::init();
+
 	if (init('action') == 'getModelList') {
 		ajax::success(edisio::getModelList(init('conf'), init('id')));
 	}
