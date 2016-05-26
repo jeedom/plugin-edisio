@@ -8,19 +8,6 @@
         },
         "commands": [
             {
-                "name": "Batterie",
-                "type": "info",
-                "subtype": "numeric",
-                "display": {
-                    "generic_type": "BATTERY"
-                },
-                "isVisible": 0,
-                "isHistorized": 0,
-                "unite": "%",
-                "eventOnly": 1,
-                "logicalId": "battery"
-            },
-             {
                 "name": "Porte",
                 "type": "info",
                 "subtype": "binary",
@@ -37,6 +24,19 @@
                     "dashboard": "door",
                     "mobile": "door"
                 }
+            },
+			{
+                "name": "Batterie",
+                "type": "info",
+                "subtype": "numeric",
+                "display": {
+                    "generic_type": "BATTERY"
+                },
+                "isVisible": 0,
+                "isHistorized": 0,
+                "unite": "%",
+                "eventOnly": 1,
+                "logicalId": "battery"
             }
         ]
     }

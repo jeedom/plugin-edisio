@@ -4,6 +4,60 @@
         "groupe" : "Interrupteurs",
         "battery_type" : "1x3V CR2430",
         "commands": [
+			{
+                "name": "bt01",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "bt01"
+            },
+			{
+                "name": "bt01long",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "bt01long"
+            },
+			{
+                "name": "bt02",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "bt02"
+            },
+			{
+                "name": "bt02long",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "bt02long"
+            },
+			{
+                "name": "bt03",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "bt03"
+            },
+			{
+                "name": "bt03long",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "bt03long"
+            },
             {
                 "name": "Batterie",
                 "type": "info",

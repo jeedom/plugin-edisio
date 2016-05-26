@@ -128,30 +128,11 @@ class edisio extends eqLogic {
 		return $return;
 	}
 
-	public static function dependancy_info() {
-		$return = array();
-		$return['log'] = 'edisio_update';
-		$return['progress_file'] = '/tmp/dependancy_edisio_in_progress';
-		if (exec('sudo dpkg --get-selections | grep python-serial | grep install | wc -l') != 0) {
-			$return['state'] = 'ok';
-		} else {
-			$return['state'] = 'nok';
-		}
-		return $return;
-	}
-
-	public static function dependancy_install() {
-		log::remove('edisio_update');
-		$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install.sh';
-		$cmd .= ' >> ' . log::getPathToLog('edisio_update') . ' 2>&1 &';
-		exec($cmd);
-	}
-
 	public static function deamon_info() {
 		$return = array();
 		$return['log'] = 'edisio';
 		$return['state'] = 'nok';
-		$pid_file = '/tmp/edisio.pid';
+		$pid_file = '/tmp/edisiod.pid';
 		if (file_exists($pid_file)) {
 			if (posix_getsid(trim(file_get_contents($pid_file)))) {
 				$return['state'] = 'ok';
@@ -173,15 +154,20 @@ class edisio extends eqLogic {
 	}
 
 	public static function deamon_stop() {
-		$pid_file = '/tmp/edisio.pid';
+		$pid_file = '/tmp/edisiod.pid';
 		if (file_exists($pid_file)) {
 			$pid = intval(trim(file_get_contents($pid_file)));
 			system::kill($pid);
 		}
-		system::fuserk(config::byKey('socketport', 'edisio', 55005));
+		system::kill('edisiod.py');
+		system::fuserk(config::byKey('socketport', 'edisio'));
+		$port = config::byKey('port', 'edisio');
+		if ($port != 'auto') {
+			system::fuserk(jeedom::getUsbMapping($port));
+		}
 	}
 
-	public static function deamon_start($_debug = false) {
+	public static function deamon_start() {
 		self::deamon_stop();
 		$deamon_info = self::deamon_info();
 		if ($deamon_info['launchable'] != 'ok') {
@@ -191,12 +177,11 @@ class edisio extends eqLogic {
 		if ($port != 'auto') {
 			$port = jeedom::getUsbMapping($port);
 		}
-		$edisio_path = realpath(dirname(__FILE__) . '/../../ressources/edisiocmd');
-		$cmd = '/usr/bin/python ' . $edisio_path . '/edisiocmd.py';
+		$edisio_path = realpath(dirname(__FILE__) . '/../../resources/edisiod');
+		$cmd = '/usr/bin/python ' . $edisio_path . '/edisiod.py';
 		$cmd .= ' --device=' . $port;
 		$cmd .= ' --loglevel=' . log::convertLogLevel(log::getLogLevel('edisio'));
-		$cmd .= ' --pidfile=' . '/tmp/edisio.pid';
-		$cmd .= ' --socketport=' . config::byKey('socketport', 'edisio', 55005);
+		$cmd .= ' --socketport=' . config::byKey('socketport', 'edisio');
 		if (config::byKey('jeeNetwork::mode') == 'slave') {
 			$cmd .= ' --sockethost=' . network::getNetworkAccess('internal', 'ip', '127.0.0.1');
 			$cmd .= ' --callback=' . config::byKey('jeeNetwork::master::ip') . '/plugins/edisio/core/php/jeeEdisio.php';
@@ -206,8 +191,8 @@ class edisio extends eqLogic {
 			$cmd .= ' --callback=' . network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp') . '/plugins/edisio/core/php/jeeEdisio.php';
 			$cmd .= ' --apikey=' . config::byKey('api');
 		}
-		log::add('edisio', 'info', 'Lancement démon edisiocmd : ' . $cmd);
-		$result = exec($cmd . ' >> ' . log::getPathToLog('edisio') . ' 2>&1 &');
+		log::add('edisio', 'info', 'Lancement démon edisiod : ' . $cmd);
+		exec($cmd . ' >> ' . log::getPathToLog('edisio') . ' 2>&1 &');
 		$i = 0;
 		while ($i < 30) {
 			$deamon_info = self::deamon_info();
@@ -218,7 +203,7 @@ class edisio extends eqLogic {
 			$i++;
 		}
 		if ($i >= 30) {
-			log::add('edisio', 'error', 'Impossible de lancer le démon EDISIO, vérifiez la configuration et le log edisiocmd', 'unableStartDeamon');
+			log::add('edisio', 'error', 'Impossible de lancer le démon EDISIO, vérifiez la configuration et le log edisiod', 'unableStartDeamon');
 			return false;
 		}
 		message::removeAll('edisio', 'unableStartDeamon');
@@ -266,6 +251,12 @@ class edisio extends eqLogic {
 			$this->applyModuleConfiguration();
 		}
 	}
+	
+	public function postUpdate() {
+		if ($this->getConfiguration('applyDevice') != $this->getConfiguration('device')) {
+			$this->applyModuleConfiguration();
+		}
+	}
 
 	public function applyModuleConfiguration() {
 		$this->setConfiguration('applyDevice', $this->getConfiguration('device'));
@@ -293,7 +284,26 @@ class edisio extends eqLogic {
 		$cmd_order = 0;
 		$link_cmds = array();
 		$link_actions = array();
+		$arrayToRemove = [];
 		if (isset($device['commands'])) {
+			foreach ($this->getCmd() as $eqLogic_cmd) {
+				$exists = 0;
+				foreach ($device['commands'] as $command) {
+					if ($command['logicalId'] == $eqLogic_cmd->getLogicalId()) {
+						$exists++;
+					}	
+				}
+				if ($exists < 1) {
+					$arrayToRemove[] = $eqLogic_cmd;
+				}
+			}
+			foreach ($arrayToRemove as $cmdToRemove) {
+				try {
+					$cmdToRemove->remove();
+				} catch (Exception $e) {
+					
+				}
+			}
 			foreach ($device['commands'] as $command) {
 				$cmd = null;
 				try {
@@ -393,28 +403,20 @@ class edisioCmd extends cmd {
 		$values = explode('&&', $value);
 		if (config::byKey('jeeNetwork::mode') == 'master') {
 			foreach (jeeNetwork::byPlugin('edisio') as $jeeNetwork) {
-				foreach ($values as $value) {
-					$message = json_encode(array('apikey' => config::byKey('api'), 'data' => $value));
-					$socket = socket_create(AF_INET, SOCK_STREAM, 0);
-					socket_connect($socket, $jeeNetwork->getRealIp(), config::byKey('socketport', 'edisio', 55005));
-					socket_write($socket, $message, strlen($message));
-					socket_close($socket);
-					usleep(40000);
-				}
+				$message = json_encode(array('apikey' => config::byKey('api'), 'data' => $values));
+				$socket = socket_create(AF_INET, SOCK_STREAM, 0);
+				socket_connect($socket, $jeeNetwork->getRealIp(), config::byKey('socketport', 'edisio', 55005));
+				socket_write($socket, $message, strlen($message));
+				socket_close($socket);
 			}
 		}
 		if (config::byKey('port', 'edisio', 'none') != 'none') {
-			foreach ($values as $value) {
-				$message = trim(json_encode(array('apikey' => config::byKey('api'), 'data' => $value)));
-				$socket = socket_create(AF_INET, SOCK_STREAM, 0);
-				socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio', 55005));
-				socket_write($socket, $message, strlen($message));
-				socket_close($socket);
-				usleep(40000);
-			}
+			$message = trim(json_encode(array('apikey' => config::byKey('api'), 'data' => $values)));
+			$socket = socket_create(AF_INET, SOCK_STREAM, 0);
+			socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio', 55005));
+			socket_write($socket, $message, strlen($message));
+			socket_close($socket);
 		}
-		log::add('edisio', 'debug', 'Début fonction d\'envoi commandes edisio');
-
 	}
 
 	/*     * **********************Getteur Setteur*************************** */

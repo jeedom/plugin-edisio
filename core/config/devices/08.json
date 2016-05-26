@@ -5,19 +5,6 @@
         "battery_type" : "1x3V ER14250",
         "commands": [
             {
-                "name": "Batterie",
-                "type": "info",
-                "subtype": "numeric",
-                "display": {
-                    "generic_type": "BATTERY"
-                },
-                "isVisible": 0,
-                "isHistorized": 0,
-                "unite": "%",
-                "eventOnly": 1,
-                "logicalId": "battery"
-            },
-            {
                 "name": "Température",
                 "type": "info",
                 "subtype": "numeric",
@@ -29,6 +16,19 @@
                 "unite": "°C",
                 "eventOnly": 1,
                 "logicalId": "temperature"
+            },
+			{
+                "name": "Batterie",
+                "type": "info",
+                "subtype": "numeric",
+                "display": {
+                    "generic_type": "BATTERY"
+                },
+                "isVisible": 0,
+                "isHistorized": 0,
+                "unite": "%",
+                "eventOnly": 1,
+                "logicalId": "battery"
             }
         ]
     }
