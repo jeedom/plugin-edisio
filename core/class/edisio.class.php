@@ -234,13 +234,13 @@ class edisio extends eqLogic {
 			$this->applyModuleConfiguration();
 		}
 	}
-	
+
 	public function postUpdate() {
 		if ($this->getConfiguration('applyDevice') != $this->getConfiguration('device')) {
 			$this->applyModuleConfiguration();
 		}
 	}
-	
+
 	public function applyModuleConfiguration() {
 		$this->setConfiguration('applyDevice', $this->getConfiguration('device'));
 		$this->save();
@@ -274,7 +274,7 @@ class edisio extends eqLogic {
 				foreach ($device['commands'] as $command) {
 					if ($command['logicalId'] == $eqLogic_cmd->getLogicalId()) {
 						$exists++;
-					}	
+					}
 				}
 				if ($exists < 1) {
 					$arrayToRemove[] = $eqLogic_cmd;
@@ -284,7 +284,7 @@ class edisio extends eqLogic {
 				try {
 					$cmdToRemove->remove();
 				} catch (Exception $e) {
-					
+
 				}
 			}
 			foreach ($device['commands'] as $command) {
@@ -381,7 +381,7 @@ class edisioCmd extends cmd {
 			foreach (jeeNetwork::byPlugin('edisio') as $jeeNetwork) {
 				$message = json_encode(array('apikey' => config::byKey('api'), 'data' => $values));
 				$socket = socket_create(AF_INET, SOCK_STREAM, 0);
-				socket_connect($socket, $jeeNetwork->getRealIp(), config::byKey('socketport', 'edisio', 55005));
+				socket_connect($socket, $jeeNetwork->getRealIp(), config::byKey('socketport', 'edisio'));
 				socket_write($socket, $message, strlen($message));
 				socket_close($socket);
 			}
@@ -389,7 +389,7 @@ class edisioCmd extends cmd {
 		if (config::byKey('port', 'edisio', 'none') != 'none') {
 			$message = trim(json_encode(array('apikey' => config::byKey('api'), 'data' => $values)));
 			$socket = socket_create(AF_INET, SOCK_STREAM, 0);
-			socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio', 55005));
+			socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio'));
 			socket_write($socket, $message, strlen($message));
 			socket_close($socket);
 		}
