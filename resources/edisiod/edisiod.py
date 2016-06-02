@@ -14,7 +14,6 @@
 # along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 
 import logging
-import requests
 import string
 import sys
 import os
