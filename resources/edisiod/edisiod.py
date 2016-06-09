@@ -466,7 +466,7 @@ signal.signal(signal.SIGINT, handler)
 signal.signal(signal.SIGTERM, handler)	
 
 try:
-	jeedom_utils.wrtie_pid(str(_pidfile))
+	jeedom_utils.write_pid(str(_pidfile))
 	jeedom_com = jeedom_com(apikey = _apikey,url = _callback,cycle=_cycle)
 	if not jeedom_com.test():
 		sys.exit(1)

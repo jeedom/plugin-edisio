@@ -195,7 +195,7 @@ class jeedom_utils():
 		return [seq[i:i+length] for i in range(0, len(seq), length)]
 
 	@staticmethod
-	def wrtie_pid(path):
+	def write_pid(path):
 		pid = str(os.getpid())
 		logging.debug("Writing PID " + pid + " to " + str(path))
 		file(path, 'w').write("%s\n" % pid)
