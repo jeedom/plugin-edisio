@@ -462,6 +462,10 @@ if _device == 'auto':
 	_device = jeedom_utils.find_tty_usb('067b','2303')
 	logging.info('Find device : '+str(_device))
 
+if _device is None:
+	logging.error('No device found')
+	shutdown()
+
 signal.signal(signal.SIGINT, handler)
 signal.signal(signal.SIGTERM, handler)	
 
