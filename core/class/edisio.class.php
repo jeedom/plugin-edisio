@@ -121,7 +121,7 @@ class edisio extends eqLogic {
 	public static function dependancy_info() {
 		$return = array();
 		$return['progress_file'] = '/tmp/dependancy_edisio_in_progress';
-		if (exec('sudo dpkg --get-selections | grep -E "python\-serial|python\-request" | grep -v desinstall | wc -l') >= 2) {
+		if (exec('sudo dpkg --get-selections | grep -E "python\-serial|python\-request|python\-pyudev" | grep -v desinstall | wc -l') >= 3) {
 			$return['state'] = 'ok';
 		} else {
 			$return['state'] = 'nok';
