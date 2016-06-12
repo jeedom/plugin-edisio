@@ -473,7 +473,8 @@ try:
 	jeedom_utils.write_pid(str(_pidfile))
 	jeedom_com = jeedom_com(apikey = _apikey,url = _callback,cycle=_cycle)
 	if not jeedom_com.test():
-		sys.exit(1)
+		logging.error('Network communication issues. Please fixe your Jeedom network configuration.')
+		shutdown()
 	jeedom_serial = jeedom_serial(device=_device,rate=_serial_rate,timeout=_serial_timeout)
 	jeedom_socket = jeedom_socket(port=_socket_port,address=_socket_host)
 	listen()
