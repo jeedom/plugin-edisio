@@ -83,21 +83,6 @@ class edisio extends eqLogic {
 	}
 	public static function devicesParameters($_device = '') {
 		$path = dirname(__FILE__) . '/../config/devices';
-		if (isset($_device) && $_device != '') {
-			$files = ls($path, $_device . '.json', false, array('files', 'quiet'));
-			if (count($files) == 1) {
-				try {
-					$content = file_get_contents($path . '/' . $files[0]);
-					if (is_json($content)) {
-						$deviceConfiguration = json_decode($content, true);
-						return $deviceConfiguration[$_device];
-					}
-					return array();
-				} catch (Exception $e) {
-					return array();
-				}
-			}
-		}
 		$files = ls($path, '*.json', false, array('files', 'quiet'));
 		$return = array();
 		foreach ($files as $file) {
