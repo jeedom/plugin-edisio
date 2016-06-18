@@ -54,9 +54,9 @@
 
 
  function getModelList(_conf,_id) {
-    $.ajax({// fonction permettant de faire de l'ajax
-        type: "POST", // methode de transmission des données au fichier php
-        url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
+    $.ajax({
+        type: "POST", 
+        url: "plugins/edisio/core/ajax/edisio.ajax.php", 
         data: {
             action: "getModelList",
             conf: _conf,
@@ -67,36 +67,36 @@
         error: function (request, status, error) {
             handleAjaxError(request, status, error);
         },
-        success: function (data) { // si l'appel a bien fonctionné
-        if (data.state != 'ok') {
-            $('#div_alert').showAlert({message: data.result, level: 'danger'});
-            return;
-        }
-        var options = '';
-        var initImg = _conf;
-        for (var i in data.result) {
-            var value = data.result[i]['value'];
-            var selected = data.result[i]['selected'];
-            if (selected == 1){
-                initImg = i;
-                options += '<option value="'+i+'" selected>'+value+'</option>';
-            } else {
-                options += '<option value="'+i+'">'+value+'</option>';
+        success: function (data) {
+            if (data.state != 'ok') {
+                $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                return;
             }
+            var options = '';
+            var initImg = _conf;
+            for (var i in data.result) {
+                var value = data.result[i]['value'];
+                var selected = data.result[i]['selected'];
+                if (selected == 1){
+                    initImg = i;
+                    options += '<option value="'+i+'" selected>'+value+'</option>';
+                } else {
+                    options += '<option value="'+i+'">'+value+'</option>';
+                }
+            }
+            $(".modelList").show();
+            $(".listModel").html(options);
+            $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+initImg+'.jpg');
         }
-        $(".modelList").show();
-        $(".listModel").html(options);
-        $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+initImg+'.jpg');
-    }
-});
+    });
 }
 
 $('#table_cmd').delegate('.cmdAttr[data-l1key=type]','change',function(){
     if($(this).value() == 'info'){
-       $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').hide();
-   }else{
-       $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').show();
-   }
+     $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').hide();
+ }else{
+     $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').show();
+ }
 });
 
 $('body').delegate('.cmd .cmdAttr[data-l1key=type]', 'change', function () {
