@@ -27,7 +27,11 @@ try {
 	ajax::init();
 
 	if (init('action') == 'getModelList') {
-		ajax::success(edisio::getModelList(init('conf'), init('id')));
+		$edisio = edisio::byId(init('id'));
+		if (!is_object($edisio)) {
+			ajax::success(array());
+		}
+		ajax::success($edisio->getModelList(init('conf')));
 	}
 
 	throw new Exception('Aucune methode correspondante');

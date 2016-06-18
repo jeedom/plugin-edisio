@@ -71,6 +71,10 @@ class edisio extends eqLogic {
 		$eqLogic->setIsEnable(1);
 		$eqLogic->setIsVisible(1);
 		$eqLogic->setConfiguration('device', $_def['mid']);
+		$model = $eqLogic->getModelList();
+		if (count($model) > 0) {
+			$eqLogic->setConfiguration('iconModel', array_keys($model)[0]);
+		}
 		$eqLogic->save();
 		$eqLogic->applyModuleConfiguration();
 		event::add('jeedom::alert', array(
@@ -81,17 +85,24 @@ class edisio extends eqLogic {
 		sleep(2);
 		return $eqLogic;
 	}
+
 	public static function devicesParameters($_device = '') {
-		$path = dirname(__FILE__) . '/../config/devices';
-		$files = ls($path, '*.json', false, array('files', 'quiet'));
 		$return = array();
-		foreach ($files as $file) {
-			try {
-				$content = file_get_contents($path . '/' . $file);
-				if (is_json($content)) {
-					$return += json_decode($content, true);
+		foreach (ls(dirname(__FILE__) . '/../config/devices', '*') as $dir) {
+			$path = dirname(__FILE__) . '/../config/devices/' . $dir;
+			if (!is_dir($path)) {
+				continue;
+			}
+			$files = ls($path, '*.json', false, array('files', 'quiet'));
+			foreach ($files as $file) {
+				try {
+					$content = file_get_contents($path . '/' . $file);
+					if (is_json($content)) {
+						$return += json_decode($content, true);
+					}
+				} catch (Exception $e) {
+
 				}
-			} catch (Exception $e) {
 			}
 		}
 		if (isset($_device) && $_device != '') {
@@ -201,32 +212,52 @@ class edisio extends eqLogic {
 		return true;
 	}
 
-	public static function getModelList($_conf, $_id) {
-		$edisio = eqlogic::byId($_id);
-		if (!is_object($edisio)) {
-			return array();
+/*     * *********************Methode d'instance************************* */
+	public function getModelList($_conf = '') {
+		if ($_conf == '') {
+			$_conf = $this->getConfiguration('device');
 		}
 		$modelList = array();
-		$files = ls(dirname(__FILE__) . '/../config/devices/', $_conf . '_*.jpg', false, array('files', 'quiet'));
-		sort($files);
+		$files = array();
+		foreach (ls(dirname(__FILE__) . '/../config/devices', '*') as $dir) {
+			if (!is_dir(dirname(__FILE__) . '/../config/devices/' . $dir)) {
+				continue;
+			}
+			$files[$dir] = ls(dirname(__FILE__) . '/../config/devices/' . $dir, $_conf . '_*.jpg', false, array('files', 'quiet'));
+			if (file_exists(dirname(__FILE__) . '/../config/devices/' . $dir . $_conf . '.jpg')) {
+				$selected = 0;
+				if ($dir . $_conf == $this->getConfiguration('iconModel')) {
+					$selected = 1;
+				}
+				$modelList[$dir . $_conf] = array(
+					'value' => __('Défaut', __FILE__),
+					'selected' => $selected,
+				);
+			}
+			if (count($files[$dir]) == 0) {
+				unset($files[$dir]);
+			}
+		}
 		$replace = array(
 			$_conf => '',
 			'.jpg' => '',
 			'_' => ' ',
 		);
-		foreach ($files as $imgname) {
-			$selected = 0;
-			if (str_replace('.jpg', '', $imgname) == $edisio->getConfiguration('iconModel')) {
-				$selected = 1;
+		foreach ($files as $dir => $images) {
+			foreach ($images as $imgname) {
+				$selected = 0;
+				if ($dir . str_replace('.jpg', '', $imgname) == $this->getConfiguration('iconModel')) {
+					$selected = 1;
+				}
+				$modelList[$dir . str_replace('.jpg', '', $imgname)] = array(
+					'value' => ucfirst(trim(str_replace(array_keys($replace), $replace, $imgname))),
+					'selected' => $selected,
+				);
 			}
-			$modelList[str_replace('.jpg', '', $imgname)] = array(
-				'value' => ucfirst(trim(str_replace(array_keys($replace), $replace, $imgname))),
-				'selected' => $selected,
-			);
 		}
 		return $modelList;
 	}
-/*     * *********************Methode d'instance************************* */
+
 	public function preInsert() {
 		if ($this->getLogicalId() == '') {
 			for ($i = 0; $i < 20; $i++) {

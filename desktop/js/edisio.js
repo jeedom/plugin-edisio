@@ -15,45 +15,45 @@
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
 
-$(document).ready(function() {
-$('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
-  if($('.li_eqLogic.active').attr('data-eqlogic_id') != ''){
-    getModelList($(this).value(),$('.li_eqLogic.active').attr('data-eqlogic_id'));
-    $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+$(this).value()+'.jpg');
-}else{
-    $('#img_device').attr("src",'plugins/edisio/doc/images/edisio_icon.png');
-}  
+ $(document).ready(function() {
+    $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
+      if($('.li_eqLogic.active').attr('data-eqlogic_id') != ''){
+        getModelList($(this).value(),$('.li_eqLogic.active').attr('data-eqlogic_id'));
+        $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+$(this).value()+'.jpg');
+    }else{
+        $('#img_device').attr("src",'plugins/edisio/doc/images/edisio_icon.png');
+    }  
 });
- $('.eqLogicAttr[data-l1key=configuration][data-l2key=batteryStatus]').on('change', function () {
-  if($(this).html() != ''){
-    $('.hasBatterie').show();
-}else{
-    $('.hasBatterie').hide();
-}
-});
-
- $('.eqLogicAttr[data-l1key=status][data-l2key=lastCommunication]').on('change', function () {
-  if($(this).html() != ''){
-    $('.hasCommunication').show();
-}else{
-    $('.hasCommunication').hide();
-}
+    $('.eqLogicAttr[data-l1key=configuration][data-l2key=batteryStatus]').on('change', function () {
+      if($(this).html() != ''){
+        $('.hasBatterie').show();
+    }else{
+        $('.hasBatterie').hide();
+    }
 });
 
- $('.eqLogicAttr[data-l1key=configuration][data-l2key=iconModel]').on('change', function () {
-  if($(this).value() != '' && $(this).value() != null){
-    $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+$(this).value()+'.jpg');
-  }
+    $('.eqLogicAttr[data-l1key=status][data-l2key=lastCommunication]').on('change', function () {
+      if($(this).html() != ''){
+        $('.hasCommunication').show();
+    }else{
+        $('.hasCommunication').hide();
+    }
+});
+
+    $('.eqLogicAttr[data-l1key=configuration][data-l2key=iconModel]').on('change', function () {
+      if($(this).value() != '' && $(this).value() != null){
+        $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+$(this).value()+'.jpg');
+    }
 });
 });
-$('#bt_healthEdisio').on('click', function () {
+ $('#bt_healthEdisio').on('click', function () {
     $('#md_modal').dialog({title: "{{Santé Edisio}}"});
     $('#md_modal').load('index.php?v=d&plugin=edisio&modal=health').dialog('open');
 });
  $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 
 
-function getModelList(_conf,_id) {
+ function getModelList(_conf,_id) {
     $.ajax({// fonction permettant de faire de l'ajax
         type: "POST", // methode de transmission des données au fichier php
         url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
@@ -72,36 +72,31 @@ function getModelList(_conf,_id) {
             $('#div_alert').showAlert({message: data.result, level: 'danger'});
             return;
         }
-        var options = '<option value="'+_conf+'">1 - Défaut</option>';
+        var options = '';
         var initImg = _conf;
         for (var i in data.result) {
-                var value = data.result[i]['value'];
-                var selected = data.result[i]['selected'];
-                if (selected == 1){
-                    initImg = i;
-                    options += '<option value="'+i+'" selected>'+value+'</option>';
-                } else {
-                    options += '<option value="'+i+'">'+value+'</option>';
-                }
+            var value = data.result[i]['value'];
+            var selected = data.result[i]['selected'];
+            if (selected == 1){
+                initImg = i;
+                options += '<option value="'+i+'" selected>'+value+'</option>';
+            } else {
+                options += '<option value="'+i+'">'+value+'</option>';
+            }
         }
-        if (options != '<option value="'+_conf+'">1 - Défaut</option>'){
-            $(".modelList").show();
-            $(".listModel").html(options);
-            $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+initImg+'.jpg');
-        } else {
-            $(".listModel").html(options);
-            $(".modelList").hide();
-        }
-        }
+        $(".modelList").show();
+        $(".listModel").html(options);
+        $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+initImg+'.jpg');
+    }
 });
 }
 
 $('#table_cmd').delegate('.cmdAttr[data-l1key=type]','change',function(){
     if($(this).value() == 'info'){
-     $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').hide();
- }else{
-     $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').show();
- }
+       $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').hide();
+   }else{
+       $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').show();
+   }
 });
 
 $('body').delegate('.cmd .cmdAttr[data-l1key=type]', 'change', function () {
