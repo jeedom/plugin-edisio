@@ -215,20 +215,27 @@ class edisio extends eqLogic {
 		log::add('edisio', 'info', 'Démon EDISIO lancé');
 		return true;
 	}
+
 	public static function getModelList($_conf, $_id) {
 		$edisio = eqlogic::byId($_id);
-		$iconModel = $edisio->getConfiguration('iconModel');
+		if (!is_object($edisio)) {
+			return array();
+		}
 		$modelList = array();
-		$path = dirname(__FILE__) . '/../config/devices/';
-		$files = ls($path, $_conf . '_*.jpg', false, array('files', 'quiet'));
+		$files = ls(dirname(__FILE__) . '/../config/devices/', $_conf . '_*.jpg', false, array('files', 'quiet'));
 		sort($files);
+		$replace = array(
+			$_conf => '',
+			'.jpg' => '',
+			'_' => ' ',
+		);
 		foreach ($files as $imgname) {
 			$selected = 0;
-			if (explode('.', $imgname)[0] == $iconModel) {
+			if (str_replace('.jpg', '', $imgname) == $edisio->getConfiguration('iconModel')) {
 				$selected = 1;
 			}
-			$modelList[explode('.', $imgname)[0]] = array(
-				'value' => ucfirst(explode('_', explode('.', $imgname)[0])[1]),
+			$modelList[str_replace('.jpg', '', $imgname)] = array(
+				'value' => ucfirst(trim(str_replace(array_keys($replace), $replace, $imgname))),
 				'selected' => $selected,
 			);
 		}

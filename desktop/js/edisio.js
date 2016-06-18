@@ -52,26 +52,6 @@ $('#bt_healthEdisio').on('click', function () {
 });
  $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 
- function stopEDISIODeamon() {
-    $.ajax({// fonction permettant de faire de l'ajax
-        type: "POST", // methode de transmission des données au fichier php
-        url: "plugins/edisio/core/ajax/edisio.ajax.php", // url du fichier php
-        data: {
-            action: "stopDeamon",
-        },
-        dataType: 'json',
-        error: function (request, status, error) {
-            handleAjaxError(request, status, error);
-        },
-        success: function (data) { // si l'appel a bien fonctionné
-        if (data.state != 'ok') {
-            $('#div_alert').showAlert({message: data.result, level: 'danger'});
-            return;
-        }
-        $('#div_alert').showAlert({message: 'Le démon a été correctement arrêté : il se relancera automatiquement dans 1 minute', level: 'success'});
-    }
-});
-}
 
 function getModelList(_conf,_id) {
     $.ajax({// fonction permettant de faire de l'ajax
