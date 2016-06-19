@@ -73,15 +73,12 @@
                 return;
             }
             var options = '';
-            var initImg = _conf;
+            var options = '';
             for (var i in data.result) {
-                var value = data.result[i]['value'];
-                var selected = data.result[i]['selected'];
-                if (selected == 1){
-                    initImg = i;
-                    options += '<option value="'+i+'" selected>'+value+'</option>';
+                if (data.result[i]['selected'] == 1){
+                    options += '<option value="'+i+'" selected>'+data.result[i]['value']+'</option>';
                 } else {
-                    options += '<option value="'+i+'">'+value+'</option>';
+                    options += '<option value="'+i+'">'+data.result[i]['value']+'</option>';
                 }
             }
             $(".modelList").show();
@@ -93,10 +90,10 @@
 
 $('#table_cmd').delegate('.cmdAttr[data-l1key=type]','change',function(){
     if($(this).value() == 'info'){
-     $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').hide();
- }else{
-     $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').show();
- }
+       $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').hide();
+   }else{
+       $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=group]').show();
+   }
 });
 
 $('body').delegate('.cmd .cmdAttr[data-l1key=type]', 'change', function () {
@@ -114,7 +111,6 @@ function addCmdToTable(_cmd) {
     if (!isset(_cmd)) {
         var _cmd = {configuration: {}};
     }
-
     var tr = '<tr class="cmd" data-cmd_id="' + init(_cmd.id) + '">';
     tr += '<td>';
     tr += '<div class="row">';
