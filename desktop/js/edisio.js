@@ -83,7 +83,10 @@
             }
             $(".modelList").show();
             $(".listModel").html(options);
-            $('.eqLogicAttr[data-l1key=configuration][data-l2key=iconModel]').change();
+            $icon = $('.eqLogicAttr[data-l1key=configuration][data-l2key=iconModel]').value();
+			if($icon != '' && $icon != null){
+				$('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+$icon+'.jpg');
+			}
         }
     });
 }
