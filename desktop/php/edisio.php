@@ -119,27 +119,27 @@ foreach ($eqLogics as $eqLogic) {
           <div class="form-group">
             <label class="col-sm-3 control-label"></label>
             <div class="col-sm-9">
-             <input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Activer}}" data-l1key="isEnable" checked/>
-             <input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Visible}}" data-l1key="isVisible" checked/>
-           </div>
-         </div>
-         <div class="form-group">
-          <label class="col-sm-3 control-label" >{{Objet parent}}</label>
-          <div class="col-sm-4">
-            <select class="eqLogicAttr form-control" data-l1key="object_id">
-              <option value="">{{Aucun}}</option>
-              <?php
+              <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isEnable" checked/>{{Activer}}</label>
+              <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>{{Visible}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" >{{Objet parent}}</label>
+            <div class="col-sm-4">
+              <select class="eqLogicAttr form-control" data-l1key="object_id">
+                <option value="">{{Aucun}}</option>
+                <?php
 foreach (object::all() as $object) {
 	echo '<option value="' . $object->getId() . '">' . $object->getName() . '</option>';
 }
 ?>
-           </select>
+             </select>
+           </div>
          </div>
-       </div>
-       <div class="form-group">
-        <label class="col-sm-3 control-label">{{Catégorie}}</label>
-        <div class="col-sm-9">
-          <?php
+         <div class="form-group">
+          <label class="col-sm-3 control-label">{{Catégorie}}</label>
+          <div class="col-sm-9">
+            <?php
 foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
 	echo '<label class="checkbox-inline">';
 	echo '<input type="checkbox" class="eqLogicAttr" data-l1key="category" data-l2key="' . $key . '" />' . $value['name'];
@@ -147,28 +147,28 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
 }
 ?>
 
+         </div>
        </div>
-     </div>
-     <div class="form-group expertModeVisible">
-      <label class="col-sm-3 control-label">{{Ne pas verifier la batterie}}</label>
-      <div class="col-sm-1">
-        <input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-l1key="configuration" data-l2key="noBatterieCheck"/>
+       <div class="form-group expertModeVisible">
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+        <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="noBatterieCheck"/>{{Ne pas verifier la batterie}}</label>
+        </div>
       </div>
-    </div>
-    <div class="form-group expertModeVisible">
-      <label class="col-sm-3 control-label">{{Délai maximum autorisé entre 2 messages (min)}}</label>
-      <div class="col-sm-4">
-        <input class="eqLogicAttr form-control" data-l1key="timeout" />
+      <div class="form-group expertModeVisible">
+        <label class="col-sm-3 control-label">{{Délai maximum autorisé entre 2 messages (min)}}</label>
+        <div class="col-sm-4">
+          <input class="eqLogicAttr form-control" data-l1key="timeout" />
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-3 control-label">{{Commentaire}}</label>
-      <div class="col-sm-8">
-        <textarea class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="commentaire" ></textarea>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">{{Commentaire}}</label>
+        <div class="col-sm-8">
+          <textarea class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="commentaire" ></textarea>
+        </div>
       </div>
-    </div>
-  </fieldset>
-</form>
+    </fieldset>
+  </form>
 </div>
 <div class="col-sm-6">
   <form class="form-horizontal">
