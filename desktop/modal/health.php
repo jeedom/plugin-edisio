@@ -52,7 +52,6 @@ foreach ($eqLogics as $eqLogic) {
 	}
 	echo '<td>' . $status . '</td>';
 	$battery_status = '<span class="label label-success" style="font-size : 1em;">{{OK}}</span>';
-	$battery = $eqLogic->getCache('batteryStatus');
 	if ($eqLogic->getCache('batteryStatus') < 20 && $eqLogic->getCache('batteryStatus') != '') {
 		$battery_status = '<span class="label label-danger" style="font-size : 1em;">' . $eqLogic->getCache('batteryStatus') . '%</span>';
 	} elseif ($eqLogic->getCache('batteryStatus') < 60 && $eqLogic->getCache('batteryStatus') != '') {
