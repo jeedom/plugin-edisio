@@ -95,51 +95,61 @@ foreach ($eqLogics as $eqLogic) {
 </div>
 
 <div class="col-lg-10 col-md-9 col-sm-8 eqLogic" style="border-left: solid 1px #EEE; padding-left: 25px;display: none;">
-  <div class="row">
-    <div class="col-sm-6">
-      <form class="form-horizontal">
-        <fieldset>
-          <legend><i class="fa fa-arrow-circle-left eqLogicAction cursor" data-action="returnToThumbnailDisplay"></i> {{Général}}
-            <i class='fa fa-cogs eqLogicAction pull-right cursor expertModeVisible' data-action='configure'></i>
-            <a class="btn btn-xs btn-default pull-right eqLogicAction" data-action="copy"><i class="fa fa-files-o"></i> {{Dupliquer}}</a>
-          </legend>
-          <div class="form-group">
-            <label class="col-sm-3 control-label">{{Nom de l'équipement EDISIO}}</label>
-            <div class="col-sm-4">
-              <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
-              <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="Nom de l'équipement EDISIO"/>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label">{{ID}}</label>
-            <div class="col-sm-4">
-              <input type="text" class="eqLogicAttr form-control" data-l1key="logicalId" placeholder="Logical ID"/>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label"></label>
-            <div class="col-sm-9">
-              <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isEnable" checked/>{{Activer}}</label>
-              <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>{{Visible}}</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label" >{{Objet parent}}</label>
-            <div class="col-sm-4">
-              <select class="eqLogicAttr form-control" data-l1key="object_id">
-                <option value="">{{Aucun}}</option>
-                <?php
+  <a class="btn btn-success eqLogicAction pull-right" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
+  <a class="btn btn-danger eqLogicAction pull-right" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
+
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-tachometer"></i> {{Equipement}}</a></li>
+    <li role="presentation"><a href="#commandtab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Commandes}}</a></li>
+  </ul>
+
+  <div class="tab-content" style="height:calc(100% - 50px);overflow:auto;overflow-x: hidden;">
+    <div role="tabpanel" class="tab-pane active" id="eqlogictab">
+      <div class="row">
+        <div class="col-sm-6">
+          <form class="form-horizontal">
+            <fieldset>
+              <legend><i class="fa fa-arrow-circle-left eqLogicAction cursor" data-action="returnToThumbnailDisplay"></i> {{Général}}
+                <i class='fa fa-cogs eqLogicAction pull-right cursor expertModeVisible' data-action='configure'></i>
+                <a class="btn btn-xs btn-default pull-right eqLogicAction" data-action="copy"><i class="fa fa-files-o"></i> {{Dupliquer}}</a>
+              </legend>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">{{Nom de l'équipement EDISIO}}</label>
+                <div class="col-sm-4">
+                  <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
+                  <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="Nom de l'équipement EDISIO"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">{{ID}}</label>
+                <div class="col-sm-4">
+                  <input type="text" class="eqLogicAttr form-control" data-l1key="logicalId" placeholder="Logical ID"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label"></label>
+                <div class="col-sm-9">
+                  <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isEnable" checked/>{{Activer}}</label>
+                  <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>{{Visible}}</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label" >{{Objet parent}}</label>
+                <div class="col-sm-4">
+                  <select class="eqLogicAttr form-control" data-l1key="object_id">
+                    <option value="">{{Aucun}}</option>
+                    <?php
 foreach (object::all() as $object) {
 	echo '<option value="' . $object->getId() . '">' . $object->getName() . '</option>';
 }
 ?>
-             </select>
-           </div>
-         </div>
-         <div class="form-group">
-          <label class="col-sm-3 control-label">{{Catégorie}}</label>
-          <div class="col-sm-9">
-            <?php
+                 </select>
+               </div>
+             </div>
+             <div class="form-group">
+              <label class="col-sm-3 control-label">{{Catégorie}}</label>
+              <div class="col-sm-9">
+                <?php
 foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
 	echo '<label class="checkbox-inline">';
 	echo '<input type="checkbox" class="eqLogicAttr" data-l1key="category" data-l2key="' . $key . '" />' . $value['name'];
@@ -147,39 +157,39 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
 }
 ?>
 
-         </div>
-       </div>
-       <div class="form-group expertModeVisible">
-        <label class="col-sm-3 control-label"></label>
-        <div class="col-sm-9">
-        <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="noBatterieCheck"/>{{Ne pas verifier la batterie}}</label>
-        </div>
-      </div>
-      <div class="form-group expertModeVisible">
-        <label class="col-sm-3 control-label">{{Délai maximum autorisé entre 2 messages (min)}}</label>
-        <div class="col-sm-4">
-          <input class="eqLogicAttr form-control" data-l1key="timeout" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">{{Commentaire}}</label>
-        <div class="col-sm-8">
-          <textarea class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="commentaire" ></textarea>
-        </div>
-      </div>
-    </fieldset>
-  </form>
-</div>
-<div class="col-sm-6">
-  <form class="form-horizontal">
-    <fieldset>
-      <legend><i class="fa fa-info-circle"></i>  {{Informations}}</legend>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">{{Equipement}}</label>
-        <div class="col-sm-6">
-         <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="device">
-          <option value="">{{Aucun}}</option>
-          <?php
+             </div>
+           </div>
+           <div class="form-group expertModeVisible">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-9">
+              <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="noBatterieCheck"/>{{Ne pas verifier la batterie}}</label>
+            </div>
+          </div>
+          <div class="form-group expertModeVisible">
+            <label class="col-sm-3 control-label">{{Délai maximum autorisé entre 2 messages (min)}}</label>
+            <div class="col-sm-4">
+              <input class="eqLogicAttr form-control" data-l1key="timeout" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{Commentaire}}</label>
+            <div class="col-sm-8">
+              <textarea class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="commentaire" ></textarea>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <div class="col-sm-6">
+      <form class="form-horizontal">
+        <fieldset>
+          <legend><i class="fa fa-info-circle"></i>  {{Informations}}</legend>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{Equipement}}</label>
+            <div class="col-sm-6">
+             <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="device">
+              <option value="">{{Aucun}}</option>
+              <?php
 $groups = array();
 
 foreach (edisio::devicesParameters() as $key => $info) {
@@ -206,37 +216,37 @@ foreach ($groups as $group) {
 	echo '</optgroup>';
 }
 ?>
-   </select>
+       </select>
+     </div>
+   </div>
+   <div class="form-group expertModeVisible">
+    <label class="col-sm-3 control-label">{{Création}}</label>
+    <div class="col-sm-3">
+      <span class="eqLogicAttr label label-default" data-l1key="configuration" data-l2key="createtime" style="font-size : 1em;cursor : default;"></span>
+    </div>
+    <label class="col-sm-3 control-label">{{Statut}}</label>
+    <div class="col-sm-2">
+      <span class="eqLogicAttr label label-default" data-l1key="status" data-l2key="state" style="font-size : 1em;cursor : default;"></span>
+    </div>
+  </div>
+  <div class="form-group expertModeVisible">
+    <label class="col-sm-3 control-label hasCommunication">{{Communication}}</label>
+    <div class="col-sm-3 hasCommunication">
+      <span class="eqLogicAttr label label-default" data-l1key="status" data-l2key="lastCommunication" style="font-size : 1em;cursor : default;"></span>
+    </div>
+    <label class="col-sm-3 control-label hasBatterie">{{Batterie}}</label>
+    <div class="col-sm-3 hasBatterie">
+      <span class="eqLogicAttr label label-default" data-l1key="configuration" data-l2key="batteryStatus" style="font-size : 1em;cursor : default;"></span> %
+    </div>
+  </div>
+  <div class="form-group modelList" style="display:none;">
+    <label class="col-sm-3 control-label">{{Modèle}}</label>
+    <div class="col-sm-6">
+     <select class="eqLogicAttr form-control listModel" data-l1key="configuration" data-l2key="iconModel">
+     </select>
+   </div>
  </div>
-</div>
-<div class="form-group expertModeVisible">
-  <label class="col-sm-3 control-label">{{Création}}</label>
-  <div class="col-sm-3">
-    <span class="eqLogicAttr label label-default" data-l1key="configuration" data-l2key="createtime" style="font-size : 1em;cursor : default;"></span>
-  </div>
-  <label class="col-sm-3 control-label">{{Statut}}</label>
-  <div class="col-sm-2">
-    <span class="eqLogicAttr label label-default" data-l1key="status" data-l2key="state" style="font-size : 1em;cursor : default;"></span>
-  </div>
-</div>
-<div class="form-group expertModeVisible">
-  <label class="col-sm-3 control-label hasCommunication">{{Communication}}</label>
-  <div class="col-sm-3 hasCommunication">
-    <span class="eqLogicAttr label label-default" data-l1key="status" data-l2key="lastCommunication" style="font-size : 1em;cursor : default;"></span>
-  </div>
-  <label class="col-sm-3 control-label hasBatterie">{{Batterie}}</label>
-  <div class="col-sm-3 hasBatterie">
-    <span class="eqLogicAttr label label-default" data-l1key="configuration" data-l2key="batteryStatus" style="font-size : 1em;cursor : default;"></span> %
-  </div>
-</div>
-<div class="form-group modelList" style="display:none;">
-  <label class="col-sm-3 control-label">{{Modèle}}</label>
-  <div class="col-sm-6">
-   <select class="eqLogicAttr form-control listModel" data-l1key="configuration" data-l2key="iconModel">
-   </select>
- </div>
-</div>
-<center>
+ <center>
   <img src="core/img/no_image.gif" data-original=".jpg" id="img_device" class="img-responsive" style="max-height : 250px;" onerror="this.src='plugins/edisio/doc/images/edisio_icon.png'"/>
 </center>
 </fieldset>
@@ -253,34 +263,27 @@ foreach ($groups as $group) {
   </fieldset>
 </form>
 
-<legend><i class="fa fa-list-alt"></i> {{Commandes}}</legend>
+</div>
+<div role="tabpanel" class="tab-pane" id="commandtab">
+  <a class="btn btn-success btn-sm cmdAction pull-right" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter une commande}}</a><br/><br/>
+  <table id="table_cmd" class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th style="width: 300px;">{{Nom}}</th>
+        <th style="width: 130px;" class="expertModeVisible">{{Type}}</th>
+        <th class="expertModeVisible">{{Logical ID (info) ou Commande brute (action)}}</th>
+        <th>{{Paramètres}}</th>
+        <th style="width: 100px;">{{Options}}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
 
+    </tbody>
+  </table>
 
-<a class="btn btn-success btn-sm cmdAction" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter une commande}}</a><br/><br/>
-<table id="table_cmd" class="table table-bordered table-condensed">
-  <thead>
-    <tr>
-      <th style="width: 300px;">{{Nom}}</th>
-      <th style="width: 130px;" class="expertModeVisible">{{Type}}</th>
-      <th class="expertModeVisible">{{Logical ID (info) ou Commande brute (action)}}</th>
-      <th>{{Paramètres}}</th>
-      <th style="width: 100px;">{{Options}}</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-
-  </tbody>
-</table>
-
-<form class="form-horizontal">
-  <fieldset>
-    <div class="form-actions">
-      <a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
-      <a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
-    </div>
-  </fieldset>
-</form>
+</div>
+</div>
 
 </div>
 </div>
