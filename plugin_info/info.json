@@ -1,0 +1,12 @@
+{
+	"id" : "edisio",
+	"name" : "Edisio",
+	"description" : "Plugin ajoutant le support du protocole Edisio à Jeedom",
+	"licence" : "AGPL",
+	"author" : "Loïc",
+	"require" : "2.3",
+	"category" : "automation protocol",
+	"hasOwnDeamon" : true,
+	"hasDependency" : true,
+	"allowRemote" : true
+}

@@ -3,7 +3,7 @@
 	<id>edisio</id>
 	<name>Edisio</name>
 	<licence>AGPL</licence>
-	<author>Loïc Gevrey</author>
+	<author>Loïc</author>
 	<require>2.3</require>
 	<category>automation protocol</category>
 	<allowRemote>1</allowRemote>
