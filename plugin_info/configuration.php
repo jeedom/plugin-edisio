@@ -54,38 +54,3 @@ foreach (jeedom::getUsbMapping() as $name => $value) {
 </div>
 </fieldset>
 </form>
-
-<?php
-if (config::byKey('jeeNetwork::mode') == 'master') {
-	foreach (jeeNetwork::byPlugin('edisio') as $jeeNetwork) {
-		?>
-        <form class="form-horizontal slaveConfig" data-slave_id="<?php echo $jeeNetwork->getId(); ?>">
-            <fieldset>
-                <legend><i class="icon loisir-darth"></i> {{Démon sur l'esclave}} <?php echo $jeeNetwork->getName() ?></legend>
-                <div class="form-group">
-                    <label class="col-lg-4 control-label">{{Port Edisio}}</label>
-                    <div class="col-lg-4">
-                        <select class="slaveConfigKey form-control" data-l1key="port">
-                            <option value="none">{{Aucun}}</option>
-                            <option value="auto">{{Auto}}</option>
-                            <?php
-foreach ($jeeNetwork->sendRawRequest('jeedom::getUsbMapping') as $name => $value) {
-			echo '<option value="' . $name . '">' . $name . ' (' . $value . ')</option>';
-		}
-		?>
-                     </select>
-                 </div>
-             </div>
-        <div class="form-group expertModeVisible">
-            <label class="col-lg-4 control-label">{{Port socket interne (modification dangereuse, doit etre le meme surtout les esclaves)}}</label>
-            <div class="col-lg-2">
-                <input class="slaveConfigKey form-control" data-l1key="socketport"/>
-            </div>
-        </div>
-    </fieldset>
-</form>
-
-<?php
-}
-}
-?>

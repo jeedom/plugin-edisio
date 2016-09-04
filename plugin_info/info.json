@@ -7,6 +7,5 @@
 	"require" : "2.3",
 	"category" : "automation protocol",
 	"hasOwnDeamon" : true,
-	"hasDependency" : true,
-	"allowRemote" : true
+	"hasDependency" : true
 }

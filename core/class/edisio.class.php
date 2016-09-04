@@ -19,10 +19,6 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 class edisio extends eqLogic {
 	/*     * *************************Attributs****************************** */
 	/*     * ***********************Methode static*************************** */
-	public static function slaveReload() {
-		self::deamon_stop();
-		self::deamon_start();
-	}
 	public static function cronDaily() {
 		foreach (eqLogic::byType('edisio') as $eqLogic) {
 			$deviceParameter = edisio::devicesParameters($eqLogic->getConfiguration('device'));
@@ -183,15 +179,9 @@ class edisio extends eqLogic {
 		$cmd .= ' --device=' . $port;
 		$cmd .= ' --loglevel=' . log::convertLogLevel(log::getLogLevel('edisio'));
 		$cmd .= ' --socketport=' . config::byKey('socketport', 'edisio');
-		if (config::byKey('jeeNetwork::mode') == 'slave') {
-			$cmd .= ' --sockethost=' . network::getNetworkAccess('internal', 'ip', '127.0.0.1');
-			$cmd .= ' --callback=' . config::byKey('jeeNetwork::master::ip') . '/plugins/edisio/core/php/jeeEdisio.php';
-			$cmd .= ' --apikey=' . config::byKey('jeeNetwork::master::apikey');
-		} else {
-			$cmd .= ' --sockethost=127.0.0.1';
-			$cmd .= ' --callback=' . network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp') . '/plugins/edisio/core/php/jeeEdisio.php';
-			$cmd .= ' --apikey=' . config::byKey('api');
-		}
+		$cmd .= ' --sockethost=127.0.0.1';
+		$cmd .= ' --callback=' . network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp') . '/plugins/edisio/core/php/jeeEdisio.php';
+		$cmd .= ' --apikey=' . config::byKey('api');
 		log::add('edisio', 'info', 'Lancement démon edisiod : ' . $cmd);
 		exec($cmd . ' >> ' . log::getPathToLog('edisio') . ' 2>&1 &');
 		$i = 0;
@@ -418,15 +408,6 @@ class edisioCmd extends cmd {
 				break;
 		}
 		$values = explode('&&', $value);
-		if (config::byKey('jeeNetwork::mode') == 'master') {
-			foreach (jeeNetwork::byPlugin('edisio') as $jeeNetwork) {
-				$message = json_encode(array('apikey' => config::byKey('api'), 'data' => $values));
-				$socket = socket_create(AF_INET, SOCK_STREAM, 0);
-				socket_connect($socket, $jeeNetwork->getRealIp(), config::byKey('socketport', 'edisio'));
-				socket_write($socket, $message, strlen($message));
-				socket_close($socket);
-			}
-		}
 		if (config::byKey('port', 'edisio', 'none') != 'none') {
 			$message = trim(json_encode(array('apikey' => config::byKey('api'), 'data' => $values)));
 			$socket = socket_create(AF_INET, SOCK_STREAM, 0);
