@@ -34,10 +34,11 @@ import pyudev
 # ------------------------------------------------------------------------------
 
 class jeedom_com():
-	def __init__(self,apikey = '',url = '',cycle = 0.5):
+	def __init__(self,apikey = '',url = '',cycle = 0.5,retry = 3):
 		self.apikey = apikey
 		self.url = url
 		self.cycle = cycle
+		self.retry = retry
 		self.changes = {}
 		self.send_changes_async()
 		logging.debug('Init request module v%s' % (str(requests.__version__),))
@@ -51,13 +52,18 @@ class jeedom_com():
 			start_time = datetime.datetime.now()
 			changes = self.changes
 			self.changes = {}
-			try:
-				logging.debug('Send to jeedom :  %s' % (str(changes),))
-				r = requests.post(self.url + '?apikey=' + self.apikey, json=changes, timeout=(0.5, 120), verify=False)
-				if r.status_code != requests.codes.ok:
-					logging.error('Error on send request to jeedom, return code %s' % (str(r.status_code),))
-			except Exception as error:
-				logging.error('Error on send request to jeedom %s' % (str(error),))
+			logging.debug('Send to jeedom : '+str(changes))
+			i=0
+			while i < self.retry:
+				try:
+					r = requests.post(self.url + '?apikey=' + self.apikey, json=changes, timeout=(0.5, 120), verify=False)
+					if r.status_code == requests.codes.ok:
+						break
+				except Exception as error:
+					logging.error('Error on send request to jeedom ' + str(error)+' retry : '+str(i)+'/'+str(self.retry))
+				i = i + 1
+			if r.status_code != requests.codes.ok:
+				logging.error('Error on send request to jeedom, return code %s' % (str(r.status_code),))
 			dt = datetime.datetime.now() - start_time
 			ms = (dt.days * 24 * 60 * 60 + dt.seconds) * 1000 + dt.microseconds / 1000.0
 			timer_duration = self.cycle - ms
@@ -85,14 +91,17 @@ class jeedom_com():
 			self.changes[key] = value
 
 	def send_change_immediate(self,change):
-		try:
-			logging.debug('Send to jeedom :  %s' % (str(change),))
-			r = requests.post(self.url + '?apikey=' + self.apikey, json=change, timeout=(0.5, 120), verify=False)
-			if r.status_code != requests.codes.ok:
-				logging.error('Error on send request to jeedom, return code %s' % (str(r.status_code),))
-		except Exception as error:
-			logging.error('Error on send request to jeedom %s' % (str(error),))
-
+		logging.debug('Send to jeedom :  %s' % (str(change),))
+		i=0
+		while i < self.retry:
+			try:
+				r = requests.post(self.url + '?apikey=' + self.apikey, json=change, timeout=(0.5, 120), verify=False)
+				if r.status_code == requests.codes.ok:
+					break
+			except Exception as error:
+				logging.error('Error on send request to jeedom ' + str(error)+' retry : '+str(i)+'/'+str(self.retry))
+			i = i + 1
+		
 	def set_change(self,changes):
 		self.changes = changes
 
