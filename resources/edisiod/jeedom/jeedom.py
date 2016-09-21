@@ -250,11 +250,8 @@ class jeedom_serial():
 		self.port.flushInput()
 
 	def read(self):
-		try:
-			if self.port.inWaiting() != 0:
-				return self.port.read()
-		except IOError, e:
-			logging.error("Serial read error: %s" % (str(e)))
+		if self.port.inWaiting() != 0:
+			return self.port.read()
 		return None
 
 	def readbytes(self,number):
@@ -263,10 +260,12 @@ class jeedom_serial():
 			try:
 				byte = self.port.read()
 			except IOError, e:
-				logging.error("Error: %s" % e)
+				logging.error("Error: " + str(e))
 			except OSError, e:
-				logging.error("Error: %s" % e)
+				logging.error("Error: " + str(e))
 			buf += byte
+		if buf == '':
+			raise e
 		return buf
 
 # ------------------------------------------------------------------------------
