@@ -295,7 +295,13 @@ def test_edisio( message ):
 
 def read_edisio():
 	message = None
-	byte = jeedom_serial.read()
+	try:
+		byte = jeedom_serial.read()
+	except Exception, e:
+		logging.error("Error in read_edisio: " + str(e))
+		if str(e) == '[Errno 5] Input/output error':
+			logging.error("Exit 1 because this exeption is fatal")
+			shutdown()
 	try:
 		if str(jeedom_utils.ByteToHex(byte)) == '6C' :
 			message = byte + jeedom_serial.readbytes(15)
@@ -310,8 +316,7 @@ def read_edisio():
 			logging.debug("Message: " + str(jeedom_utils.ByteToHex(message)))
 			decodePacket(message)
 	except OSError, e:
-		logging.error("------------------------------------------------")
-		logging.error("Received\t\t= " + jeedom_utils.ByteToHex(message))
+		logging.error("Error in read_edisio on decode message : " + str(jeedom_utils.ByteToHex(message))+" => "+str(e))
 
 # ----------------------------------------------------------------------------
 
