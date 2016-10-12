@@ -181,7 +181,7 @@ class edisio extends eqLogic {
 		$cmd .= ' --socketport=' . config::byKey('socketport', 'edisio');
 		$cmd .= ' --sockethost=127.0.0.1';
 		$cmd .= ' --callback=' . network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp') . '/plugins/edisio/core/php/jeeEdisio.php';
-		$cmd .= ' --apikey=' . config::byKey('api');
+		$cmd .= ' --apikey=' . jeedom::getApiKey('edisio');
 		log::add('edisio', 'info', 'Lancement démon edisiod : ' . $cmd);
 		exec($cmd . ' >> ' . log::getPathToLog('edisio') . ' 2>&1 &');
 		$i = 0;
@@ -409,7 +409,7 @@ class edisioCmd extends cmd {
 		}
 		$values = explode('&&', $value);
 		if (config::byKey('port', 'edisio', 'none') != 'none') {
-			$message = trim(json_encode(array('apikey' => config::byKey('api'), 'data' => $values)));
+			$message = trim(json_encode(array('apikey' => jeedom::getApiKey('edisio'), 'data' => $values)));
 			$socket = socket_create(AF_INET, SOCK_STREAM, 0);
 			socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio'));
 			socket_write($socket, $message, strlen($message));
