@@ -179,7 +179,6 @@ class edisio extends eqLogic {
 		$cmd .= ' --device=' . $port;
 		$cmd .= ' --loglevel=' . log::convertLogLevel(log::getLogLevel('edisio'));
 		$cmd .= ' --socketport=' . config::byKey('socketport', 'edisio');
-		$cmd .= ' --sockethost=127.0.0.1';
 		$cmd .= ' --callback=' . network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp') . '/plugins/edisio/core/php/jeeEdisio.php';
 		$cmd .= ' --apikey=' . jeedom::getApiKey('edisio');
 		log::add('edisio', 'info', 'Lancement démon edisiod : ' . $cmd);

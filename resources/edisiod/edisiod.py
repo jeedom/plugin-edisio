@@ -411,7 +411,7 @@ def shutdown():
 
 _log_level = "error"
 _socket_port = 55005
-_socket_host = 'localhost'
+_socket_host = '127.0.0.1'
 _device = 'auto'
 _pidfile = '/tmp/edisiod.pid'
 _apikey = ''
@@ -428,8 +428,6 @@ for arg in sys.argv:
 		temp, _log_level = arg.split("=")
 	elif arg.startswith("--socketport="):
 		temp, _socket_port = arg.split("=")
-	elif arg.startswith("--sockethost="):
-		temp, _socket_host = arg.split("=")
 	elif arg.startswith("--pidfile="):
 		temp, _pidfile = arg.split("=")
 	elif arg.startswith("--device="):
