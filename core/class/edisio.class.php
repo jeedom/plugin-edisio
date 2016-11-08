@@ -176,12 +176,12 @@ class edisio extends eqLogic {
 		}
 		$edisio_path = realpath(dirname(__FILE__) . '/../../resources/edisiod');
 		$cmd = '/usr/bin/python ' . $edisio_path . '/edisiod.py';
-		$cmd .= ' --device=' . $port;
-		$cmd .= ' --loglevel=' . log::convertLogLevel(log::getLogLevel('edisio'));
-		$cmd .= ' --socketport=' . config::byKey('socketport', 'edisio');
-		$cmd .= ' --callback=' . network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp') . '/plugins/edisio/core/php/jeeEdisio.php';
-		$cmd .= ' --apikey=' . jeedom::getApiKey('edisio');
-		$cmd .= ' --cycle=' . config::byKey('cycle', 'edisio');
+		$cmd .= ' --device ' . $port;
+		$cmd .= ' --loglevel ' . log::convertLogLevel(log::getLogLevel('edisio'));
+		$cmd .= ' --socketport ' . config::byKey('socketport', 'edisio');
+		$cmd .= ' --callback ' . network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp') . '/plugins/edisio/core/php/jeeEdisio.php';
+		$cmd .= ' --apikey ' . jeedom::getApiKey('edisio');
+		$cmd .= ' --cycle ' . config::byKey('cycle', 'edisio');
 		log::add('edisio', 'info', 'Lancement démon edisiod : ' . $cmd);
 		exec($cmd . ' >> ' . log::getPathToLog('edisio') . ' 2>&1 &');
 		$i = 0;

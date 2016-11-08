@@ -19,6 +19,7 @@ import sys
 import os
 import time
 import datetime
+import argparse
 import binascii
 import threading
 from threading import Thread, Event, Timer
@@ -423,29 +424,28 @@ _prevMessage = ''
 _prevDatetime = datetime.datetime.utcnow()
 _timerDatetime = datetime.datetime.utcnow()
 
-for arg in sys.argv:
-	if arg.startswith("--loglevel="):
-		temp, _log_level = arg.split("=")
-	elif arg.startswith("--socketport="):
-		temp, _socket_port = arg.split("=")
-	elif arg.startswith("--pidfile="):
-		temp, _pidfile = arg.split("=")
-	elif arg.startswith("--device="):
-		temp, _device = arg.split("=")
-	elif arg.startswith("--apikey="):
-		temp, _apikey = arg.split("=")
-	elif arg.startswith("--callback="):
-		temp, _callback = arg.split("=")
-	elif arg.startswith("--cycle="):
-		temp, _cycle = arg.split("=")
-	elif arg.startswith("--simulate="):
-		temp, _simulate = arg.split("=")
-		jeedom_utils.set_log_level('debug')
-		decodePacket(jeedom_utils.HexToByte(_simulate))
-		sys.exit(1)
 
-_socket_port = int(_socket_port)
-_cycle = float(_cycle)
+parser = argparse.ArgumentParser(description='Edisio Daemon for Jeedom plugin')
+parser.add_argument("--device", help="Device", type=str)
+parser.add_argument("--socketport", help="Socketport for server", type=str)
+parser.add_argument("--loglevel", help="Log Level for the daemon", type=str)
+parser.add_argument("--callback", help="Callback", type=str)
+parser.add_argument("--apikey", help="Apikey", type=str)
+parser.add_argument("--cycle", help="Cycle to send event", type=str)
+args = parser.parse_args()
+
+if args.device:
+	_device = args.device
+if args.socketport:
+	_socket_port = int(args.socketport)
+if args.loglevel:
+	_log_level = args.loglevel
+if args.callback:
+	_callback = args.callback
+if args.apikey:
+	_apikey = args.apikey
+if args.cycle:
+	_cycle = float(args.cycle)
 
 jeedom_utils.set_log_level(_log_level)
 
