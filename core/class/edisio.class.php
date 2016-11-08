@@ -181,6 +181,7 @@ class edisio extends eqLogic {
 		$cmd .= ' --socketport=' . config::byKey('socketport', 'edisio');
 		$cmd .= ' --callback=' . network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp') . '/plugins/edisio/core/php/jeeEdisio.php';
 		$cmd .= ' --apikey=' . jeedom::getApiKey('edisio');
+		$cmd .= ' --cycle=' . config::byKey('cycle', 'edisio');
 		log::add('edisio', 'info', 'Lancement démon edisiod : ' . $cmd);
 		exec($cmd . ' >> ' . log::getPathToLog('edisio') . ' 2>&1 &');
 		$i = 0;

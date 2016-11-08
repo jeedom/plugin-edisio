@@ -23,8 +23,8 @@ if (!isConnect('admin')) {
 ?>
 <form class="form-horizontal">
     <fieldset>
-     <legend><i class="fa fa-list-alt"></i> {{Générale}}</legend>
-     <div class="form-group">
+       <legend><i class="fa fa-list-alt"></i> {{Générale}}</legend>
+       <div class="form-group">
         <label class="col-lg-4 control-label">{{Bannir les IDs}}</label>
         <div class="col-lg-8">
             <textarea class="configKey form-control" data-l1key="banEdisioId" rows="3"/>
@@ -45,10 +45,16 @@ foreach (jeedom::getUsbMapping() as $name => $value) {
            </select>
        </div>
    </div>
-<div class="form-group expertModeVisible">
-    <label class="col-lg-4 control-label">{{Port socket interne (modification dangereuse, doit etre le meme surtout les esclaves)}}</label>
+   <div class="form-group expertModeVisible">
+    <label class="col-lg-4 control-label">{{Port socket interne}}</label>
     <div class="col-lg-2">
         <input class="configKey form-control" data-l1key="socketport"/>
+    </div>
+</div>
+<div class="form-group expertModeVisible">
+    <label class="col-sm-4 control-label">{{Cycle (s)}}</label>
+    <div class="col-sm-2">
+        <input class="configKey form-control" data-l1key="cycle" />
     </div>
 </div>
 </fieldset>
