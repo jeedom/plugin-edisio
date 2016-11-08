@@ -424,7 +424,6 @@ _prevMessage = ''
 _prevDatetime = datetime.datetime.utcnow()
 _timerDatetime = datetime.datetime.utcnow()
 
-
 parser = argparse.ArgumentParser(description='Edisio Daemon for Jeedom plugin')
 parser.add_argument("--device", help="Device", type=str)
 parser.add_argument("--socketport", help="Socketport for server", type=str)
