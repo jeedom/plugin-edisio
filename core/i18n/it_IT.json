@@ -26,7 +26,30 @@
         "Création": "Creazione",
         "Communication": "Comunicazione",
         "Batterie": "Batteria",
-        "Status": "Stato"
+        "Status": "Stato",
+        "Gestion": "Gestione",
+        "Mode inclusion": "Modalità inclusione",
+        "Configuration": "Configurazione",
+        "Santé": "Salute",
+        "Sauvegarder": "Salva",
+        "Supprimer": "Elimina",
+        "Equipement": "Dispositivo",
+        "Commandes": "Comandi",
+        "Nom de l'équipement EDISIO": "Nom de l'équipement EDISIO",
+        "ID": "ID",
+        "Objet parent": "Oggetto padre",
+        "Aucun": "Nessuno",
+        "Catégorie": "Categoria",
+        "Informations": "Informazioni",
+        "Statut": "Stato",
+        "Modèle": "Modello",
+        "Ajouter une commande": "Aggiungi un comando",
+        "Nom": "Nome",
+        "Type": "Tipo",
+        "Logical ID (info) ou Commande brute (action)": "Logical ID (info) ou Commande brute (action)",
+        "Paramètres": "Parametri",
+        "Options": "Opzioni",
+        "Configuration avancée": "Configurazione avanzata"
     },
     "plugins/edisio/desktop/js/edisio.js": {
         "Partager sur le market": "Condividi sul Market",
@@ -37,7 +60,13 @@
         "Groupe": "Gruppo",
         "Historiser": "Storicizza",
         "Afficher": "Mostra",
-        "Inverser": "Inverti"
+        "Inverser": "Inverti",
+        "Santé Edisio": "Santé Edisio",
+        "Arrêter l\\'inclusion": "Ferma inclusione",
+        "Arreter inclusion": "Ferma inclusione",
+        "Vous etes en mode inclusion. Recliquez sur le bouton d\\'inclusion pour sortir de ce mode": "Sei in modalità inclusione. Clicca nuovamente il pulsante per uscire da questa modalità.",
+        "Mode inclusion": "Modalità inclusione",
+        "Un périphérique vient d\\'être inclu/exclu. Veuillez réactualiser la page": "Un dispositivo è stato incluso/escluso. Si prega di ricaricare la pagina."
     },
     "plugins/edisio/plugin_info/configuration.php": {
         "Le démon EDISIO ne tourne pas": "Il demone Edisio non è in funziona",
@@ -75,7 +104,9 @@
         "Le démon a été correctement arreté": "Demone fermato con successo",
         "Etes-vous sur de vouloir lancer le démon en mode debug ? N\\'oubliez pas de le relancer en mode normale une fois terminé": "Sei sicuro di voler eseguire il demone in modalità debug? Ricordati di riavviarlo in modalità normale quando hai concluso.",
         "Edisio en mode debug": "Edisio in modalità debug",
-        "Log des messages Edisio": "Registro messaggi Edisio"
+        "Log des messages Edisio": "Registro messaggi Edisio",
+        "Port socket interne": "Port socket interne",
+        "Cycle (s)": "Cycle (s)"
     },
     "plugins/edisio/desktop/modal/show.debug.php": {
         "Attention le lancement en mode debug est très consommateur en ressources et en log, pensez bien à relancer le démon une fois l'analyse terminée": "Attenzione: l'avvio in modalità debug utilizza risorse e genera registri. Ricordati di riavviare il demone in modalità normale quando hai finito"
@@ -86,6 +117,10 @@
     },
     "plugins/edisio/core/class/edisio.class.php": {
         "Démon local": "Demone locale",
-        "OK": "OK"
+        "OK": "OK",
+        "Défaut": "Predefinito"
+    },
+    "plugins/edisio/plugin_info/info.json": {
+        "Plugin ajoutant le support du protocole Edisio à Jeedom": "Plugin ajoutant le support du protocole Edisio à Jeedom"
     }
 }

@@ -26,7 +26,30 @@
         "Création": "Création",
         "Communication": "Communication",
         "Batterie": "Baterai",
-        "Status": "Status"
+        "Status": "Status",
+        "Gestion": "Manajemen",
+        "Mode inclusion": "Modus Inklusi",
+        "Configuration": "Konfigurasi",
+        "Santé": "Bidang Kesehatan",
+        "Sauvegarder": "Menyimpan",
+        "Supprimer": "Menghapus",
+        "Equipement": "Peralatan",
+        "Commandes": "Perintah",
+        "Nom de l'équipement EDISIO": "Nom de l'équipement EDISIO",
+        "ID": "ID",
+        "Objet parent": "Objek induk",
+        "Aucun": "Tak ada",
+        "Catégorie": "Kategori",
+        "Informations": "Informasi",
+        "Statut": "Status",
+        "Modèle": "Model",
+        "Ajouter une commande": "Tambahan pesanan",
+        "Nom": "Nama",
+        "Type": "Jenis",
+        "Logical ID (info) ou Commande brute (action)": "Logical ID (info) ou Commande brute (action)",
+        "Paramètres": "Parameter²",
+        "Options": "Pilihan",
+        "Configuration avancée": "Configuration avancée"
     },
     "plugins/edisio/desktop/js/edisio.js": {
         "Partager sur le market": "Pangsa di Market",
@@ -37,7 +60,13 @@
         "Groupe": "Kelompok",
         "Historiser": "Historicize",
         "Afficher": "Memenitikan",
-        "Inverser": "Membalikkan"
+        "Inverser": "Membalikkan",
+        "Santé Edisio": "Santé Edisio",
+        "Arrêter l\\'inclusion": "Arrêter l\\'inclusion",
+        "Arreter inclusion": "Arreter inclusion",
+        "Vous etes en mode inclusion. Recliquez sur le bouton d\\'inclusion pour sortir de ce mode": "Vous etes en mode inclusion. Recliquez sur le bouton d\\'inclusion pour sortir de ce mode",
+        "Mode inclusion": "Modus Inklusi",
+        "Un périphérique vient d\\'être inclu/exclu. Veuillez réactualiser la page": "Un périphérique vient d\\'être inclu/exclu. Veuillez réactualiser la page"
     },
     "plugins/edisio/plugin_info/configuration.php": {
         "Le démon EDISIO ne tourne pas": "Le démon EDISIO ne tourne pas",
@@ -75,7 +104,9 @@
         "Le démon a été correctement arreté": "Le démon a été correctement arreté",
         "Etes-vous sur de vouloir lancer le démon en mode debug ? N\\'oubliez pas de le relancer en mode normale une fois terminé": "Etes-vous sur de vouloir lancer le démon en mode debug ? N\\'oubliez pas de le relancer en mode normale une fois terminé",
         "Edisio en mode debug": "Edisio en mode debug",
-        "Log des messages Edisio": "Log des messages Edisio"
+        "Log des messages Edisio": "Log des messages Edisio",
+        "Port socket interne": "Port socket interne",
+        "Cycle (s)": "Cycle (s)"
     },
     "plugins/edisio/desktop/modal/show.debug.php": {
         "Attention le lancement en mode debug est très consommateur en ressources et en log, pensez bien à relancer le démon une fois l'analyse terminée": "Attention le lancement en mode debug est très consommateur en ressources et en log, pensez bien à relancer le démon une fois l'analyse terminée"
@@ -86,6 +117,10 @@
     },
     "plugins/edisio/core/class/edisio.class.php": {
         "Démon local": "Layanan lokal",
-        "OK": "OK"
+        "OK": "OK",
+        "Défaut": "Défaut"
+    },
+    "plugins/edisio/plugin_info/info.json": {
+        "Plugin ajoutant le support du protocole Edisio à Jeedom": "Plugin ajoutant le support du protocole Edisio à Jeedom"
     }
 }
