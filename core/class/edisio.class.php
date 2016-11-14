@@ -196,7 +196,6 @@ class edisio extends eqLogic {
 		message::removeAll('edisio', 'unableStartDeamon');
 		sleep(2);
 		self::sendIdToDeamon();
-		config::save('exclude_mode', 0, 'edisio');
 		config::save('include_mode', 0, 'edisio');
 		log::add('edisio', 'info', 'Démon EDISIO lancé');
 		return true;
@@ -210,11 +209,7 @@ class edisio extends eqLogic {
 	}
 
 	public static function changeIncludeState($_state) {
-		if ($_state == 1) {
-			$value = json_encode(array('apikey' => jeedom::getApiKey('edisio'), 'cmd' => 'learnin'));
-		} else {
-			$value = json_encode(array('apikey' => jeedom::getApiKey('edisio'), 'cmd' => 'learnout'));
-		}
+		$value = json_encode(array('apikey' => jeedom::getApiKey('rfxcom'), 'cmd' => ($_state == 1) ? 'learnin' : 'learnout'));
 		$socket = socket_create(AF_INET, SOCK_STREAM, 0);
 		socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio'));
 		socket_write($socket, $value, strlen($value));

@@ -199,31 +199,6 @@ $('.changeIncludeState').on('click', function () {
 });
 });
 
-function changeIncludeState(_state,_mode,_type='') {
-    $.ajax({
-        type: "POST", 
-        url: "plugins/openenocean/core/ajax/openenocean.ajax.php", 
-        data: {
-            action: "changeIncludeState",
-            state: _state,
-            mode: _mode,
-            type: _type,
-        },
-        dataType: 'json',
-        error: function (request, status, error) {
-            handleAjaxError(request, status, error);
-        },
-        success: function (data) { 
-            if (data.state != 'ok') {
-                $('#div_alert').showAlert({message: data.result, level: 'danger'});
-                return;
-            }
-        }
-    });
-}
-
-
-
 $('body').on('edisio::includeState', function (_event,_options) {
     if (_options['state'] == 1) {
         if($('.include').attr('data-state') != 0){
