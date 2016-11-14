@@ -26,6 +26,11 @@ try {
 
 	ajax::init();
 
+	if (init('action') == 'changeIncludeState') {
+		edisio::changeIncludeState(init('state'));
+		ajax::success();
+	}
+
 	if (init('action') == 'getModelList') {
 		$edisio = edisio::byId(init('id'));
 		if (!is_object($edisio)) {

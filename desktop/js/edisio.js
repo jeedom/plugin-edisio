@@ -84,9 +84,9 @@
             $(".modelList").show();
             $(".listModel").html(options);
             $icon = $('.eqLogicAttr[data-l1key=configuration][data-l2key=iconModel]').value();
-			if($icon != '' && $icon != null){
-				$('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+$icon+'.jpg');
-			}
+            if($icon != '' && $icon != null){
+                $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+$icon+'.jpg');
+            }
         }
     });
 }
@@ -179,33 +179,72 @@ function addCmdToTable(_cmd) {
 }
 
 $('.changeIncludeState').on('click', function () {
-    var el = $(this);
-    jeedom.config.save({
-        plugin : 'edisio',
-        configuration: {autoDiscoverEqLogic: el.attr('data-state')},
-        error: function (error) {
-          $('#div_alert').showAlert({message: error.message, level: 'danger'});
-      },
-      success: function () {
-        if (el.attr('data-state') == 1) {
-            $.hideAlert();
-            $('.changeIncludeState:not(.card)').removeClass('btn-default').addClass('btn-success');
-            $('.changeIncludeState').attr('data-state', 0);
-            $('.changeIncludeState.card').css('background-color','#8000FF');
-            $('.changeIncludeState.card span center').text('{{Arrêter l\'inclusion}}');
-            $('.changeIncludeState:not(.card)').html('<i class="fa fa-sign-in fa-rotate-90"></i> {{Arreter inclusion}}');
-            $('#div_inclusionAlert').showAlert({message: '{{Vous etes en mode inclusion. Recliquez sur le bouton d\'inclusion pour sortir de ce mode}}', level: 'warning'});
-        } else {
-            $.hideAlert();
-            $('.changeIncludeState:not(.card)').addClass('btn-default').removeClass('btn-success btn-danger');
-            $('.changeIncludeState').attr('data-state', 1);
-            $('.changeIncludeState:not(.card)').html('<i class="fa fa-sign-in fa-rotate-90"></i> {{Mode inclusion}}');
-            $('.changeIncludeState.card span center').text('{{Mode inclusion}}');
-            $('.changeIncludeState.card').css('background-color','#ffffff');
-            $('#div_inclusionAlert').hideAlert();
+   $.ajax({
+    type: "POST", 
+    url: "plugins/edisio/core/ajax/edisio.ajax.php", 
+    data: {
+        action: "changeIncludeState",
+        state: $(this).attr('data-state')
+    },
+    dataType: 'json',
+    error: function (request, status, error) {
+        handleAjaxError(request, status, error);
+    },
+    success: function (data) { 
+        if (data.state != 'ok') {
+            $('#div_alert').showAlert({message: data.result, level: 'danger'});
+            return;
         }
     }
 });
+});
+
+function changeIncludeState(_state,_mode,_type='') {
+    $.ajax({
+        type: "POST", 
+        url: "plugins/openenocean/core/ajax/openenocean.ajax.php", 
+        data: {
+            action: "changeIncludeState",
+            state: _state,
+            mode: _mode,
+            type: _type,
+        },
+        dataType: 'json',
+        error: function (request, status, error) {
+            handleAjaxError(request, status, error);
+        },
+        success: function (data) { 
+            if (data.state != 'ok') {
+                $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                return;
+            }
+        }
+    });
+}
+
+
+
+$('body').on('edisio::includeState', function (_event,_options) {
+    if (_options['state'] == 1) {
+        if($('.include').attr('data-state') != 0){
+            $.hideAlert();
+            $('.include:not(.card)').removeClass('btn-default').addClass('btn-success');
+            $('.include').attr('data-state', 0);
+            $('.include.card').css('background-color','#8000FF');
+            $('.include.card span center').text('{{Arrêter l\'inclusion}}');
+            $('.include:not(.card)').html('<i class="fa fa-sign-in fa-rotate-90"></i> {{Arreter inclusion}}');
+            $('#div_inclusionAlert').showAlert({message: '{{Vous etes en mode inclusion. Recliquez sur le bouton d\'inclusion pour sortir de ce mode}}', level: 'warning'});
+        }
+    } else {
+        if($('.include').attr('data-state') != 1){
+            $.hideAlert();
+            $('.include:not(.card)').addClass('btn-default').removeClass('btn-success btn-danger');
+            $('.include').attr('data-state', 1);
+            $('.include:not(.card)').html('<i class="fa fa-sign-in fa-rotate-90"></i> {{Mode inclusion}}');
+            $('.include.card span center').text('{{Mode inclusion}}');
+            $('.include.card').css('background-color','#ffffff');
+        }
+    }
 });
 
 $('body').on('edisio::includeDevice', function (_event,_options) {

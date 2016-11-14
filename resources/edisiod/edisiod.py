@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 
+import globals
 import logging
 import string
 import sys
@@ -92,7 +93,7 @@ class _TimerReset(Thread):
 DimOff_threads = {}
 
 def sendDimOff(key,action):
-	jeedom_com.add_changes('devices::'+key,action)
+	globals.JEEDOM_COM.add_changes('devices::'+key,action)
 	del DimOff_threads[key]
 
 def decodePacket(message):
@@ -243,8 +244,11 @@ def decodePacket(message):
 
 	logging.debug('Decode data : '+str(action))
 	try:
-		if len(action) > 4:
-			jeedom_com.add_changes('devices::'+key,action)
+		if len(action) <= 4:
+			return
+		if action['id'] not in globals.KNOWN_DEVICES and not globals.LEARN_MODE:
+			return
+		globals.JEEDOM_COM.add_changes('devices::'+key,action)
 	except Exception, e:
 		pass
 
@@ -347,19 +351,36 @@ def read_socket():
 			if message['apikey'] != _apikey:
 				logging.error("Invalid apikey from socket : " + str(message))
 				return
-			if isinstance(message['data'], list):
-				for data in message['data']:
+			if message['cmd'] == 'add':
+				logging.debug('Add device : '+str(message['device']))
+				if 'id' in message['device'] :
+					globals.KNOWN_DEVICES[message['device']['id']] = message['device']['id']
+			elif message['cmd'] == 'remove':
+				logging.debug('Remove device : '+str(message['device']))
+				if 'id' in message['device'] and message['device']['id'] in globals.KNOWN_DEVICES :
+					del globals.KNOWN_DEVICES[message['device']['id']]
+			elif message['cmd'] == 'learnin':
+				logging.debug('Enter in learn mode')
+				globals.LEARN_MODE = True
+				globals.JEEDOM_COM.send_change_immediate({'learn_mode' : 1});
+			elif message['cmd'] == 'learnout':
+				logging.debug('Leave learn mode')
+				globals.LEARN_MODE = False
+				globals.JEEDOM_COM.send_change_immediate({'learn_mode' : 0});
+			elif message['cmd'] == 'send':
+				if isinstance(message['data'], list):
+					for data in message['data']:
+						try:
+							send_edisio(data)
+						except Exception, e:
+							logging.error('Send command to edisio error : '+str(e))
+				else:
 					try:
-						send_edisio(data)
+						send_edisio(message['data'])
 					except Exception, e:
 						logging.error('Send command to edisio error : '+str(e))
-			else:
-				try:
-					send_edisio(message['data'])
-				except Exception, e:
-					logging.error('Send command to edisio error : '+str(e))
 	except Exception,e:
-		logging.error(str(e))
+		logging.error('Error on read socket : '+str(e))
 
 # ----------------------------------------------------------------------------
 
@@ -474,8 +495,8 @@ signal.signal(signal.SIGTERM, handler)
 
 try:
 	jeedom_utils.write_pid(str(_pidfile))
-	jeedom_com = jeedom_com(apikey = _apikey,url = _callback,cycle=_cycle)
-	if not jeedom_com.test():
+	globals.JEEDOM_COM = jeedom_com(apikey = _apikey,url = _callback,cycle=_cycle)
+	if not globals.JEEDOM_COM.test():
 		logging.error('Network communication issues. Please fixe your Jeedom network configuration.')
 		shutdown()
 	jeedom_serial = jeedom_serial(device=_device,rate=_serial_rate,timeout=_serial_timeout)

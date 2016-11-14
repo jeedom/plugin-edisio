@@ -29,6 +29,24 @@ $result = json_decode(file_get_contents("php://input"), true);
 if (!is_array($result)) {
 	die();
 }
+
+if (isset($result['learn_mode'])) {
+	if ($result['learn_mode'] == 1) {
+		config::save('include_mode', 1, 'edisio');
+		event::add('edisio::includeState', array(
+			'mode' => 'learn',
+			'state' => 1)
+		);
+	} else {
+		config::save('include_mode', 0, 'edisio');
+		event::add('edisio::includeState', array(
+			'mode' => 'learn',
+			'state' => 0)
+		);
+	}
+	die();
+}
+
 if (isset($result['devices'])) {
 	foreach ($result['devices'] as $key => $datas) {
 		$edisio = edisio::byLogicalId($datas['id'], 'edisio');

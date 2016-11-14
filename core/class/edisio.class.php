@@ -198,8 +198,31 @@ class edisio extends eqLogic {
 			return false;
 		}
 		message::removeAll('edisio', 'unableStartDeamon');
+		sleep(2);
+		self::sendIdToDeamon();
+		config::save('exclude_mode', 0, 'edisio');
+		config::save('include_mode', 0, 'edisio');
 		log::add('edisio', 'info', 'Démon EDISIO lancé');
 		return true;
+	}
+
+	public static function sendIdToDeamon() {
+		foreach (self::byType('edisio') as $eqLogic) {
+			$eqLogic->allowDevice();
+			usleep(300);
+		}
+	}
+
+	public static function changeIncludeState($_state) {
+		if ($_state == 1) {
+			$value = json_encode(array('apikey' => jeedom::getApiKey('edisio'), 'cmd' => 'learnin'));
+		} else {
+			$value = json_encode(array('apikey' => jeedom::getApiKey('edisio'), 'cmd' => 'learnout'));
+		}
+		$socket = socket_create(AF_INET, SOCK_STREAM, 0);
+		socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio'));
+		socket_write($socket, $value, strlen($value));
+		socket_close($socket);
 	}
 
 /*     * *********************Methode d'instance************************* */
@@ -248,6 +271,10 @@ class edisio extends eqLogic {
 		return $modelList;
 	}
 
+	public function preRemove() {
+		$this->disallowDevice();
+	}
+
 	public function preInsert() {
 		if ($this->getLogicalId() == '') {
 			for ($i = 0; $i < 20; $i++) {
@@ -258,11 +285,15 @@ class edisio extends eqLogic {
 					break;
 				}
 			}
+			$this->allowDevice();
 		}
 	}
+
 	public function postSave() {
 		if ($this->getConfiguration('applyDevice') != $this->getConfiguration('device')) {
 			$this->applyModuleConfiguration();
+		} else {
+			$this->allowDevice();
 		}
 	}
 
@@ -270,6 +301,29 @@ class edisio extends eqLogic {
 		if ($this->getConfiguration('applyDevice') != $this->getConfiguration('device')) {
 			$this->applyModuleConfiguration();
 		}
+	}
+
+	public function allowDevice() {
+		$value = array('apikey' => jeedom::getApiKey('edisio'), 'cmd' => 'add');
+		$value['device'] = array(
+			'id' => $this->getLogicalId(),
+		);
+		$value = json_encode($value);
+		$socket = socket_create(AF_INET, SOCK_STREAM, 0);
+		socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio'));
+		socket_write($socket, $value, strlen($value));
+		socket_close($socket);
+	}
+
+	public function disallowDevice() {
+		if ($this->getLogicalId() == '') {
+			return;
+		}
+		$value = json_encode(array('apikey' => jeedom::getApiKey('edisio'), 'cmd' => 'remove', 'device' => array('id' => $this->getLogicalId())));
+		$socket = socket_create(AF_INET, SOCK_STREAM, 0);
+		socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio'));
+		socket_write($socket, $value, strlen($value));
+		socket_close($socket);
 	}
 
 	public function applyModuleConfiguration() {
@@ -408,13 +462,11 @@ class edisioCmd extends cmd {
 				break;
 		}
 		$values = explode('&&', $value);
-		if (config::byKey('port', 'edisio', 'none') != 'none') {
-			$message = trim(json_encode(array('apikey' => jeedom::getApiKey('edisio'), 'data' => $values)));
-			$socket = socket_create(AF_INET, SOCK_STREAM, 0);
-			socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio'));
-			socket_write($socket, $message, strlen($message));
-			socket_close($socket);
-		}
+		$message = trim(json_encode(array('apikey' => jeedom::getApiKey('edisio'), 'cmd' => 'send', 'data' => $values)));
+		$socket = socket_create(AF_INET, SOCK_STREAM, 0);
+		socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio'));
+		socket_write($socket, $message, strlen($message));
+		socket_close($socket);
 	}
 	/*     * **********************Getteur Setteur*************************** */
 }
