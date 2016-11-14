@@ -29,9 +29,6 @@ class edisio extends eqLogic {
 		}
 	}
 	public static function createFromDef($_def) {
-		if (config::byKey('autoDiscoverEqLogic', 'edisio') == 0) {
-			return false;
-		}
 		event::add('jeedom::alert', array(
 			'level' => 'warning',
 			'page' => 'edisio',
@@ -56,7 +53,6 @@ class edisio extends eqLogic {
 			));
 			return false;
 		}
-		config::save('autoDiscoverEqLogic', 0, 'edisio');
 		$eqLogic = edisio::byLogicalId($_def['id'], 'edisio');
 		if (!is_object($eqLogic)) {
 			$eqLogic = new edisio();

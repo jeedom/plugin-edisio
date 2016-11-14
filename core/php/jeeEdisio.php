@@ -76,7 +76,7 @@ if (isset($result['devices'])) {
 			}
 			foreach ($cmdArray as $logicalIdToCheck) {
 				$cmd = $edisio->getCmd('info', $logicalIdToCheck);
-				if (!is_object($cmd) && config::byKey('autoDiscoverEqLogic', 'edisio') != 0) {
+				if (!is_object($cmd)) {
 					$cmd = new edisioCmd();
 					$config = array(
 						'name' => $logicalIdToCheck,
