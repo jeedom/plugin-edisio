@@ -24,7 +24,7 @@
         $('#img_device').attr("src",'plugins/edisio/doc/images/edisio_icon.png');
     }  
 });
-    $('.eqLogicAttr[data-l1key=configuration][data-l2key=batteryStatus]').on('change', function () {
+    $('.eqLogicAttr[data-l1key=status][data-l2key=battery]').on('change', function () {
       if($(this).html() != ''){
         $('.hasBatterie').show();
     }else{

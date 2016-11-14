@@ -52,12 +52,12 @@ foreach ($eqLogics as $eqLogic) {
 	}
 	echo '<td>' . $status . '</td>';
 	$battery_status = '<span class="label label-success" style="font-size : 1em;">{{OK}}</span>';
-	if ($eqLogic->getCache('batteryStatus') < 20 && $eqLogic->getCache('batteryStatus') != '') {
-		$battery_status = '<span class="label label-danger" style="font-size : 1em;">' . $eqLogic->getCache('batteryStatus') . '%</span>';
-	} elseif ($eqLogic->getCache('batteryStatus') < 60 && $eqLogic->getCache('batteryStatus') != '') {
-		$battery_status = '<span class="label label-warning" style="font-size : 1em;">' . $eqLogic->getCache('batteryStatus') . '%</span>';
-	} elseif ($eqLogic->getCache('batteryStatus') > 60 && $eqLogic->getCache('batteryStatus') != '') {
-		$battery_status = '<span class="label label-success" style="font-size : 1em;">' . $eqLogic->getCache('batteryStatus') . '%</span>';
+	if ($eqLogic->getStatus('battery') < 20 && $eqLogic->getStatus('battery') != '') {
+		$battery_status = '<span class="label label-danger" style="font-size : 1em;">' . $eqLogic->getStatus('battery') . '%</span>';
+	} elseif ($eqLogic->getStatus('battery') < 60 && $eqLogic->getStatus('battery') != '') {
+		$battery_status = '<span class="label label-warning" style="font-size : 1em;">' . $eqLogic->getStatus('battery') . '%</span>';
+	} elseif ($eqLogic->getStatus('battery') > 60 && $eqLogic->getStatus('battery') != '') {
+		$battery_status = '<span class="label label-success" style="font-size : 1em;">' . $eqLogic->getStatus('battery') . '%</span>';
 	} else {
 		$battery_status = '<span class="label label-primary" style="font-size : 1em;" title="{{Secteur}}"><i class="fa fa-plug"></i></span>';
 	}

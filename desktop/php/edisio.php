@@ -232,7 +232,7 @@ foreach ($groups as $group) {
     </div>
     <label class="col-sm-3 control-label hasBatterie">{{Batterie}}</label>
     <div class="col-sm-3 hasBatterie">
-      <span class="eqLogicAttr label label-default" data-l1key="configuration" data-l2key="batteryStatus" style="font-size : 1em;cursor : default;"></span> %
+      <span class="eqLogicAttr label label-default" data-l1key="status" data-l2key="battery" style="font-size : 1em;cursor : default;"></span> %
     </div>
   </div>
   <div class="form-group modelList" style="display:none;">
