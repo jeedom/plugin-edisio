@@ -199,7 +199,7 @@ $('.changeIncludeState').on('click', function () {
 });
 });
 
-$('body').on('edisio::includeState', function (_event,_options) {
+$('body').on('edisio::include_mode', function (_event,_options) {
     if (_options['state'] == 1) {
         if($('.include').attr('data-state') != 0){
             $.hideAlert();

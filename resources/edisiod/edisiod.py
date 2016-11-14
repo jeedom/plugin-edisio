@@ -359,14 +359,14 @@ def read_socket():
 				logging.debug('Remove device : '+str(message['device']))
 				if 'id' in message['device'] and message['device']['id'] in globals.KNOWN_DEVICES :
 					del globals.KNOWN_DEVICES[message['device']['id']]
-			elif message['cmd'] == 'learnin':
-				logging.debug('Enter in learn mode')
-				globals.LEARN_MODE = True
-				globals.JEEDOM_COM.send_change_immediate({'learn_mode' : 1});
-			elif message['cmd'] == 'learnout':
-				logging.debug('Leave learn mode')
-				globals.LEARN_MODE = False
-				globals.JEEDOM_COM.send_change_immediate({'learn_mode' : 0});
+			elif message['cmd'] == 'include_mode':
+				if message['state'] == 1:
+					logging.debug('Enter in include mode')
+					globals.INCLUDE_MODE = True
+				else :
+					logging.debug('Leave in include mode')
+					globals.INCLUDE_MODE = False
+				globals.JEEDOM_COM.send_change_immediate({'include_mode' : message['state']});
 			elif message['cmd'] == 'send':
 				if isinstance(message['data'], list):
 					for data in message['data']:

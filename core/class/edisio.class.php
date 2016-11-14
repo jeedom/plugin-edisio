@@ -209,7 +209,7 @@ class edisio extends eqLogic {
 	}
 
 	public static function changeIncludeState($_state) {
-		$value = json_encode(array('apikey' => jeedom::getApiKey('rfxcom'), 'cmd' => ($_state == 1) ? 'learnin' : 'learnout'));
+		$value = json_encode(array('apikey' => jeedom::getApiKey('edisio'), 'cmd' => 'include_mode', 'state' => $_state));
 		$socket = socket_create(AF_INET, SOCK_STREAM, 0);
 		socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio'));
 		socket_write($socket, $value, strlen($value));

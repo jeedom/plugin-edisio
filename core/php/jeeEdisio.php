@@ -30,20 +30,9 @@ if (!is_array($result)) {
 	die();
 }
 
-if (isset($result['learn_mode'])) {
-	if ($result['learn_mode'] == 1) {
-		config::save('include_mode', 1, 'edisio');
-		event::add('edisio::includeState', array(
-			'mode' => 'learn',
-			'state' => 1)
-		);
-	} else {
-		config::save('include_mode', 0, 'edisio');
-		event::add('edisio::includeState', array(
-			'mode' => 'learn',
-			'state' => 0)
-		);
-	}
+if (isset($result['include_mode'])) {
+	config::save('include_mode', $result['include_mode'], 'edisio');
+	event::add('edisio::include_mode', array('state' => $result['include_mode']));
 	die();
 }
 
