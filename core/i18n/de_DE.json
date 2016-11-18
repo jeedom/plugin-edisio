@@ -46,7 +46,7 @@
         "Ajouter une commande": "Kommando hinzufügen",
         "Nom": "Name",
         "Type": "Typ",
-        "Logical ID (info) ou Commande brute (action)": "Logical ID (info) ou Commande brute (action)",
+        "Logical ID (info) ou Commande brute (action)": "Logische ID (Info) oder Befehl (Aktion)",
         "Paramètres": "Parameter",
         "Options": "Optionen",
         "Configuration avancée": "Erweiterte Konfiguration"
@@ -105,8 +105,8 @@
         "Etes-vous sur de vouloir lancer le démon en mode debug ? N\\'oubliez pas de le relancer en mode normale une fois terminé": "Sind Sie sicher, dass Sie den Daemon im Debug-Modus starten wollen? Nicht vergessen, im normalen Modus neu zu starten, wenn Sie fertig sind.",
         "Edisio en mode debug": "EDISIO im Debug-Modus",
         "Log des messages Edisio": "Log-Meldungen von EDISIO",
-        "Port socket interne": "Port socket interne",
-        "Cycle (s)": "Cycle (s)"
+        "Port socket interne": "Interner Socket Port ",
+        "Cycle (s)": "Zyklus (s)"
     },
     "plugins/edisio/desktop/modal/show.debug.php": {
         "Attention le lancement en mode debug est très consommateur en ressources et en log, pensez bien à relancer le démon une fois l'analyse terminée": "Warnung! Der Start im Debug-Modus ist sehr ressourcenintensiv und denken Sie daran sich neu einzuloggen, sobald die Analyse abgeschlossen ist, um den Daemon neu zu starten."
