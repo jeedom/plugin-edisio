@@ -22,40 +22,44 @@ if (!isConnect('admin')) {
 }
 ?>
 <form class="form-horizontal">
-    <fieldset>
-       <legend><i class="fa fa-list-alt"></i> {{Générale}}</legend>
-       <div class="form-group">
-        <label class="col-lg-4 control-label">{{Bannir les IDs}}</label>
-        <div class="col-lg-8">
-            <textarea class="configKey form-control" data-l1key="banEdisioId" rows="3"/>
-        </div>
+  <fieldset>
+   <legend><i class="fa fa-list-alt"></i> {{Générale}}</legend>
+   <div class="form-group">
+    <label class="col-lg-4 control-label">{{Bannir les IDs}}</label>
+    <div class="col-lg-8">
+      <textarea class="configKey form-control" data-l1key="banEdisioId" rows="3"/>
     </div>
-    <legend><i class="icon loisir-darth"></i> {{Démon local}}</legend>
+  </div>
+</fieldset>
+</form>
+<form class="form-horizontal">
+  <fieldset>
+  <legend><i class="icon loisir-darth"></i> {{Démon}}</legend>
     <div class="form-group">
-        <label class="col-lg-4 control-label">{{Port EDISIO}}</label>
-        <div class="col-lg-4">
-            <select class="configKey form-control" data-l1key="port">
-                <option value="none">{{Aucun}}</option>
-                <option value="auto">{{Auto}}</option>
-                <?php
+      <label class="col-lg-4 control-label">{{Port EDISIO}}</label>
+      <div class="col-lg-4">
+        <select class="configKey form-control" data-l1key="port">
+          <option value="none">{{Aucun}}</option>
+          <option value="auto">{{Auto}}</option>
+          <?php
 foreach (jeedom::getUsbMapping() as $name => $value) {
 	echo '<option value="' . $name . '">' . $name . ' (' . $value . ')</option>';
 }
 ?>
-           </select>
-       </div>
+       </select>
+     </div>
    </div>
    <div class="form-group expertModeVisible">
     <label class="col-lg-4 control-label">{{Port socket interne}}</label>
     <div class="col-lg-2">
-        <input class="configKey form-control" data-l1key="socketport"/>
+      <input class="configKey form-control" data-l1key="socketport"/>
     </div>
-</div>
-<div class="form-group expertModeVisible">
+  </div>
+  <div class="form-group expertModeVisible">
     <label class="col-sm-4 control-label">{{Cycle (s)}}</label>
     <div class="col-sm-2">
-        <input class="configKey form-control" data-l1key="cycle" />
+      <input class="configKey form-control" data-l1key="cycle" />
     </div>
-</div>
+  </div>
 </fieldset>
 </form>
