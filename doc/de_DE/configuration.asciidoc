@@ -33,7 +33,7 @@ Dans ce mode, le démon est très bavard. Une fois le debug terminé, il ne faut
 
 === Geräte Konfiguration
 
-La configuration des équipements edisio est accessible à partir du menu plugin : 
+Die Konfiguration von Edisio-Geräten ist in dem Plugin-Menü verfügbar : 
 
 image::../images/edisio10.JPG[]
 
