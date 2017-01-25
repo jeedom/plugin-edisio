@@ -109,7 +109,7 @@ class edisio extends eqLogic {
 	public static function dependancy_info() {
 		$return = array();
 		$return['progress_file'] = '/tmp/dependancy_edisio_in_progress';
-		if (exec('sudo dpkg --get-selections | grep -E "python\-serial|python\-request|python\-pyudev" | grep -v desinstall | wc -l') >= 3) {
+		if (exec(system::getCmdSudo() . system::getType('cmd_check') . '-E "python\-serial|python\-request|python\-pyudev" | wc -l') >= 3) {
 			$return['state'] = 'ok';
 		} else {
 			$return['state'] = 'nok';
@@ -130,7 +130,7 @@ class edisio extends eqLogic {
 			if (posix_getsid(trim(file_get_contents($pid_file)))) {
 				$return['state'] = 'ok';
 			} else {
-				shell_exec('sudo rm -rf ' . $pid_file . ' 2>&1 > /dev/null;rm -rf ' . $pid_file . ' 2>&1 > /dev/null;');
+				shell_exec(system::getCmdSudo() . 'rm -rf ' . $pid_file . ' 2>&1 > /dev/null');
 			}
 		}
 		$return['launchable'] = 'ok';
@@ -141,7 +141,7 @@ class edisio extends eqLogic {
 				$return['launchable'] = 'nok';
 				$return['launchable_message'] = __('Le port n\'est pas configuré', __FILE__);
 			}
-			exec('sudo chmod 777 ' . $port . ' > /dev/null 2>&1');
+			exec(system::getCmdSudo() . 'chmod 777 ' . $port . ' > /dev/null 2>&1');
 		}
 		return $return;
 	}
