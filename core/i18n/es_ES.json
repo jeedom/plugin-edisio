@@ -105,8 +105,8 @@
         "Etes-vous sur de vouloir lancer le démon en mode debug ? N\\'oubliez pas de le relancer en mode normale une fois terminé": "¿Está seguro de querer lanzar el demonio en modo debug? No se olvide reactivarlo en modo normal una vez acabado",
         "Edisio en mode debug": "EDISIO en modo debug",
         "Log des messages Edisio": "Log de los mensajes EDISIO",
-        "Port socket interne": "Port socket interne",
-        "Cycle (s)": "Cycle (s)"
+        "Port socket interne": "Puerto socket interno",
+        "Cycle (s)": "Ciclo (s)"
     },
     "plugins/edisio/desktop/modal/show.debug.php": {
         "Attention le lancement en mode debug est très consommateur en ressources et en log, pensez bien à relancer le démon une fois l'analyse terminée": "Cuidado el lanzamiento en modo debug es muy consumidor en recursos y log, recuerde que debe reiniciar el demonio una vez terminado el análisis."
@@ -121,6 +121,6 @@
         "Défaut": "Por defecto"
     },
     "plugins/edisio/plugin_info/info.json": {
-        "Plugin ajoutant le support du protocole Edisio à Jeedom": "Plugin ajoutant le support du protocole Edisio à Jeedom"
+        "Plugin ajoutant le support du protocole Edisio à Jeedom": "Plugin que permite el soporte del protocolo de Edisio a Jeedom"
     }
 }
