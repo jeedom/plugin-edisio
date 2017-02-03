@@ -17,8 +17,8 @@
  */
 require_once dirname(__FILE__) . "/../../../../core/php/core.inc.php";
 
-if (!jeedom::apiAccess(init('apikey'), 'edisio')) {
-	echo 'Clef API non valide, vous n\'êtes pas autorisé à effectuer cette action';
+if (!jeedom::apiAccess(init('apikey'), 'edisio') || getClientIp() != '127.0.0.1') {
+	echo __('Clef API non valide ou client non autorisé, vous n\'êtes pas autorisé à effectuer cette action', __FILE__);
 	die();
 }
 if (init('test') != '') {
