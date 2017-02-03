@@ -1,0 +1,40 @@
+{
+    "18": {
+        "name": "EMM-100",
+        "groupe" : "Interrupteurs",
+        "battery_type" : "1x3V CR2032",
+        "commands": [
+			{
+                "name": "bt01",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "bt01"
+            },
+			{
+                "name": "bt02",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "",
+                "logicalId": "bt02"
+            },
+			{
+                "name": "Batterie",
+                "type": "info",
+                "subtype": "numeric",
+                "display": {
+                    "generic_type": "BATTERY"
+                },
+                "isVisible": 0,
+                "isHistorized": 0,
+                "unite": "%",
+                "eventOnly": 1,
+                "logicalId": "battery"
+            }
+        ]
+    }
+}
