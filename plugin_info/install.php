@@ -18,7 +18,16 @@
 
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
+function edisio_install() {
+	if (config::byKey('api::edisio::mode') == '') {
+		config::save('api::edisio::mode', 'localhost');
+	}
+}
+
 function edisio_update() {
+	if (config::byKey('api::edisio::mode') == '') {
+		config::save('api::edisio::mode', 'localhost');
+	}
 	foreach (eqLogic::byType('edisio') as $eqLogic) {
 		$device = edisio::devicesParameters($eqLogic->getConfiguration('device'));
 		foreach ($device['commands'] as $command) {
