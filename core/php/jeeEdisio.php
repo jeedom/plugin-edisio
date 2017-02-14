@@ -56,7 +56,7 @@ if (isset($result['devices'])) {
 		if (!$edisio->getIsEnable()) {
 			continue;
 		}
-		if ($datas['mid'] == '01' || $datas['mid'] == '02' || $datas['mid'] == '03' || $datas['mid'] == '04' || $datas['mid'] == '05' || $datas['mid'] == '07' || $datas['mid'] == '09') {
+		if ($datas['mid'] == '01' || $datas['mid'] == '02' || $datas['mid'] == '03' || $datas['mid'] == '04' || $datas['mid'] == '05' || $datas['mid'] == '07' || $datas['mid'] == '09' || $datas['mid'] == '18') {
 			$logicalId = 'bt' . $datas['bt'];
 			$value = $datas['value'];
 			$cmdArray = array($logicalId);
