@@ -453,6 +453,7 @@ parser.add_argument("--loglevel", help="Log Level for the daemon", type=str)
 parser.add_argument("--callback", help="Callback", type=str)
 parser.add_argument("--apikey", help="Apikey", type=str)
 parser.add_argument("--cycle", help="Cycle to send event", type=str)
+parser.add_argument("--pid", help="Pid file", type=str)
 args = parser.parse_args()
 
 if args.device:
@@ -465,6 +466,8 @@ if args.callback:
 	_callback = args.callback
 if args.apikey:
 	_apikey = args.apikey
+if args.pid:
+	_pidfile = args.pid
 if args.cycle:
 	_cycle = float(args.cycle)
 

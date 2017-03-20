@@ -125,7 +125,7 @@ class edisio extends eqLogic {
 		$return = array();
 		$return['log'] = 'edisio';
 		$return['state'] = 'nok';
-		$pid_file = '/tmp/edisiod.pid';
+		$pid_file = jeedom::getTmpFolder('edisio') . '/deamon.pid';
 		if (file_exists($pid_file)) {
 			if (posix_getsid(trim(file_get_contents($pid_file)))) {
 				$return['state'] = 'ok';
@@ -146,7 +146,7 @@ class edisio extends eqLogic {
 		return $return;
 	}
 	public static function deamon_stop() {
-		$pid_file = '/tmp/edisiod.pid';
+		$pid_file = jeedom::getTmpFolder('edisio') . '/deamon.pid';
 		if (file_exists($pid_file)) {
 			$pid = intval(trim(file_get_contents($pid_file)));
 			system::kill($pid);
@@ -176,6 +176,7 @@ class edisio extends eqLogic {
 		$cmd .= ' --callback ' . network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp') . '/plugins/edisio/core/php/jeeEdisio.php';
 		$cmd .= ' --apikey ' . jeedom::getApiKey('edisio');
 		$cmd .= ' --cycle ' . config::byKey('cycle', 'edisio');
+		$cmd .= ' --pid ' . jeedom::getTmpFolder('edisio') . '/deamon.pid';
 		log::add('edisio', 'info', 'Lancement démon edisiod : ' . $cmd);
 		exec($cmd . ' >> ' . log::getPathToLog('edisio') . ' 2>&1 &');
 		$i = 0;
