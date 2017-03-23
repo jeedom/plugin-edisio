@@ -328,6 +328,11 @@ class edisio extends eqLogic {
 		}
 		$this->import($device);
 	}
+
+	public function getImage() {
+		return 'plugins/edisio/core/config/devices/' . $this->getConfiguration('iconModel') . '.jpg';
+	}
+
 /*     * **********************Getteur Setteur*************************** */
 }
 class edisioCmd extends cmd {
