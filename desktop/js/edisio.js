@@ -199,7 +199,7 @@ $('.changeIncludeState').on('click', function () {
 });
 });
 
-$('body').on('edisio::include_mode', function (_event,_options) {
+$('body').off('edisio::include_mode').on('edisio::include_mode', function (_event,_options) {
     if (_options['state'] == 1) {
         if($('.include').attr('data-state') != 0){
             $.hideAlert();
@@ -222,7 +222,7 @@ $('body').on('edisio::include_mode', function (_event,_options) {
     }
 });
 
-$('body').on('edisio::includeDevice', function (_event,_options) {
+$('body').off('edisio::includeDevice').on('edisio::includeDevice', function (_event,_options) {
     if (modifyWithoutSave) {
         $('#div_inclusionAlert').showAlert({message: '{{Un périphérique vient d\'être inclu/exclu. Veuillez réactualiser la page}}', level: 'warning'});
     } else {
