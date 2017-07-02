@@ -246,7 +246,7 @@ def decodePacket(message):
 	try:
 		if len(action) <= 4:
 			return
-		if action['id'] not in globals.KNOWN_DEVICES and not globals.LEARN_MODE:
+		if action['id'] not in globals.KNOWN_DEVICES and not globals.INCLUDE_MODE:
 			return
 		globals.JEEDOM_COM.add_changes('devices::'+key,action)
 	except Exception, e:
@@ -360,7 +360,7 @@ def read_socket():
 				if 'id' in message['device'] and message['device']['id'] in globals.KNOWN_DEVICES :
 					del globals.KNOWN_DEVICES[message['device']['id']]
 			elif message['cmd'] == 'include_mode':
-				if message['state'] == 1:
+				if message['state'] == "1":
 					logging.debug('Enter in include mode')
 					globals.INCLUDE_MODE = True
 				else :
