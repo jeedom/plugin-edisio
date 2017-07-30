@@ -11,7 +11,7 @@
                 "isVisible": 1,
                 "isHistorized": 0,
                 "unite": "",
-                "logicalId": "bt01"
+                "logicalId": "bt05"
             },
 			{
                 "name": "bt01long",
@@ -20,7 +20,7 @@
                 "isVisible": 1,
                 "isHistorized": 0,
                 "unite": "",
-                "logicalId": "bt01long"
+                "logicalId": "bt05long"
             },
 			{
                 "name": "Batterie",

@@ -29,7 +29,7 @@
                 "isVisible": 1,
                 "isHistorized": 0,
                 "unite": "",
-                "logicalId": "bt02"
+                "logicalId": "bt03"
             },
 			{
                 "name": "bt02long",
@@ -38,7 +38,7 @@
                 "isVisible": 1,
                 "isHistorized": 0,
                 "unite": "",
-                "logicalId": "bt02long"
+                "logicalId": "bt03long"
             },
 			{
                 "name": "bt03",
@@ -47,7 +47,7 @@
                 "isVisible": 1,
                 "isHistorized": 0,
                 "unite": "",
-                "logicalId": "bt03"
+                "logicalId": "bt05"
             },
 			{
                 "name": "bt03long",
@@ -56,7 +56,7 @@
                 "isVisible": 1,
                 "isHistorized": 0,
                 "unite": "",
-                "logicalId": "bt03long"
+                "logicalId": "bt05long"
             },
 			{
                 "name": "bt04",
@@ -65,7 +65,7 @@
                 "isVisible": 1,
                 "isHistorized": 0,
                 "unite": "",
-                "logicalId": "bt04"
+                "logicalId": "bt07"
             },
 			{
                 "name": "bt04long",
@@ -74,7 +74,7 @@
                 "isVisible": 1,
                 "isHistorized": 0,
                 "unite": "",
-                "logicalId": "bt04long"
+                "logicalId": "bt07long"
             },
 			{
                 "name": "bt05",
@@ -83,7 +83,7 @@
                 "isVisible": 1,
                 "isHistorized": 0,
                 "unite": "",
-                "logicalId": "bt05"
+                "logicalId": "bt08"
             },
 			{
                 "name": "bt05long",
@@ -92,7 +92,7 @@
                 "isVisible": 1,
                 "isHistorized": 0,
                 "unite": "",
-                "logicalId": "bt05long"
+                "logicalId": "bt08long"
             },
             {
                 "name": "Batterie",
