@@ -156,13 +156,13 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
 ?>
              </div>
            </div>
-           <div class="form-group expertModeVisible">
+           <div class="form-group">
             <label class="col-sm-3 control-label"></label>
             <div class="col-sm-9">
               <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="noBatterieCheck"/>{{Ne pas verifier la batterie}}</label>
             </div>
           </div>
-          <div class="form-group expertModeVisible">
+          <div class="form-group">
             <label class="col-sm-3 control-label">{{Délai maximum autorisé entre 2 messages (min)}}</label>
             <div class="col-sm-4">
               <input class="eqLogicAttr form-control" data-l1key="timeout" />
@@ -209,7 +209,7 @@ foreach ($groups as $group) {
        </select>
      </div>
    </div>
-   <div class="form-group expertModeVisible">
+   <div class="form-group">
     <label class="col-sm-3 control-label">{{Création}}</label>
     <div class="col-sm-3">
       <span class="eqLogicAttr label label-default" data-l1key="configuration" data-l2key="createtime" style="font-size : 1em;cursor : default;"></span>
@@ -219,7 +219,7 @@ foreach ($groups as $group) {
       <span class="eqLogicAttr label label-default" data-l1key="status" data-l2key="state" style="font-size : 1em;cursor : default;"></span>
     </div>
   </div>
-  <div class="form-group expertModeVisible">
+  <div class="form-group">
     <label class="col-sm-3 control-label hasCommunication">{{Communication}}</label>
     <div class="col-sm-3 hasCommunication">
       <span class="eqLogicAttr label label-default" data-l1key="status" data-l2key="lastCommunication" style="font-size : 1em;cursor : default;"></span>
@@ -260,8 +260,8 @@ foreach ($groups as $group) {
     <thead>
       <tr>
         <th style="width: 300px;">{{Nom}}</th>
-        <th style="width: 130px;" class="expertModeVisible">{{Type}}</th>
-        <th class="expertModeVisible">{{Logical ID (info) ou Commande brute (action)}}</th>
+        <th style="width: 130px;">{{Type}}</th>
+        <th>{{Logical ID (info) ou Commande brute (action)}}</th>
         <th>{{Paramètres}}</th>
         <th style="width: 100px;">{{Options}}</th>
         <th></th>

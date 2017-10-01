@@ -49,13 +49,13 @@ foreach (jeedom::getUsbMapping() as $name => $value) {
        </select>
      </div>
    </div>
-   <div class="form-group expertModeVisible">
+   <div class="form-group">
     <label class="col-lg-4 control-label">{{Port socket interne}}</label>
     <div class="col-lg-2">
       <input class="configKey form-control" data-l1key="socketport"/>
     </div>
   </div>
-  <div class="form-group expertModeVisible">
+  <div class="form-group">
     <label class="col-sm-4 control-label">{{Cycle (s)}}</label>
     <div class="col-sm-2">
       <input class="configKey form-control" data-l1key="cycle" />
