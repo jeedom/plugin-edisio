@@ -8,6 +8,6 @@
 	"category" : "automation protocol",
 	"hasOwnDeamon" : true,
 	"hasDependency" : true,
-	"changelog" : "https://jeedom.github.io/plugin-clink/#language#/changelog",
-	"documentation" : "https://jeedom.github.io/plugin-clink/#language#/"
+	"changelog" : "https://jeedom.github.io/plugin-edisio/#language#/changelog",
+	"documentation" : "https://jeedom.github.io/plugin-edisio/#language#/"
 }
