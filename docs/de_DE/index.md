@@ -103,7 +103,7 @@ Une fois que vous cliquez sur l’un d’eux, vous obtenez :
 
 ![edisio3](../images/edisio3.JPG)
 
-Vous retrouvez ici toute la configuration de votre équipement :
+Hier finden sie die ganze Konfiguration Ihrer Geräte:
 
 -   Nom de l’équipement edisio : nom de votre équipement edisio
 
@@ -145,7 +145,7 @@ Vous retrouvez ici toute la configuration de votre équipement :
 
 -   Statut : statut de l’équipement (peut être timeout par exemple)
 
-En dessous vous retrouvez la liste des commandes :
+Im unteren Bereich finden sie eine Liste der Befehle :
 
 -   le nom affiché sur le dashboard
 

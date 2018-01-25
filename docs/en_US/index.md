@@ -103,7 +103,7 @@ Une fois que vous cliquez sur l’un d’eux, vous obtenez :
 
 ![edisio3](../images/edisio3.JPG)
 
-Vous retrouvez ici toute la configuration de votre équipement :
+You can find here the full configuration of your device :
 
 -   Nom de l’équipement edisio : nom de votre équipement edisio
 
