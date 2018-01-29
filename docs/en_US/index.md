@@ -38,7 +38,7 @@ Cependant vous pouvez modifier cette configuration. Voici le détail
         équipements correspondants. Les identifiants doivent être
         séparés par des espaces. Exemple : "1356AD87 DB54AF".
 
--   **Démon local** ou **Démon XXX** : paramètres de configuration
+-   **Démon local**ou**Démon XXX** : paramètres de configuration
     locale (ou déportée, en fonction de l’intitulé) du démon.
 
     -   *Port edisio* : le port USB sur lequel votre interface edisio
