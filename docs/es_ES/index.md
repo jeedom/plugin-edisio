@@ -180,7 +180,7 @@ A continuación encontrará la lista de ordenes :
     la configuration avancée de la commande (méthode
     d’historisation, widget…​)
 
--   Tester : permet de tester la commande
+-   Prueba: prueba el comando
 
 -   supprimer (signe -) : permet de supprimer la commande
 
