@@ -1,12 +1,12 @@
 Plugin permettant d’utiliser le protocole Edisio avec Jeedom
 
-Configuration 
+Konfiguration
 =============
 
 Le plugin edisio permet de dialoguer avec l’ensemble des périphériques
 compatibles avec le module edisio USB.
 
-Configuration du plugin 
+Plugin Konfiguration
 -----------------------
 
 Après téléchargement du plugin, il vous suffit de l’activer et de mettre
@@ -67,7 +67,7 @@ démon.
 > ne faut pas oublier de cliquer sur "Redémarrer" pour sortir du mode
 > debug !! :
 
-Configuration des équipements 
+Geräte Konfiguration
 -----------------------------
 
 La configuration des équipements edisio est accessible à partir du menu
