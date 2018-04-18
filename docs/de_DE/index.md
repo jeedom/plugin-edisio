@@ -147,7 +147,7 @@ Sie werden hier alle die Konfiguration Ihrer Geräte finden:
 
 Im unteren Bereich finden sie eine Liste der Befehle :
 
--   le nom affiché sur le dashboard
+-   Der Name, der auf dem Armaturenbrett angezeigt wird
 
 -   le type et le sous-type
 
@@ -165,7 +165,7 @@ Im unteren Bereich finden sie eine Liste der Befehle :
     mouvement (et s’il n’y a en pas eu de nouvelles depuis) Jeedom
     remette la valeur de l’information à 0 (plus de mouvement détecté)
 
--   historiser : permet d’historiser la donnée
+-   Chronik : erlaubt das Archivieren der Daten
 
 -   afficher : permet d’afficher la donnée sur le dashboard
 
@@ -176,9 +176,9 @@ Im unteren Bereich finden sie eine Liste der Befehle :
 
 -   min/max : bornes de la donnée (peuvent être vides)
 
--   configuration avancée (petites roues crantées) : permet d’afficher
-    la configuration avancée de la commande (méthode
-    d’historisation, widget…​)
+-   Erweiterte Konfiguration (kleine Zahnräder) : Erlaubt die erweiterte
+    Konfiguration des Befehls anzuzeigen (Methode der
+    Archivierung, Widget ...)
 
 -   Test: prüft den Befehl
 
