@@ -490,6 +490,10 @@ if _device == 'auto':
 	logging.info('Find device : '+str(_device))
 
 if _device is None:
+	_device = jeedom_utils.find_tty_usb('0403','6001','edisio')
+	logging.info('Find device : '+str(_device))
+
+if _device is None:
 	logging.error('No device found')
 	shutdown()
 
