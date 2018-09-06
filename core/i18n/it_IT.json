@@ -35,7 +35,7 @@
         "Supprimer": "Elimina",
         "Equipement": "Dispositivo",
         "Commandes": "Comandi",
-        "Nom de l'équipement EDISIO": "Nom de l'équipement EDISIO",
+        "Nom de l'équipement EDISIO": "Nome attrezzature EDISIO",
         "ID": "ID",
         "Objet parent": "Oggetto padre",
         "Aucun": "Nessuno",
@@ -46,7 +46,7 @@
         "Ajouter une commande": "Aggiungi un comando",
         "Nom": "Nome",
         "Type": "Tipo",
-        "Logical ID (info) ou Commande brute (action)": "Logical ID (info) ou Commande brute (action)",
+        "Logical ID (info) ou Commande brute (action)": "ID logico (info) o Control lordo (quota)",
         "Paramètres": "Parametri",
         "Options": "Opzioni",
         "Configuration avancée": "Configurazione avanzata"
@@ -61,7 +61,7 @@
         "Historiser": "Storicizza",
         "Afficher": "Mostra",
         "Inverser": "Inverti",
-        "Santé Edisio": "Santé Edisio",
+        "Santé Edisio": "salute Edisio",
         "Arrêter l\\'inclusion": "Ferma inclusione",
         "Arreter inclusion": "Ferma inclusione",
         "Vous etes en mode inclusion. Recliquez sur le bouton d\\'inclusion pour sortir de ce mode": "Sei in modalità inclusione. Clicca nuovamente il pulsante per uscire da questa modalità.",
@@ -105,8 +105,8 @@
         "Etes-vous sur de vouloir lancer le démon en mode debug ? N\\'oubliez pas de le relancer en mode normale une fois terminé": "Sei sicuro di voler eseguire il demone in modalità debug? Ricordati di riavviarlo in modalità normale quando hai concluso.",
         "Edisio en mode debug": "Edisio in modalità debug",
         "Log des messages Edisio": "Registro messaggi Edisio",
-        "Port socket interne": "Port socket interne",
-        "Cycle (s)": "Cycle (s)"
+        "Port socket interne": "Presa interna Port",
+        "Cycle (s)": "Ciclo (s)"
     },
     "plugins/edisio/desktop/modal/show.debug.php": {
         "Attention le lancement en mode debug est très consommateur en ressources et en log, pensez bien à relancer le démon une fois l'analyse terminée": "Attenzione: l'avvio in modalità debug utilizza risorse e genera registri. Ricordati di riavviare il demone in modalità normale quando hai finito"
@@ -121,6 +121,6 @@
         "Défaut": "Predefinito"
     },
     "plugins/edisio/plugin_info/info.json": {
-        "Plugin ajoutant le support du protocole Edisio à Jeedom": "Plugin ajoutant le support du protocole Edisio à Jeedom"
+        "Plugin ajoutant le support du protocole Edisio à Jeedom": "Plugin aggiungendo il supporto del protocollo Edisio Jeedom"
     }
 }

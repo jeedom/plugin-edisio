@@ -121,6 +121,6 @@
         "Défaut": "Standard"
     },
     "plugins/edisio/plugin_info/info.json": {
-        "Plugin ajoutant le support du protocole Edisio à Jeedom": "Plugin ajoutant le support du protocole Edisio à Jeedom"
+        "Plugin ajoutant le support du protocole Edisio à Jeedom": "Plugin mit Unterstützung von Edisio Protokoll Jeedom"
     }
 }
