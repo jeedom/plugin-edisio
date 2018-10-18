@@ -243,16 +243,6 @@ foreach ($groups as $group) {
 </form>
 </div>
 </div>
-
-<form class="form-horizontal">
-  <fieldset>
-    <div class="form-actions" align="right">
-      <a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
-      <a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
-    </div>
-  </fieldset>
-</form>
-
 </div>
 <div role="tabpanel" class="tab-pane" id="commandtab">
   <a class="btn btn-success btn-sm cmdAction pull-right" data-action="add" style="margin-top:5px;"><i class="fa fa-plus-circle"></i> {{Ajouter une commande}}</a><br/><br/>
