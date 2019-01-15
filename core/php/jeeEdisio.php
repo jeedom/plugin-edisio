@@ -111,7 +111,7 @@ if (isset($result['devices'])) {
 					$datas['battery'] = 100;
 				}
 				$edisio->batteryStatus($datas['battery']);
-				if (null !== $edisio->getCmd('info', 'battery')) {
+				if (is_object($edisio->getCmd('info', 'battery'))) {
 					$edisio->getCmd('info', 'battery')->event($datas['battery']);
 				}
 			}
