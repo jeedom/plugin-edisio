@@ -43,7 +43,7 @@
                     "generic_type": "LIGHT_ON"
                 },
                 "isVisible": 1,
-                "logicalId" : "6C7663#ID##GROUP#021E010001640D0A&&6C7663#ID##GROUP#021E010009640D0A&&",
+                "logicalId" : "6C7663#ID##GROUP#021E010001640D0A&&6C7663#ID##GROUP#021E010009640D0A$",
                 "configuration" : 
                 {
                     "group" : 2,
@@ -59,7 +59,7 @@
                     "generic_type": "LIGHT_OFF"
                 },
                 "isVisible": 1,
-                "logicalId" : "6C7663#ID##GROUP#021E010002640D0A&&6C7663#ID##GROUP#021E01001B640D0A&&",
+                "logicalId" : "6C7663#ID##GROUP#021E010002640D0A&&6C7663#ID##GROUP#021E01001B640D0A$",
                 "configuration" : 
                 {
                     "group" : 2,
