@@ -367,7 +367,7 @@ class edisioCmd extends cmd {
 				$value = str_replace('#color#', $_options['color'], $value);
 				break;
 		}
-		$values = explode('&&', $value);
+		$values = explode('&&', trim($value,'$'));
 		$message = trim(json_encode(array('apikey' => jeedom::getApiKey('edisio'), 'cmd' => 'send', 'data' => $values)));
 		$socket = socket_create(AF_INET, SOCK_STREAM, 0);
 		socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio'));

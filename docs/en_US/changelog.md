@@ -1,3 +1,7 @@
+# 15/01/2018
+
+- Correction d'une erreur 500 lors de la remonté de valeur de batterie
+
 # 18/10/2018
 
 - Correction d'un bug si le niveau de log est sur aucun
