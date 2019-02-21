@@ -99,7 +99,7 @@ Vous retrouvez ici :
 
 -   enfin en dessous vous retrouvez la liste de vos équipements
 
-Une fois que vous cliquez sur l’un d’eux, vous obtenez :
+Once you click on one of them, you get:
 
 ![edisio3](../images/edisio3.JPG)
 
