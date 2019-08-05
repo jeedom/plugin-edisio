@@ -79,7 +79,12 @@ if (isset($result['devices'])) {
 					);
 					$cmd->setEqLogic_id($edisio->getId());
 					utils::a2o($cmd, $config);
-					$cmd->save();
+					try{
+					    $cmd->save();
+					  }catch(Exception $e){
+					    $cmd->setName($cmd->getName().' '.config::genKey(3));
+					    $cmd->save();
+					  }
 				}
 			}
 			if (in_array($datas['value'], array("up", "down")) and $datas['mid'] == '01') {
