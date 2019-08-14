@@ -1,3 +1,7 @@
+# 13/08/2019
+
+- Support de PHP 7.3
+
 # 15/01/2018
 
 - Correction d'une erreur 500 lors de la remonté de valeur de batterie
