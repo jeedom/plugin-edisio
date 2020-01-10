@@ -73,7 +73,6 @@
                 return;
             }
             var options = '';
-            var options = '';
             for (var i in data.result) {
                 if (data.result[i]['selected'] == 1){
                     options += '<option value="'+i+'" selected>'+data.result[i]['value']+'</option>';
