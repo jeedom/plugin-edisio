@@ -21,7 +21,7 @@
         getModelList($(this).value(),$('.li_eqLogic.active').attr('data-eqlogic_id'));
         $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+$(this).value()+'.jpg');
     }else{
-        $('#img_device').attr("src",'plugins/edisio/doc/images/edisio_icon.png');
+        $('#img_device').attr("src",'plugins/edisio/plugin_info/edisio_icon.png');
     }  
 });
     $('.eqLogicAttr[data-l1key=status][data-l2key=battery]').on('change', function () {
