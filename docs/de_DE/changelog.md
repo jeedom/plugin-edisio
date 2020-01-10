@@ -1,3 +1,7 @@
+# 11/09/2019
+
+- Adaptation pour jeedom v4
+
 # 13/08/2019
 
 - Support de PHP 7.3

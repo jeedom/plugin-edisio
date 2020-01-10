@@ -58,10 +58,10 @@ foreach ($eqLogics as $eqLogic) {
 	$opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
 	echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogic->getId() . '" >';
 	$alternateImg = $eqLogic->getConfiguration('iconModel');
-	if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $alternateImg . '.jpg')) {
-		echo '<img class="lazy" src="plugins/edisio/core/config/devices/' . $alternateImg . '.jpg" height="105" width="95" />';
-	} elseif (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $eqLogic->getConfiguration('device') . '.jpg')) {
-		echo '<img class="lazy" src="plugins/edisio/core/config/devices/' . $eqLogic->getConfiguration('device') . '.jpg" height="105" width="95" />';
+	if (file_exists(dirname(__FILE__) . '/../../core/config/devices/'.$alternateImg . '.jpg')) {
+		echo '<img class="lazy" src="plugins/edisio/core/config/devices/'.$alternateImg . '.jpg" height="105" width="95" />';
+	} elseif (file_exists(dirname(__FILE__) . '/../../core/config/devices/' .  $eqLogic->getConfiguration('device') . '/' .$eqLogic->getConfiguration('device') . '.jpg')) {
+		echo '<img class="lazy" src="plugins/edisio/core/config/devices/' . $eqLogic->getConfiguration('device') . '/' . $eqLogic->getConfiguration('device') . '.jpg" height="105" width="95" />';
 	} else {
 		echo '<img src="' . $plugin->getPathImgIcon() . '" height="105" width="95" />';
 	}
@@ -217,7 +217,7 @@ foreach ($groups as $group) {
    </div>
  </div>
  <center>
-  <img src="core/img/no_image.gif" data-original=".jpg" id="img_device" class="img-responsive" style="max-height : 250px;" onerror="this.src='plugins/edisio/doc/images/edisio_icon.png'"/>
+  <img src="core/img/no_image.gif" data-original=".jpg" id="img_device" class="img-responsive" style="max-height : 250px;" onerror="this.src='plugins/edisio/plugin_info/edisio_icon.png'"/>
 </center>
 </fieldset>
 </form>

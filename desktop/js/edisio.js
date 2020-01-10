@@ -18,10 +18,10 @@
  $(document).ready(function() {
     $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
       if($('.li_eqLogic.active').attr('data-eqlogic_id') != ''){
-        getModelList($(this).value(),$('.li_eqLogic.active').attr('data-eqlogic_id'));
-        $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+$(this).value()+'.jpg');
+        getModelList($(this).value(),$('.eqLogicAttr[data-l1key=id]').value());
+        $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+$(this).value()+'/'+$(this).value()+'.jpg');
     }else{
-        $('#img_device').attr("src",'plugins/edisio/doc/images/edisio_icon.png');
+        $('#img_device').attr("src",'plugins/edisio/plugin_info/edisio_icon.png');
     }  
 });
     $('.eqLogicAttr[data-l1key=status][data-l2key=battery]').on('change', function () {
@@ -83,9 +83,9 @@
             }
             $(".modelList").show();
             $(".listModel").html(options);
-            $icon = $('.eqLogicAttr[data-l1key=configuration][data-l2key=iconModel]').value();
-            if($icon != '' && $icon != null){
-                $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+$icon+'.jpg');
+            icon = $('.eqLogicAttr[data-l1key=configuration][data-l2key=iconModel]').value();
+            if(icon != '' && icon != null){
+                $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+icon+'.jpg');
             }
         }
     });
