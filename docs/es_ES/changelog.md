@@ -1,3 +1,7 @@
+# 10/01/2020
+
+- Correction d'un soucis sur l'affichage des images et de modeles
+
 # 11/09/2019
 
 - Adaptation pour jeedom v4
