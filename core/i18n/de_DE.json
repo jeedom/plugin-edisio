@@ -6,7 +6,7 @@
         "Démon": "Dämon",
         "Port EDISIO": "EDISIO Port",
         "Aucun": "Ohne",
-        "Auto": "",
+        "Auto": "Auto",
         "Port socket interne": "Interner Socket-Port",
         "Cycle (s)": "Zyklus (e)"
     },
@@ -19,7 +19,7 @@
         "Dernière communication": "Letzte Mitteilung",
         "Date création": "Erstellungsdatum",
         "OK": "OK",
-        "NOK": "",
+        "NOK": "NOK",
         "Secteur": "Sektor"
     },
     "plugins\/edisio\/desktop\/php\/edisio.php": {

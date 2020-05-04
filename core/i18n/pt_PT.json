@@ -12,21 +12,21 @@
     },
     "plugins\/edisio\/desktop\/modal\/health.php": {
         "Image": "Imagem",
-        "Module": "",
-        "ID": "",
+        "Module": "Módulo",
+        "ID": "ID",
         "Statut": "Estado",
-        "Batterie": "",
-        "Dernière communication": "",
-        "Date création": "",
+        "Batterie": "Bateria",
+        "Dernière communication": "última mensagem",
+        "Date création": "Data de criação",
         "OK": "Ok",
-        "NOK": "",
-        "Secteur": ""
+        "NOK": "NOK",
+        "Secteur": "Setor"
     },
     "plugins\/edisio\/desktop\/php\/edisio.php": {
-        "Vous etes en mode inclusion. Recliquez sur le bouton d\\'inclusion pour sortir de ce mode": "",
+        "Vous etes en mode inclusion. Recliquez sur le bouton d\\'inclusion pour sortir de ce mode": "Você é a inclusão de modo. Clique novamente no botão \\ de inclusão para sair deste modo",
         "Gestion": "Gestão",
         "Ajouter": "Adicionar",
-        "Arrêter inclusion": "",
+        "Arrêter inclusion": "Parar de inclusão",
         "Mode inclusion": "Inclusão moda",
         "Configuration": "Configuração",
         "Santé": "Saúde",
@@ -39,7 +39,7 @@
         "Equipement": "Equipamento",
         "Commandes": "Comandos",
         "Nom de l'équipement EDISIO": "Nome equipamentos EDISIO",
-        "ID": "",
+        "ID": "ID",
         "Activer": "Ativar",
         "Visible": "Visivél",
         "Objet parent": "Objeto pai",
@@ -47,7 +47,7 @@
         "Catégorie": "Categoria",
         "Ne pas verifier la batterie": "Não verificar a bateria",
         "Délai maximum autorisé entre 2 messages (min)": "Tempo máximo permitido entre 2 mensagens (min)",
-        " . $info['groupe'] . ": "",
+        " . $info['groupe'] . ": ". $ info ['grupo'].",
         "Création": "Criação",
         "Statut": "Estado",
         "Communication": "Comunicação",
@@ -62,7 +62,7 @@
     },
     "plugins\/edisio\/desktop\/js\/edisio.js": {
         "Santé Edisio": "Saúde Edisio",
-        "ID": "",
+        "ID": "ID",
         "Groupe": "Grupo",
         "Valeur retour d\\'état": "Estado Valor de retorno \\ 's",
         "Durée avant retour d\\'état (min)": "Tempo para voltar \\ estado (min)",
@@ -76,15 +76,15 @@
         "Un périphérique vient d\\'être inclu\/exclu. Veuillez réactualiser la page": "Um dispositivo apenas \\ ser incluídos \/ excluídos. Atualize a página"
     },
     "plugins\/edisio\/core\/php\/jeeEdisio.php": {
-        "Vous n\\'etes pas autorisé à effectuer cette action": ""
+        "Vous n\\'etes pas autorisé à effectuer cette action": "Não está autorizado a executar esta ação"
     },
     "plugins\/edisio\/core\/class\/edisio.class.php": {
-        "Nouveau module detecté": "",
-        "Le module a un id banni. Inclusion impossible": "",
-        "Information manquante pour ajouter l\\'équipement. Inclusion impossible": "",
-        "Module inclu avec succès": "",
-        "Le port n\\'est pas configuré": "",
-        "Veuillez vérifier la configuration": "",
+        "Nouveau module detecté": "Novo módulo detectado",
+        "Le module a un id banni. Inclusion impossible": "O módulo possui um ID banido. Impossível incluir",
+        "Information manquante pour ajouter l\\'équipement. Inclusion impossible": "Faltam informações para adicionar equipamento. Impossível incluir",
+        "Module inclu avec succès": "Módulo incluído com sucesso",
+        "Le port n\\'est pas configuré": "A porta não está configurada",
+        "Veuillez vérifier la configuration": "Por favor, verifique a configuração",
         "Défaut": "Falha"
     }
 }
