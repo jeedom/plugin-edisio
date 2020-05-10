@@ -1,3 +1,7 @@
+>**IMPORTANT**
+>
+>Como lembrete, se não houver informações sobre a atualização, isso significa que se trata apenas da atualização da documentação, tradução ou texto.
+
 # 01/10/2020
 
 - Corrigido um problema com a exibição de imagens e modelos

@@ -1,3 +1,7 @@
+>**IMPORTANT**
+>
+>As a reminder if there is no information on the update, it means that it only concerns the updating of documentation, translation or text.
+
 # 10/01/2020
 
 - Fixed a problem with the display of images and models
