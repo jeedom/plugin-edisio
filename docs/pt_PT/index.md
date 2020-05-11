@@ -2,9 +2,9 @@
 
 Plugin para usar o protocolo Edisio com o Jeedom
 
-# Configuration
+# Configuração
 
-O plug-in edisio permite que você se comunique com todos os periféricos compatíveis com o módulo USB edisio..
+O plug-in edisio permite que você se comunique com todos os periféricos compatíveis com o módulo USB edisio.
 
 ## Configuração do plugin
 
@@ -14,22 +14,22 @@ Depois de baixar o plugin, você só precisa ativá-lo e configurar a porta para
 
 -   **Dependências** : esta parte fornece o status das dependências; se elas não estiverem corretas, você pode iniciá-las manualmente ou esperar 5 minutos; o Jeedom as iniciará por si só.
 -   **Demônio** : esta parte fornece o status do demônio (local e remoto); se não estiver tudo bem, você pode iniciá-lo manualmente ou esperar 5 minutos; o Jeedom o iniciará sozinho.
--   **Configuration** : Esta parte permite que você configure os parâmetros gerais do plugin.
+-   **Configuração** : Esta parte permite que você configure os parâmetros gerais do plugin.
     -   *Proibir os seguintes IDs* : permite fornecer uma lista de identificadores edisio ao Jeedom para que ele não crie o equipamento correspondente. Identificadores devem ser separados por espaços. Exemplo : "1356AD87 DB54AF".
 -   **Demônio local** : parâmetros de configuração local (ou remoto, dependendo do título) do daemon.
     -   *Porto EDISIO* : a porta USB na qual sua interface edisio está conectada.
-        > **Tip**
+        > **Dica**
         >
         > Se você não souber qual porta USB é usada, basta indicar "Auto".
     -   *Porta de soquete interna (modificação perigosa, deve ser o mesmo valor em todos os Edisio deportados pelo Jeedom)* : permite modificar a porta de comunicação interna do daemon.
 
-> **Important**
+> **IMPORTANTE**
 >
 > Mude apenas se você souber o que está fazendo.
 
 Para iniciar o daemon em debug, basta no nível da configuração dos logs do plug-in colocar em debug, salvar e reiniciar o daemon.
 
-> **Important**
+> **IMPORTANTE**
 >
 > Nesse modo, o demônio é muito falador. Quando a depuração estiver concluída, não se esqueça de clicar em "Reiniciar" para sair do modo de depuração !!
 
@@ -43,7 +43,7 @@ A configuração do equipamento edisio pode ser acessada no menu do plugin :
 
 ![edisio2](../images/edisio2.JPG)
 
-> **Tip**
+> **Dica**
 >
 > Como em muitos lugares do Jeedom, colocar o mouse na extremidade esquerda permite que um menu de acesso rápido seja exibido (você sempre pode deixá-lo visível em seu perfil)
 

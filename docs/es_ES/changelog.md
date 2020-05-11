@@ -1,10 +1,10 @@
->**IMPORTANT**
+>**Importante**
 >
->Como recordatorio si no hay información sobre la actualización, significa que solo se refiere a la actualización de documentación, traducción o texto.
+>Como recordatorio si no hay información sobre la actualización, significa que solo se refiere a la actualización de documentación, traducción o texto
 
 # 01/10/2020
 
-- Se solucionó un problema con la visualización de imágenes y modelos.
+- Se solucionó un problema con la visualización de imágenes y modelos
 
 # 11/09/2019
 

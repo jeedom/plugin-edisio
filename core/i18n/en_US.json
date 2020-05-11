@@ -47,7 +47,7 @@
         "Catégorie": "Category",
         "Ne pas verifier la batterie": "Do not check battery",
         "Délai maximum autorisé entre 2 messages (min)": "Maximum allowed delay between 2 messages (min)",
-        " . $info['groupe'] . ": ". $ info ['group'].",
+        " . $info['groupe'] . ": "$ info ['group']",
         "Création": "Creation",
         "Statut": "Status",
         "Communication": "Communication",

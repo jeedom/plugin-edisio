@@ -23,7 +23,7 @@
         "Secteur": ""
     },
     "plugins\/edisio\/desktop\/php\/edisio.php": {
-        "Vous etes en mode inclusion. Recliquez sur le bouton d\\'inclusion pour sortir de ce mode": "Sei in modalità inclusione. Clicca nuovamente il pulsante per uscire da questa modalità.",
+        "Vous etes en mode inclusion. Recliquez sur le bouton d\\'inclusion pour sortir de ce mode": "Sei in modalità inclusione. Clicca nuovamente il pulsante per uscire da questa modalità",
         "Gestion": "Gestione",
         "Ajouter": "Aggiungi",
         "Arrêter inclusion": "Ferma inclusione",
@@ -71,9 +71,9 @@
         "Inverser": "Inverti",
         "Arrêter l\\'inclusion": "Ferma inclusione",
         "Arreter inclusion": "Ferma inclusione",
-        "Vous etes en mode inclusion. Recliquez sur le bouton d\\'inclusion pour sortir de ce mode": "Sei in modalità inclusione. Clicca nuovamente il pulsante per uscire da questa modalità.",
+        "Vous etes en mode inclusion. Recliquez sur le bouton d\\'inclusion pour sortir de ce mode": "Sei in modalità inclusione. Clicca nuovamente il pulsante per uscire da questa modalità",
         "Mode inclusion": "Modalità inclusione",
-        "Un périphérique vient d\\'être inclu\/exclu. Veuillez réactualiser la page": "Un dispositivo è stato incluso\/escluso. Si prega di ricaricare la pagina."
+        "Un périphérique vient d\\'être inclu\/exclu. Veuillez réactualiser la page": "Un dispositivo è stato incluso\/escluso. Si prega di ricaricare la pagina"
     },
     "plugins\/edisio\/core\/php\/jeeEdisio.php": {
         "Vous n\\'etes pas autorisé à effectuer cette action": "Non sei autorizzato a eseguire questa azione"

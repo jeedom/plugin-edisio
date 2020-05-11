@@ -47,7 +47,7 @@
         "Catégorie": "Categoría",
         "Ne pas verifier la batterie": "No comprobar la batería",
         "Délai maximum autorisé entre 2 messages (min)": "Tiempo máximo permitido entre 2 mensajes (min)",
-        " . $info['groupe'] . ": ". $ info ['grupo'].",
+        " . $info['groupe'] . ": "$ info ['grupo']",
         "Création": "Creación",
         "Statut": "Estado",
         "Communication": "Comunicación",
@@ -76,7 +76,7 @@
         "Un périphérique vient d\\'être inclu\/exclu. Veuillez réactualiser la page": "Un dispositivo acaba de ser incluido \/ excluido. Por favor actualiza la página"
     },
     "plugins\/edisio\/core\/php\/jeeEdisio.php": {
-        "Vous n\\'etes pas autorisé à effectuer cette action": "No tiene autorización para realizar esta acción."
+        "Vous n\\'etes pas autorisé à effectuer cette action": "No tiene autorización para realizar esta acción"
     },
     "plugins\/edisio\/core\/class\/edisio.class.php": {
         "Nouveau module detecté": "Nuevo módulo detectado",

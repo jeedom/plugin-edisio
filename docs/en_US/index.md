@@ -2,9 +2,9 @@
 
 Plugin to use the Edisio protocol with Jeedom
 
-# Configuration
+# Setup
 
-The edisio plugin allows you to communicate with all the peripherals compatible with the edisio USB module..
+The edisio plugin allows you to communicate with all the peripherals compatible with the edisio USB module.
 
 ## Plugin configuration
 
@@ -14,7 +14,7 @@ After downloading the plugin, you just need to activate it and set the port to a
 
 -   **Dependencies** : this part gives you the status of the dependencies, if they are not OK you can either launch them by hand or wait 5 min, Jeedom will launch them by itself.
 -   **Daemon** : this part gives you the status of the demon (both local and remote), if it is not OK you can either launch it by hand or wait 5 min, Jeedom will launch it by itself.
--   **Configuration** : This part allows you to configure the general parameters of the plugin.
+-   **Setup** : This part allows you to configure the general parameters of the plugin.
     -   *Ban the following IDs* : allows to give a list of edisio identifiers to Jeedom so that it does not create the corresponding equipment. Identifiers must be separated by spaces. Example : "1356AD87 DB54AF".
 -   **Local demon** : local configuration parameters (or remote, depending on the title) of the daemon.
     -   *Edisio port* : the USB port on which your edisio interface is connected.

@@ -2,9 +2,9 @@
 
 Plugin zur Verwendung des Edisio-Protokolls mit Jeedom
 
-# Configuration
+# Konfiguration
 
-Mit dem edisio-Plugin können Sie mit allen Peripheriegeräten kommunizieren, die mit dem edisio USB-Modul kompatibel sind..
+Mit dem edisio-Plugin können Sie mit allen Peripheriegeräten kommunizieren, die mit dem edisio USB-Modul kompatibel sind.
 
 ## Plugin Konfiguration
 
@@ -14,22 +14,22 @@ Nachdem Sie das Plugin heruntergeladen haben, müssen Sie es nur aktivieren und 
 
 -   **Nebengebäude** : In diesem Teil erhalten Sie den Status der Abhängigkeiten. Wenn diese nicht in Ordnung sind, können Sie sie entweder von Hand starten oder 5 Minuten warten. Jeedom startet sie von selbst.
 -   **Dämon** : Dieser Teil gibt Ihnen den Status des Dämons (sowohl lokal als auch remote). Wenn dies nicht in Ordnung ist, können Sie ihn entweder von Hand starten oder 5 Minuten warten. Jeedom startet ihn von selbst.
--   **Configuration** : In diesem Teil können Sie die allgemeinen Parameter des Plugins konfigurieren.
+-   **Konfiguration** : In diesem Teil können Sie die allgemeinen Parameter des Plugins konfigurieren.
     -   *Verbieten Sie die folgenden IDs* : ermöglicht es, Jeedom eine Liste von edisio-Kennungen zu geben, damit nicht die entsprechende Ausrüstung erstellt wird. Bezeichner müssen durch Leerzeichen getrennt werden. Beispiel : "1356AD87 DB54AF".
 -   **Lokaler Dämon** : lokale Konfigurationsparameter (oder Remote, je nach Titel) des Dämons.
     -   *EDISIO Port* : Der USB-Anschluss, an den Ihre edisio-Schnittstelle angeschlossen ist.
-        > **Tip**
+        > **Spitze**
         >
         > Wenn Sie nicht wissen, welcher USB-Anschluss verwendet wird, können Sie einfach "Auto" angeben".
     -   *Interner Socket-Port (gefährliche Änderung, muss bei allen von Jeedom deportierten Edisio den gleichen Wert haben)* : Ermöglicht das Ändern des internen Kommunikationsports des Dämons.
 
-> **Important**
+> **Wichtig**
 >
 > Ändern Sie nur, wenn Sie wissen, was Sie tun.
 
 Um den Daemon beim Debuggen zu starten, reicht es auf der Ebene der Konfiguration der Protokolle des Plugins aus, das Debugging durchzuführen, den Daemon zu speichern und neu zu starten.
 
-> **Important**
+> **Wichtig**
 >
 > In diesem Modus ist der Dämon sehr gesprächig. Vergessen Sie nach Abschluss des Debugs nicht, auf "Neustart" zu klicken, um den Debug-Modus zu verlassen !!
 
@@ -43,9 +43,9 @@ So sieht die Seite des edisio Plugins aus (hier mit bereits 4 Geräten) :
 
 ![edisio2](../images/edisio2.JPG)
 
-> **Tip**
+> **Spitze**
 >
-> Wie an vielen Orten in Jeedom wird durch einfaches Setzen der Maus ganz links ein Schnellzugriffsmenü angezeigt (Sie können es jederzeit in Ihrem Profil sichtbar lassen).
+> Wie an vielen Orten in Jeedom wird durch einfaches Setzen der Maus ganz links ein Schnellzugriffsmenü angezeigt (Sie können es jederzeit in Ihrem Profil sichtbar lassen)
 
 Sie finden hier :
 
@@ -67,7 +67,7 @@ Hier finden Sie die gesamte Konfiguration Ihrer Geräte :
 -   Sichtbar : macht es auf dem Dashboard sichtbar
 -   Übergeordnetes Objekt : Gibt das übergeordnete Objekt an, zu dem das Gerät gehört
 -   Kategorie : Gerätekategorien (es kann zu mehreren Kategorien gehören)
--   Die Batterie nicht überprüfen : weist Jeedom an, Sie nicht zu warnen, wenn das Gerät einen Rahmen mit schwacher Batterie sendet (einige Module verarbeiten diese Informationen nicht korrekt und generieren falsche Warnungen).
+-   Die Batterie nicht überprüfen : weist Jeedom an, Sie nicht zu warnen, wenn das Gerät einen Rahmen mit schwacher Batterie sendet (einige Module verarbeiten diese Informationen nicht korrekt und generieren falsche Warnungen)
 -   Maximale Zeit zwischen 2 Nachrichten (min) : Die maximal zulässige Zeit zwischen zwei Nachrichten, bevor Jeedom das Gerät als Zeitüberschreitung deklariert". Beachten Sie, dass für diesen Parameter die Option "Wiederholung von Nachrichten alle (min) erzwingen" konfiguriert werden muss und dieser Wert größer sein muss
 -   Kommentar : ermöglicht es Ihnen, Kommentare zum Gerät abzugeben (z : Batterie gewechselt am XX / XX / XXXX)
 -   Gerät : ermöglicht es Ihnen, das Modell Ihrer Ausrüstung zu definieren (nur für die manuelle Erstellung von Ausrüstung zu konfigurieren, in der automatischen Jeedom konfiguriert nur dieses Feld)
@@ -80,8 +80,8 @@ Nachfolgend finden Sie die Liste der Bestellungen :
 
 -   Der im Dashboard angezeigte Name
 -   Typ und Subtyp
--   Der Informationsschlüssel, wenn es sich um eine Information handelt, oder der Hexadezimalcode, der gesendet werden soll, wenn es sich um eine Aktion handelt. In den Konfigurationen können diese Felder automatisch ausgefüllt werden (Sie müssen das Gerät erstellen, die Konfiguration auswählen und dann speichern).
--   "Statusrückmeldungswert "und" Dauer vor Statusrückmeldung" : ermöglicht es Jeedom anzuzeigen, dass nach einer Änderung der Informationen der Wert auf Y, X min nach der Änderung zurückkehren muss. Beispiel : Im Fall eines Anwesenheitsdetektors, der nur während einer Anwesenheitserkennung emittiert, ist es nützlich, beispielsweise 0 in Wert und 4 in Dauer einzustellen, so dass 4 min nach einer Bewegungserkennung (und s ') Seitdem gab es keine Neuigkeiten.) Jeedom setzt den Wert der Informationen auf 0 zurück (keine Bewegung mehr erkannt).
+-   Der Informationsschlüssel, wenn es sich um eine Information handelt, oder der Hexadezimalcode, der gesendet werden soll, wenn es sich um eine Aktion handelt. In den Konfigurationen können diese Felder automatisch ausgefüllt werden (Sie müssen das Gerät erstellen, die Konfiguration auswählen und dann speichern)
+-   "Statusrückmeldungswert "und" Dauer vor Statusrückmeldung" : ermöglicht es Jeedom anzuzeigen, dass nach einer Änderung der Informationen der Wert auf Y, X min nach der Änderung zurückkehren muss. Beispiel : Im Fall eines Anwesenheitsdetektors, der nur während einer Anwesenheitserkennung emittiert, ist es nützlich, beispielsweise 0 in Wert und 4 in Dauer einzustellen, so dass 4 min nach einer Bewegungserkennung (und s ') Seitdem gab es keine Neuigkeiten.) Jeedom setzt den Wert der Informationen auf 0 zurück (keine Bewegung mehr erkannt)
 -   Chronik : ermöglicht das Historisieren der Daten
 -   Anzeige : ermöglicht die Anzeige der Daten im Dashboard
 -   Ereignis : Bei edisio muss dieses Kontrollkästchen immer aktiviert sein, da Sie kein edisio-Modul abfragen können

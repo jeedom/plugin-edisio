@@ -47,7 +47,7 @@
         "Catégorie": "Categoria",
         "Ne pas verifier la batterie": "Não verificar a bateria",
         "Délai maximum autorisé entre 2 messages (min)": "Tempo máximo permitido entre 2 mensagens (min)",
-        " . $info['groupe'] . ": ". $ info ['grupo'].",
+        " . $info['groupe'] . ": "$ info ['grupo']",
         "Création": "Criação",
         "Statut": "Estado",
         "Communication": "Comunicação",
