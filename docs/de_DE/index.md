@@ -2,7 +2,7 @@
 
 Plugin zur Verwendung des Edisio-Protokolls mit Jeedom
 
-# Konfiguration
+# Configuration
 
 Mit dem edisio-Plugin können Sie mit allen Peripheriegeräten kommunizieren, die mit dem edisio USB-Modul kompatibel sind.
 

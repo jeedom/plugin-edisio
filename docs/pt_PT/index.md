@@ -2,7 +2,7 @@
 
 Plugin para usar o protocolo Edisio com o Jeedom
 
-# Configuração
+# Configuration
 
 O plug-in edisio permite que você se comunique com todos os periféricos compatíveis com o módulo USB edisio.
 
