@@ -2,6 +2,7 @@
     "07": {
         "name": "Mouvement",
         "groupe" : "Capteurs",
+	"documentation" : "https://doc.jeedom.com/fr_FR/edisio/edisio.EMS-200_-_Capteur_de_mouvement",
         "battery_type" : "1x3V ER14250",
         "category": {
                     "security": 1
