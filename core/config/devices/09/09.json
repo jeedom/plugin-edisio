@@ -2,6 +2,7 @@
     "09": {
         "name": "Ouverture",
         "groupe" : "Capteurs",
+	"documentation" : "https://doc.jeedom.com/#language#/edisio/edisio.EOS-200_-_Capteur_d'ouverture",
         "battery_type" : "1x3V ER14250",
         "category": {
                     "security": 1
