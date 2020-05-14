@@ -2,6 +2,7 @@
     "08": {
         "name": "Température",
         "groupe" : "Capteurs",
+	"documentation" : "https://doc.jeedom.com/fr_FR/edisio/edisio.ETS-200_-_Capteur_de_temp%C3%A9rature",   
         "battery_type" : "1x3V ER14250",
         "commands": [
             {
