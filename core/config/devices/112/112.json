@@ -2,6 +2,7 @@
     "112": {
         "name": "Micro-module EMV-400 (Volet roulant)",
         "groupe" : "Micros-Modules Edisio",
+        "documentation" : "https://doc.jeedom.com/#language#/edisio/edisio.EMV-400_-_Volet",
          "commands": [
            {
                 "name": "Monter",
