@@ -86,5 +86,8 @@
         "Le port n\\'est pas configuré": "",
         "Veuillez vérifier la configuration": "",
         "Défaut": "Kesalahan"
+    },
+    "info.json": {
+        "Plugin Edisio pour gérer le protocole Edisio avec clef USB Edisio. Ainsi vous pourrez communiquer avec les produits de la gamme Edisio.": ""
     }
 }
