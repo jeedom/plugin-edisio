@@ -1,6 +1,7 @@
 {
     "113": {
         "name": "Micro-module EMV-400 (Lumière)",
+        "documentation" : "https://doc.jeedom.com/#language#/edisio/edisio.EMV-400_-_Eclairage",
         "groupe" : "Micros-Modules Edisio",
         "commands": [
             {

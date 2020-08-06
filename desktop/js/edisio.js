@@ -15,9 +15,8 @@
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
 
- $(document).ready(function() {
     $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
-      if($('.li_eqLogic.active').attr('data-eqlogic_id') != ''){
+      if($('.eqLogicAttr[data-l1key=id]').value() != ''){
         getModelList($(this).value(),$('.eqLogicAttr[data-l1key=id]').value());
         $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+$(this).value()+'/'+$(this).value()+'.jpg');
     }else{
@@ -45,7 +44,7 @@
         $('#img_device').attr("src", 'plugins/edisio/core/config/devices/'+$(this).value()+'.jpg');
     }
 });
-});
+  
  $('#bt_healthEdisio').on('click', function () {
     $('#md_modal').dialog({title: "{{Santé Edisio}}"});
     $('#md_modal').load('index.php?v=d&plugin=edisio&modal=health').dialog('open');
@@ -164,7 +163,7 @@ function addCmdToTable(_cmd) {
     $('#table_cmd tbody').append(tr);
     var tr = $('#table_cmd tbody tr:last');
     jeedom.eqLogic.builSelectCmd({
-        id: $(".li_eqLogic.active").attr('data-eqLogic_id'),
+        id:  $('.eqLogicAttr[data-l1key=id]').value(),
         filter: {type: 'info'},
         error: function (error) {
             $('#div_alert').showAlert({message: error.message, level: 'danger'});
