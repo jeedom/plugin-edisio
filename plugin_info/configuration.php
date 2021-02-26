@@ -27,7 +27,7 @@ if (!isConnect('admin')) {
    <div class="form-group">
     <label class="col-lg-4 control-label">{{Bannir les IDs}}</label>
     <div class="col-lg-8">
-      <textarea class="configKey form-control" data-l1key="banEdisioId" rows="3"/>
+      <textarea class="configKey form-control" data-l1key="banEdisioId" rows="3" ></textarea>
     </div>
   </div>
 </fieldset>
