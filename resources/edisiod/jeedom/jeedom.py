@@ -25,9 +25,9 @@ import serial
 import os
 from os.path import join
 import socket
-from Queue import Queue
-import SocketServer
-from SocketServer import (TCPServer, StreamRequestHandler)
+import queue
+import socketserver
+from socketserver import (TCPServer, StreamRequestHandler)
 import signal
 import unicodedata
 import pyudev
@@ -179,11 +179,15 @@ class jeedom_utils():
 
 	@staticmethod
 	def stripped(str):
-		return "".join([i for i in str if ord(i) in range(32, 127)])
+		return "".join(filter(lambda x: 32 <= ord(x) <= 127, str))
 
 	@staticmethod
 	def ByteToHex( byteStr ):
-		return ''.join( [ "%02X " % ord( x ) for x in str(byteStr) ] ).strip()
+		if byteStr is None:
+			return None
+		if isinstance(byteStr, int):
+			return jeedom_utils.dec2hex(byteStr)
+		return ''.join( [ "%02X " % x for x in byteStr ] ).strip()
 
 	@staticmethod
 	def dec2bin(x, width=8):
@@ -193,7 +197,8 @@ class jeedom_utils():
 	def dec2hex(dec):
 		if dec is None:
 			return 0
-		return hex(dec)[2:]
+		#return hex(dec)[2:].upper()
+		return format(dec,'02X')
 
 	@staticmethod
 	def testBit(int_type, offset):
@@ -213,7 +218,7 @@ class jeedom_utils():
 	def write_pid(path):
 		pid = str(os.getpid())
 		logging.debug("Writing PID " + pid + " to " + str(path))
-		file(path, 'w').write("%s\n" % pid)
+		open(path, 'w').write("%s\n" % pid)
 		
 	@staticmethod
 	def remove_accents(input_str):
@@ -240,7 +245,7 @@ class jeedom_serial():
 		logging.debug("Open Serialport")
 		try:  
 			self.port = serial.Serial(self.device,self.rate,timeout=self.timeout)
-		except serial.SerialException, e:
+		except serial.SerialException as e:
 			logging.error("Error: Failed to connect on device " + self.device + " Details : " + str(e))
 			return False
 		if not self.port.isOpen():
@@ -277,20 +282,21 @@ class jeedom_serial():
 		return None
 
 	def readbytes(self,number):
-		buf = ''
+		buf = b''
 		for i in range(number):
 			try:
 				byte = self.port.read()
-			except IOError, e:
+				logging.debug("readbytes self.port.read = "+str(byte))
+			except IOError as e:
 				logging.error("Error: " + str(e))
-			except OSError, e:
+			except OSError as e:
 				logging.error("Error: " + str(e))
 			buf += byte
 		return buf
 
 # ------------------------------------------------------------------------------
 
-JEEDOM_SOCKET_MESSAGE = Queue()
+JEEDOM_SOCKET_MESSAGE = queue.Queue()
 
 class jeedom_socket_handler(StreamRequestHandler):
 	def handle(self):
@@ -298,7 +304,7 @@ class jeedom_socket_handler(StreamRequestHandler):
 		logging.debug("Client connected to [%s:%d]" % self.client_address)
 		lg = self.rfile.readline()
 		JEEDOM_SOCKET_MESSAGE.put(lg)
-		logging.debug("Message read from socket: " + lg.strip())
+		logging.debug("Message read from socket: " + str(lg.strip()))
 		self.netAdapterClientConnected = False
 		logging.debug("Client disconnected from [%s:%d]" % self.client_address)
 
@@ -307,7 +313,7 @@ class jeedom_socket():
 	def __init__(self,address='localhost', port=55000):
 		self.address = address
 		self.port = port
-		SocketServer.TCPServer.allow_reuse_address = True
+		socketserver.TCPServer.allow_reuse_address = True
 
 	def open(self):
 		self.netAdapter = TCPServer((self.address, self.port), jeedom_socket_handler)

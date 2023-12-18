@@ -22,6 +22,7 @@ import time
 import datetime
 import argparse
 import binascii
+import codecs
 import threading
 from threading import Thread, Event, Timer
 import re
@@ -34,7 +35,7 @@ import json
 try:
 	from jeedom.jeedom import *
 except ImportError:
-	print "Error: importing module from jeedom folder"
+	print("Error: importing module from jeedom folder")
 	sys.exit(1)
 	
 _decode_value = {'01' : 1,'02' : 0,'03' : 'toggle','04' : 'toggle','05' : 'toggle','06' : 'toggle','07' : 'up','08' : 'toggle','09' : 1,'0A' : 0,'0B' : 0,'0C' : 0,'0D' : 0,'0E' : 0,'0F' : 0,'10' : 0,'11' : 0,'12' : 0,'13' : 0,'14' : 0,'15' : 0,'16' : 0,'17' : 0,'18' : 0,'19' : 0,'1A' : 1,'1F' : 0,'20' : 0,'21' : 0,'F1' : 20,'F2' : 20,'F3' : 30,'F4' : 40,'F5' : 50,'F6' : 60,'F7' : 70,'F8' : 80,'F9' : 90,'FA' : 100}
@@ -104,6 +105,7 @@ def decodePacket(message):
 	timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
 	unixtime_utc = int(time.time())
 	unixtime_utc_check = datetime.datetime.utcnow()
+	logging.debug("decodePacket : Incoming message (" + jeedom_utils.ByteToHex(message) + ")")
 	if not test_edisio( jeedom_utils.ByteToHex(message) ):
 		logging.error("The incoming message is invalid (" + jeedom_utils.ByteToHex(message) + ")")
 		return
@@ -181,7 +183,7 @@ def decodePacket(message):
 	if MID == '08':
 		try:
 			temperature = float(int(DATA[3:4]+DATA[0:2],16)) / 100
-		except Exception, e:
+		except Exception as e:
 			logging.error("Error on temperature decode "+str(e))
 			return
 		action['temperature'] = str(temperature)
@@ -249,7 +251,7 @@ def decodePacket(message):
 		if action['id'] not in globals.KNOWN_DEVICES and not globals.INCLUDE_MODE:
 			return
 		globals.JEEDOM_COM.add_changes('devices::'+key,action)
-	except Exception, e:
+	except Exception as e:
 		pass
 
 	return
@@ -263,6 +265,7 @@ def test_edisio( message ):
 	except Exception:
 		logging.debug("Error: Removing white spaces")
 		return False
+	logging.debug(message)
 	try:
 		int(message,16)
 	except Exception:
@@ -271,28 +274,28 @@ def test_edisio( message ):
 	if len(message) % 2:
 		logging.debug("Error: Packet length not even")
 		return False
-	if len(message.decode('hex')) < 16:
+	if len(binascii.unhexlify(message)) < 16:
 		logging.debug("Error: Packet length is not valid (<16)")
 		return False
-	if jeedom_utils.ByteToHex(message.decode('hex')[0]) <> "6C":
-		logging.debug("Error: Packet first byte is not 6C : "+str(jeedom_utils.ByteToHex(message.decode('hex')[0])))
+	if jeedom_utils.dec2hex(binascii.unhexlify(message)[0]) != "6C":
+		logging.debug("Error: Packet first byte is not 6C : "+str(jeedom_utils.dec2hex(binascii.unhexlify(message)[0])))
 		return False
-	if jeedom_utils.ByteToHex(message.decode('hex')[1]) <> "76":
-		logging.debug("Error: Packet second byte is not 76 : "+str(jeedom_utils.ByteToHex(message.decode('hex')[0])))
+	if jeedom_utils.dec2hex(binascii.unhexlify(message)[1]) != "76":
+		logging.debug("Error: Packet second byte is not 76 : "+str(jeedom_utils.dec2hex(binascii.unhexlify(message)[1])))
 		return False
-	if jeedom_utils.ByteToHex(message.decode('hex')[2]) <> "63":
-		logging.debug("Error: Packet third byte is not 63 : "+str(jeedom_utils.ByteToHex(message.decode('hex')[0])))
+	if jeedom_utils.dec2hex(binascii.unhexlify(message)[2]) != "63":
+		logging.debug("Error: Packet third byte is not 63 : "+str(jeedom_utils.dec2hex(binascii.unhexlify(message)[2])))
 		return False
-	if jeedom_utils.ByteToHex(message.decode('hex')[-1]) <> "0A":
-		logging.debug("Error: Packet last byte is not 0A : "+str(jeedom_utils.ByteToHex(message.decode('hex')[-1])))
+	if jeedom_utils.dec2hex(binascii.unhexlify(message)[-1]) != "0A":
+		logging.debug("Error: Packet last byte is not 0A : "+str(jeedom_utils.dec2hex(binascii.unhexlify(message)[-1])))
 		return False
-	if jeedom_utils.ByteToHex(message.decode('hex')[-2]) <> "0D":
-		logging.debug("Error: Packet -2 byte is not 0D : "+str(jeedom_utils.ByteToHex(message.decode('hex')[-2])))
+	if jeedom_utils.dec2hex(binascii.unhexlify(message)[-2]) != "0D":
+		logging.debug("Error: Packet -2 byte is not 0D : "+str(jeedom_utils.dec2hex(binascii.unhexlify(message)[-2])))
 		return False
-	if jeedom_utils.ByteToHex(message.decode('hex')[-3]) <> "64":
-		logging.debug("Error: Packet -3 byte is not 64 : "+str(jeedom_utils.ByteToHex(message.decode('hex')[-3])))
+	if jeedom_utils.dec2hex(binascii.unhexlify(message)[-3]) != "64":
+		logging.debug("Error: Packet -3 byte is not 64 : "+str(jeedom_utils.dec2hex(binascii.unhexlify(message)[-3])))
 		return False
-	if not len(message.decode('hex')) > 1:
+	if not len(binascii.unhexlify(message)) > 1:
 		logging.debug("Error: Packet is not longer than one byte")
 		return False
 	return True
@@ -303,35 +306,45 @@ def read_edisio():
 	message = None
 	try:
 		byte = jeedom_serial.read()
-	except Exception, e:
+	except Exception as e:
 		logging.error("Error in read_edisio: " + str(e))
 		if str(e) == '[Errno 5] Input/output error':
 			logging.error("Exit 1 because this exeption is fatal")
 			shutdown()
-	try:
+	try:	    
 		if str(jeedom_utils.ByteToHex(byte)) == '6C' :
-			message = byte + jeedom_serial.readbytes(15)
-			if str(jeedom_utils.ByteToHex(message[-3]+message[-2]+message[-1])) <> '64 0D 0A' :
+			logging.debug("read_edisio : 15 bytes after "+str(jeedom_utils.ByteToHex(byte)))
+			others_bytes = jeedom_serial.readbytes(15)
+			logging.debug("read_edisio : others bytes are "+str(jeedom_utils.ByteToHex(others_bytes)))
+			message = b'' + byte + others_bytes 
+			logging.debug("Message: " + str(jeedom_utils.ByteToHex(message)))			
+			logging.debug("Test last bytes : " + str(jeedom_utils.ByteToHex([message[-3],message[-2],message[-1]])))			
+			if str(jeedom_utils.ByteToHex([message[-3],message[-2],message[-1]])) != '64 0D 0A' :
 				message += jeedom_serial.readbytes(1)
-			if str(jeedom_utils.ByteToHex(message[-3]+message[-2]+message[-1])) <> '64 0D 0A' :
+			if str(jeedom_utils.ByteToHex([message[-3],message[-2],message[-1]])) != '64 0D 0A' :
 				message += jeedom_serial.readbytes(1)
-			if str(jeedom_utils.ByteToHex(message[-3]+message[-2]+message[-1])) <> '64 0D 0A' :
+			if str(jeedom_utils.ByteToHex([message[-3],message[-2],message[-1]])) != '64 0D 0A' :
 				message += jeedom_serial.readbytes(1)
-			if str(jeedom_utils.ByteToHex(message[-3]+message[-2]+message[-1])) <> '64 0D 0A' :
+			if str(jeedom_utils.ByteToHex([message[-3],message[-2],message[-1]])) != '64 0D 0A' :
 				message += jeedom_serial.readbytes(1)
 			logging.debug("Message: " + str(jeedom_utils.ByteToHex(message)))
 			decodePacket(message)
-	except OSError, e:
+	except OSError as e:
 		logging.error("Error in read_edisio on decode message : " + str(jeedom_utils.ByteToHex(message))+" => "+str(e))
 
 # ----------------------------------------------------------------------------
 
 def listen():
 	logging.debug("Start listening...")
+	logging.debug("Serial openning...")
 	jeedom_serial.open()
+	logging.debug("Socket opening...")
 	jeedom_socket.open()
+	logging.debug("Serial flushOutput...")
 	jeedom_serial.flushOutput()
+	logging.debug("Serial flushInput...")
 	jeedom_serial.flushInput()
+	logging.debug("Loop listening...")
 	try:
 		while 1:
 			time.sleep(0.02)
@@ -347,7 +360,9 @@ def read_socket():
 		global JEEDOM_SOCKET_MESSAGE
 		if not JEEDOM_SOCKET_MESSAGE.empty():
 			logging.debug("Message received in socket JEEDOM_SOCKET_MESSAGE")
-			message = json.loads(jeedom_utils.stripped(JEEDOM_SOCKET_MESSAGE.get()))
+			message = json.loads(jeedom_utils.stripped(codecs.decode(JEEDOM_SOCKET_MESSAGE.get())))
+			logging.debug("Message received in socket "+str(message))
+			logging.debug("Message apikey "+str(message['apikey']))
 			if message['apikey'] != _apikey:
 				logging.error("Invalid apikey from socket : " + str(message))
 				return
@@ -370,37 +385,38 @@ def read_socket():
 			elif message['cmd'] == 'send':
 				if isinstance(message['data'], list):
 					for data in message['data']:
-						try:
-							send_edisio(data)
-						except Exception, e:
-							logging.error('Send command to edisio error : '+str(e))
+						logging.debug(data)
+						send_edisio(data)
 				else:
 					try:
+						logging.debug(message['data'])
 						send_edisio(message['data'])
-					except Exception, e:
-						logging.error('Send command to edisio error : '+str(e))
-	except Exception,e:
+					except Exception as e:
+						logging.error('Send message command to edisio error : '+str(e))
+	except Exception as e:
 		logging.error('Error on read socket : '+str(e))
 
 # ----------------------------------------------------------------------------
 
 def send_edisio(message):
+	logging.debug("send_edisio : Incoming message (" + message + ")")
 	if test_edisio(message):
 		jeedom_serial.flushOutput()
 		jeedom_serial.flushInput()
 		logging.debug("------------------------------------------------")
 		logging.debug("Incoming message from socket")
-		logging.debug("Send\t\t\t= " + jeedom_utils.ByteToHex(message.decode('hex')))
-		logging.debug("Packet Length\t\t= " + jeedom_utils.ByteToHex(message.decode('hex')[0]))
-		logging.debug("Write message to serial port : " + jeedom_utils.ByteToHex(message.decode('hex')))
+		logging.debug("Message\t\t\t= " + message)
+		logging.debug("Send\t\t\t= " + jeedom_utils.ByteToHex(binascii.unhexlify(message)))
+		logging.debug("Packet Length\t\t= " + jeedom_utils.dec2hex(binascii.unhexlify(message)[0]))
+		logging.debug("Write message to serial port : " + jeedom_utils.ByteToHex(binascii.unhexlify(message)))
 		logging.debug("Write 1")
-		jeedom_serial.write(message.decode('hex'))
+		jeedom_serial.write(binascii.unhexlify(message))
 		time.sleep(0.14)
 		logging.debug("Write 2")
-		jeedom_serial.write(message.decode('hex'))
+		jeedom_serial.write(binascii.unhexlify(message))
 		time.sleep(0.14)
 		logging.debug("Write 3")
-		jeedom_serial.write(message.decode('hex'))
+		jeedom_serial.write(binascii.unhexlify(message))
 		time.sleep(0.02)
 	else:
 		logging.error("Invalid message from socket : " + str(message))
@@ -509,7 +525,7 @@ try:
 	jeedom_serial = jeedom_serial(device=_device,rate=_serial_rate,timeout=_serial_timeout)
 	jeedom_socket = jeedom_socket(port=_socket_port,address=_socket_host)
 	listen()
-except Exception,e:
+except Exception as e:
 	logging.error('Fatal error : '+str(e))
 	logging.debug(traceback.format_exc())
 	shutdown()
