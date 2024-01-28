@@ -109,7 +109,7 @@ class edisio extends eqLogic {
 	public static function dependancy_info() {
 		$return = array();
 		$return['progress_file'] = jeedom::getTmpFolder('edisio') . '/dependance';
-		if (exec(system::getCmdSudo() . system::get('cmd_check') . '-E "python3\-serial|python3\-request|python3\-pyudev" | wc -l') >= 3) {
+		if (exec(system::getCmdSudo() . system::get('cmd_check') . '-E "python3\-serial|python3\-requests|python3\-pyudev" | wc -l') >= 3) {
 			$return['state'] = 'ok';
 		} else {
 			$return['state'] = 'nok';
