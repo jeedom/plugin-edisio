@@ -93,7 +93,6 @@ class edisio extends eqLogic {
 						$return += json_decode($content, true);
 					}
 				} catch (Exception $e) {
-
 				}
 			}
 		}
@@ -109,7 +108,7 @@ class edisio extends eqLogic {
 	public static function dependancy_info() {
 		$return = array();
 		$return['progress_file'] = jeedom::getTmpFolder('edisio') . '/dependance';
-		if (exec(system::getCmdSudo() . system::get('cmd_check') . '-E "python3\-serial|python3\-requests|python3\-pyudev" | wc -l') >= 3) {
+		if (exec(system::getCmdSudo() . '/usr/bin/python3 -m pip list | grep -Ewc "requests|pyudev|pyserial"') == 3) {
 			$return['state'] = 'ok';
 		} else {
 			$return['state'] = 'nok';
@@ -215,7 +214,7 @@ class edisio extends eqLogic {
 		socket_close($socket);
 	}
 
-/*     * *********************Methode d'instance************************* */
+	/*     * *********************Methode d'instance************************* */
 	public function getModelList($_conf = '') {
 		if ($_conf == '') {
 			$_conf = $this->getConfiguration('device');
@@ -333,7 +332,7 @@ class edisio extends eqLogic {
 		return 'plugins/edisio/core/config/devices/' . $this->getConfiguration('iconModel') . '.jpg';
 	}
 
-/*     * **********************Getteur Setteur*************************** */
+	/*     * **********************Getteur Setteur*************************** */
 }
 class edisioCmd extends cmd {
 	/*     * *************************Attributs****************************** */
@@ -367,7 +366,7 @@ class edisioCmd extends cmd {
 				$value = str_replace('#color#', $_options['color'], $value);
 				break;
 		}
-		$values = explode('&&', trim($value,'$'));
+		$values = explode('&&', trim($value, '$'));
 		$message = trim(json_encode(array('apikey' => jeedom::getApiKey('edisio'), 'cmd' => 'send', 'data' => $values)));
 		$socket = socket_create(AF_INET, SOCK_STREAM, 0);
 		socket_connect($socket, '127.0.0.1', config::byKey('socketport', 'edisio'));
@@ -376,4 +375,3 @@ class edisioCmd extends cmd {
 	}
 	/*     * **********************Getteur Setteur*************************** */
 }
-?>
