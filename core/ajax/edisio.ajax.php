@@ -17,7 +17,7 @@
  */
 
 try {
-	require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
+	require_once __DIR__ . '/../../../../core/php/core.inc.php';
 	include_file('core', 'authentification', 'php');
 
 	if (!isConnect('admin')) {
@@ -32,6 +32,7 @@ try {
 	}
 
 	if (init('action') == 'getModelList') {
+		/** @var edisio */
 		$edisio = edisio::byId(init('id'));
 		if (!is_object($edisio)) {
 			ajax::success(array());
@@ -42,6 +43,5 @@ try {
 	throw new Exception('Aucune methode correspondante');
 	/*     * *********Catch exeption*************** */
 } catch (Exception $e) {
-	ajax::error(displayExeption($e), $e->getCode());
+	ajax::error(displayException($e), $e->getCode());
 }
-?>
