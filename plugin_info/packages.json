@@ -1,0 +1,7 @@
+{
+  "pip3": {
+    "requests": {},
+    "pyudev": {},
+    "pyserial": {}
+  }
+}

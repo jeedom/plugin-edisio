@@ -15,7 +15,7 @@
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
 /* * ***************************Includes********************************* */
-require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
+require_once __DIR__ . '/../../../../core/php/core.inc.php';
 class edisio extends eqLogic {
 	/*     * *************************Attributs****************************** */
 	/*     * ***********************Methode static*************************** */
@@ -53,6 +53,7 @@ class edisio extends eqLogic {
 			));
 			return false;
 		}
+		/** @var edisio */
 		$eqLogic = edisio::byLogicalId($_def['id'], 'edisio');
 		if (!is_object($eqLogic)) {
 			$eqLogic = new edisio();
@@ -80,8 +81,8 @@ class edisio extends eqLogic {
 
 	public static function devicesParameters($_device = '') {
 		$return = array();
-		foreach (ls(dirname(__FILE__) . '/../config/devices', '*') as $dir) {
-			$path = dirname(__FILE__) . '/../config/devices/' . $dir;
+		foreach (ls(__DIR__ . '/../config/devices', '*') as $dir) {
+			$path = __DIR__ . '/../config/devices/' . $dir;
 			if (!is_dir($path)) {
 				continue;
 			}
@@ -103,21 +104,6 @@ class edisio extends eqLogic {
 			return array();
 		}
 		return $return;
-	}
-
-	public static function dependancy_info() {
-		$return = array();
-		$return['progress_file'] = jeedom::getTmpFolder('edisio') . '/dependance';
-		if (exec(system::getCmdSudo() . '/usr/bin/python3 -m pip list | grep -Ewc "requests|pyudev|pyserial"') == 3) {
-			$return['state'] = 'ok';
-		} else {
-			$return['state'] = 'nok';
-		}
-		return $return;
-	}
-	public static function dependancy_install() {
-		log::remove(__CLASS__ . '_update');
-		return array('script' => dirname(__FILE__) . '/../../resources/install_#stype#.sh ' . jeedom::getTmpFolder('edisio') . '/dependance', 'log' => log::getPathToLog(__CLASS__ . '_update'));
 	}
 
 	public static function deamon_info() {
@@ -167,8 +153,8 @@ class edisio extends eqLogic {
 		if ($port != 'auto') {
 			$port = jeedom::getUsbMapping($port);
 		}
-		$edisio_path = realpath(dirname(__FILE__) . '/../../resources/edisiod');
-		$cmd = '/usr/bin/python3 ' . $edisio_path . '/edisiod.py';
+		$edisio_path = realpath(__DIR__ . '/../../resources/edisiod');
+		$cmd = system::getCmdPython3(__CLASS__) . "{$edisio_path}/edisiod.py";
 		$cmd .= ' --device ' . $port;
 		$cmd .= ' --loglevel ' . log::convertLogLevel(log::getLogLevel('edisio'));
 		$cmd .= ' --socketport ' . config::byKey('socketport', 'edisio');
@@ -200,6 +186,7 @@ class edisio extends eqLogic {
 	}
 
 	public static function sendIdToDeamon() {
+		/** @var edisio */
 		foreach (self::byType('edisio') as $eqLogic) {
 			$eqLogic->allowDevice();
 			usleep(300);
@@ -221,12 +208,12 @@ class edisio extends eqLogic {
 		}
 		$modelList = array();
 		$files = array();
-		foreach (ls(dirname(__FILE__) . '/../config/devices', '*') as $dir) {
-			if (!is_dir(dirname(__FILE__) . '/../config/devices/' . $dir)) {
+		foreach (ls(__DIR__ . '/../config/devices', '*') as $dir) {
+			if (!is_dir(__DIR__ . '/../config/devices/' . $dir)) {
 				continue;
 			}
-			$files[$dir] = ls(dirname(__FILE__) . '/../config/devices/' . $dir, $_conf . '_*.jpg', false, array('files', 'quiet'));
-			if (file_exists(dirname(__FILE__) . '/../config/devices/' . $dir . $_conf . '.jpg')) {
+			$files[$dir] = ls(__DIR__ . '/../config/devices/' . $dir, $_conf . '_*.jpg', false, array('files', 'quiet'));
+			if (file_exists(__DIR__ . '/../config/devices/' . $dir . $_conf . '.jpg')) {
 				$selected = 0;
 				if ($dir . $_conf == $this->getConfiguration('iconModel')) {
 					$selected = 1;
