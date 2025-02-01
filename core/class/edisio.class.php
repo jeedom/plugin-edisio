@@ -162,8 +162,8 @@ class edisio extends eqLogic {
 		$cmd .= ' --apikey ' . jeedom::getApiKey('edisio');
 		$cmd .= ' --cycle ' . config::byKey('cycle', 'edisio');
 		$cmd .= ' --pid ' . jeedom::getTmpFolder('edisio') . '/deamon.pid';
-		log::add('edisio', 'info', 'Lancement démon edisiod : ' . $cmd);
-		exec($cmd . ' >> ' . log::getPathToLog('edisio') . ' 2>&1 &');
+		log::add('edisio', 'info', 'Lancement démon edisiod');
+		exec($cmd . ' >> ' . log::getPathToLog('edisio_daemon') . ' 2>&1 &');
 		$i = 0;
 		while ($i < 30) {
 			$deamon_info = self::deamon_info();
