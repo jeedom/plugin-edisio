@@ -16,7 +16,7 @@
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
+require_once __DIR__ . '/../../../core/php/core.inc.php';
 
 function edisio_install() {
 	if (config::byKey('api::edisio::mode') == '') {
@@ -39,9 +39,3 @@ function edisio_update() {
 		}
 	}
 }
-
-function edisio_remove() {
-
-}
-
-?>

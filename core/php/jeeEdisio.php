@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
-require_once dirname(__FILE__) . "/../../../../core/php/core.inc.php";
+require_once __DIR__ . "/../../../../core/php/core.inc.php";
 
 if (!jeedom::apiAccess(init('apikey'), 'edisio')) {
 	echo __('Vous n\'etes pas autorisé à effectuer cette action', __FILE__);
@@ -79,12 +79,12 @@ if (isset($result['devices'])) {
 					);
 					$cmd->setEqLogic_id($edisio->getId());
 					utils::a2o($cmd, $config);
-					try{
-					    $cmd->save();
-					  }catch(Exception $e){
-					    $cmd->setName($cmd->getName().' '.config::genKey(3));
-					    $cmd->save();
-					  }
+					try {
+						$cmd->save();
+					} catch (Exception $e) {
+						$cmd->setName($cmd->getName() . ' ' . config::genKey(3));
+						$cmd->save();
+					}
 				}
 			}
 			if (in_array($datas['value'], array("up", "down")) and $datas['mid'] == '01') {
