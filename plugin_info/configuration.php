@@ -39,7 +39,6 @@ if (!isConnect('admin')) {
       <label class="col-lg-4 control-label">{{Port EDISIO}}</label>
       <div class="col-lg-4">
         <select class="configKey form-control" data-l1key="port">
-          <option value="none">{{Aucun}}</option>
           <option value="auto">{{Auto}}</option>
           <?php
           foreach (jeedom::getUsbMapping() as $name => $value) {
