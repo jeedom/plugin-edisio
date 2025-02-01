@@ -9,8 +9,11 @@
         "pt_PT": "Edisio plugin para gerenciar o protocolo Edisio com a chave USB Edisio. Isso permitirá que você se comunique com os produtos da linha Edisio"
     },
     "licence": "AGPL",
-    "author": "Loïc",
-    "require": "3.0",
+    "author": "Jeedom SAS",
+    "require": "4.4",
+    "os": {
+        "min": 11
+    },
     "category": "automation protocol",
     "hasOwnDeamon": true,
     "hasDependency": true,
@@ -29,8 +32,8 @@
         "tr"
     ],
     "compatibility": [
-        "miniplus",
         "smart",
+        "atlas",
         "rpi",
         "docker",
         "diy",
