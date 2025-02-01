@@ -13,29 +13,20 @@
 # You should have received a copy of the GNU General Public License
 # along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 
-import globals
 import logging
-import string
 import sys
 import os
 import time
 import datetime
 import argparse
 import binascii
-import threading
-from threading import Thread, Event, Timer
-import re
+from threading import Thread, Event
 import signal
 import traceback
-from optparse import OptionParser
-from os.path import join
 import json
 
-try:
-    from jeedom.jeedom import *
-except ImportError:
-    print("Error: importing module from jeedom folder")
-    sys.exit(1)
+from jeedom.jeedom import jeedom_com, jeedom_socket, jeedom_serial, jeedom_utils, JEEDOM_SOCKET_MESSAGE
+import globals
 
 _decode_value = {'01': 1, '02': 0, '03': 'toggle', '04': 'toggle', '05': 'toggle', '06': 'toggle', '07': 'up', '08': 'toggle', '09': 1, '0A': 0, '0B': 0, '0C': 0, '0D': 0, '0E': 0, '0F': 0, '10': 0, '11': 0,
                  '12': 0, '13': 0, '14': 0, '15': 0, '16': 0, '17': 0, '18': 0, '19': 0, '1A': 1, '1F': 0, '20': 0, '21': 0, 'F1': 20, 'F2': 20, 'F3': 30, 'F4': 40, 'F5': 50, 'F6': 60, 'F7': 70, 'F8': 80, 'F9': 90, 'FA': 100}
@@ -111,11 +102,9 @@ def decodePacket(message):
     timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
     unixtime_utc = int(time.time())
     unixtime_utc_check = datetime.datetime.utcnow()
-    logging.debug("decodePacket : Incoming message (" +
-                  jeedom_utils.ByteToHex(message) + ")")
+    logging.debug("decodePacket : Incoming message (" + jeedom_utils.ByteToHex(message) + ")")
     if not test_edisio(jeedom_utils.ByteToHex(message)):
-        logging.error("The incoming message is invalid (" +
-                      jeedom_utils.ByteToHex(message) + ")")
+        logging.error("The incoming message is invalid (" + jeedom_utils.ByteToHex(message) + ")")
         return
     raw_message = jeedom_utils.ByteToHex(message)
     raw_message = raw_message.replace(' ', '')
@@ -256,7 +245,7 @@ def decodePacket(message):
     if MID == '23':
         return
 
-    logging.debug('Decode data : '+str(action))
+    logging.debug('Decode data : %s', action)
     try:
         if len(action) <= 4:
             return
@@ -395,12 +384,12 @@ def read_socket():
                 logging.error("Invalid apikey from socket : " + str(message))
                 return
             if message['cmd'] == 'add':
-                logging.debug('Add device : '+str(message['device']))
+                logging.debug('Add device : %s', message['device'])
                 if 'id' in message['device']:
                     globals.KNOWN_DEVICES[message['device']
                                           ['id']] = message['device']['id']
             elif message['cmd'] == 'remove':
-                logging.debug('Remove device : '+str(message['device']))
+                logging.debug('Remove device : %s', message['device'])
                 if 'id' in message['device'] and message['device']['id'] in globals.KNOWN_DEVICES:
                     del globals.KNOWN_DEVICES[message['device']['id']]
             elif message['cmd'] == 'include_mode':
@@ -422,10 +411,9 @@ def read_socket():
                         logging.debug(message['data'])
                         send_edisio(message['data'])
                     except Exception as e:
-                        logging.error(
-                            'Send message command to edisio error : '+str(e))
+                        logging.error('Send message command to edisio error : %s', e)
     except Exception as e:
-        logging.error('Error on read socket : '+str(e))
+        logging.error('Error on read socket : %s', e)
 
 # ----------------------------------------------------------------------------
 
@@ -502,18 +490,18 @@ _timerDatetime = datetime.datetime.utcnow()
 
 parser = argparse.ArgumentParser(description='Edisio Daemon for Jeedom plugin')
 parser.add_argument("--device", help="Device", type=str)
-parser.add_argument("--socketport", help="Socketport for server", type=str)
+parser.add_argument("--socketport", help="Socketport for server", type=int)
 parser.add_argument("--loglevel", help="Log Level for the daemon", type=str)
 parser.add_argument("--callback", help="Callback", type=str)
 parser.add_argument("--apikey", help="Apikey", type=str)
-parser.add_argument("--cycle", help="Cycle to send event", type=str)
+parser.add_argument("--cycle", help="Cycle to send event", type=float)
 parser.add_argument("--pid", help="Pid file", type=str)
 args = parser.parse_args()
 
 if args.device:
     _device = args.device
 if args.socketport:
-    _socket_port = int(args.socketport)
+    _socket_port = args.socketport
 if args.loglevel:
     _log_level = args.loglevel
 if args.callback:
@@ -523,29 +511,28 @@ if args.apikey:
 if args.pid:
     _pidfile = args.pid
 if args.cycle:
-    _cycle = float(args.cycle)
+    _cycle = args.cycle
 
 jeedom_utils.set_log_level(_log_level)
 
 logging.info('Start edisiod')
-logging.info('Log level : '+str(_log_level))
-logging.info('Socket port : '+str(_socket_port))
-logging.info('Socket host : '+str(_socket_host))
-logging.info('PID file : '+str(_pidfile))
-logging.info('Device : '+str(_device))
-logging.info('Apikey : '+str(_apikey))
-logging.info('Callback : '+str(_callback))
-logging.info('Cycle : '+str(_cycle))
-logging.info('Serial rate : '+str(_serial_rate))
-logging.info('Serial timeout : '+str(_serial_timeout))
+logging.info('Log level : %s', _log_level)
+logging.debug('Socket port : %s', _socket_port)
+logging.debug('Socket host : %s', _socket_host)
+logging.debug('PID file : %s', _pidfile)
+logging.info('Device : %s', _device)
+logging.debug('Callback : %s', _callback)
+logging.debug('Cycle : %s', _cycle)
+logging.debug('Serial rate : %s', _serial_rate)
+logging.debug('Serial timeout : %s', _serial_timeout)
 
 if _device == 'auto':
     _device = jeedom_utils.find_tty_usb('067b', '2303')
-    logging.info('Find device : '+str(_device))
+    logging.info('Find device : %s', _device)
 
 if _device is None:
     _device = jeedom_utils.find_tty_usb('0403', '6001', 'edisio')
-    logging.info('Find device : '+str(_device))
+    logging.info('Find device : %s', _device)
 
 if _device is None:
     logging.error('No device found')
@@ -555,18 +542,15 @@ signal.signal(signal.SIGINT, handler)
 signal.signal(signal.SIGTERM, handler)
 
 try:
-    jeedom_utils.write_pid(str(_pidfile))
-    globals.JEEDOM_COM = jeedom_com(
-        apikey=_apikey, url=_callback, cycle=_cycle)
+    jeedom_utils.write_pid(_pidfile)
+    globals.JEEDOM_COM = jeedom_com(apikey=_apikey, url=_callback, cycle=_cycle)
     if not globals.JEEDOM_COM.test():
-        logging.error(
-            'Network communication issues. Please fixe your Jeedom network configuration.')
+        logging.error('Network communication issues. Please fixe your Jeedom network configuration.')
         shutdown()
-    jeedom_serial = jeedom_serial(
-        device=_device, rate=_serial_rate, timeout=_serial_timeout)
+    jeedom_serial = jeedom_serial(device=_device, rate=_serial_rate, timeout=_serial_timeout)
     jeedom_socket = jeedom_socket(port=_socket_port, address=_socket_host)
     listen()
 except Exception as e:
-    logging.error('Fatal error : '+str(e))
+    logging.error('Fatal error : %s ', e)
     logging.debug(traceback.format_exc())
     shutdown()
