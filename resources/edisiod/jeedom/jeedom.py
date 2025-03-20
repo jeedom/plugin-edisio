@@ -128,7 +128,7 @@ class jeedom_utils():
             'error': logging.ERROR,
             'critical': logging.CRITICAL,
             'none': logging.CRITICAL
-            }
+        }
         return LEVELS.get(level, logging.CRITICAL)
 
     @staticmethod
@@ -164,7 +164,6 @@ class jeedom_utils():
             return jeedom_utils.dec2hex(byteStr)
         return ''.join(["%02X " % x for x in byteStr]).strip()
 
-
     @staticmethod
     def dec2hex(dec):
         if dec is None:
@@ -176,7 +175,6 @@ class jeedom_utils():
         pid = str(os.getpid())
         logging.info("Writing PID %s to %s", pid, path)
         open(path, 'w').write("%s\n" % pid)
-
 
 
 class jeedom_serial():

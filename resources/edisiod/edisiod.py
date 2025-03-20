@@ -373,7 +373,6 @@ def listen():
 
 def read_socket():
     try:
-        global JEEDOM_SOCKET_MESSAGE
         if not JEEDOM_SOCKET_MESSAGE.empty():
             logging.debug("Message received in socket JEEDOM_SOCKET_MESSAGE")
             message = json.loads(
