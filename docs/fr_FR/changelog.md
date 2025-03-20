@@ -4,6 +4,10 @@
 >
 >Pour rappel s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement de la mise à jour de documentation, de traduction ou de texte
 
+# 21/03/2025
+
+- Correction d'un bug dans le démon (`AttributeError: 'dict' object has no attribute 'has_key'`)
+
 # 02/02/2025
 
 - Correction d'une fuite mémmoire sous Debian 11

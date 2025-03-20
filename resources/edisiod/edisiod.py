@@ -99,8 +99,6 @@ def decodePacket(message):
     global _prevDatetime
     global _timerDatetime
     global _decode_value
-    timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
-    unixtime_utc = int(time.time())
     unixtime_utc_check = datetime.datetime.utcnow()
     logging.debug("decodePacket : Incoming message (" + jeedom_utils.ByteToHex(message) + ")")
     if not test_edisio(jeedom_utils.ByteToHex(message)):
@@ -108,9 +106,8 @@ def decodePacket(message):
         return
     raw_message = jeedom_utils.ByteToHex(message)
     raw_message = raw_message.replace(' ', '')
-    PID = jeedom_utils.ByteToHex(message[3]) + jeedom_utils.ByteToHex(
-        message[4]) + jeedom_utils.ByteToHex(message[5]) + jeedom_utils.ByteToHex(message[6])
-    BID = jeedom_utils.ByteToHex(message[7])
+    PID = str(jeedom_utils.ByteToHex(message[3]) + jeedom_utils.ByteToHex(message[4]) + jeedom_utils.ByteToHex(message[5]) + jeedom_utils.ByteToHex(message[6]))
+    BID = str(jeedom_utils.ByteToHex(message[7]))
     MID = jeedom_utils.ByteToHex(message[8])
     BL = jeedom_utils.ByteToHex(message[9])
     RMAX = jeedom_utils.ByteToHex(message[10])
@@ -121,27 +118,27 @@ def decodePacket(message):
         DATA = ''
         for i in range(0, len(message) - 16):
             DATA += jeedom_utils.ByteToHex(message[13 + i])
-    clean_message = str(PID) + str(BID) + str(MID) + \
+    clean_message = PID + BID + str(MID) + \
         str(RMAX) + str(CMD) + str(DATA)
 
     if CMD in ['07'] and MID in ['01']:
-        if DimOff_threads.has_key(str(PID)+str(BID)):
+        if PID+BID in DimOff_threads:
             if clean_message == _prevMessage and unixtime_utc_check < (_timerDatetime+datetime.timedelta(milliseconds=800)):
                 logging.debug("Too soon to refresh timer")
             else:
                 logging.debug("Thread exists resetting")
                 _timerDatetime = unixtime_utc_check
-                dimmingOff_thread = DimOff_threads.get(str(PID)+str(BID))
+                dimmingOff_thread = DimOff_threads.get(PID+BID)
                 dimmingOff_thread.reset(1)
         else:
             logging.debug("Thread not exists creating")
             BLDIM = int((int(BL, 16) / 3.3) * 10)
-            dimOff = {'id': str(PID), 'battery': str(BLDIM), 'mid': str(MID)}
-            dimOff['bt'] = str(BID)
+            dimOff = {'id': PID, 'battery': str(BLDIM), 'mid': str(MID)}
+            dimOff['bt'] = BID
             dimOff['value'] = 'down'
             dimmingOff = TimerReset(
-                1, function=sendDimOff, args=(str(PID)+str(BID), dimOff))
-            DimOff_threads[str(PID)+str(BID)] = dimmingOff
+                1, function=sendDimOff, args=(PID+BID, dimOff))
+            DimOff_threads[PID+BID] = dimmingOff
             _timerDatetime = unixtime_utc_check
             dimmingOff.start()
         if clean_message == _prevMessage and unixtime_utc_check < (_prevDatetime+datetime.timedelta(milliseconds=4000)):
@@ -154,32 +151,32 @@ def decodePacket(message):
     _prevMessage = clean_message
     _prevDatetime = unixtime_utc_check
     BL = int((int(BL, 16) / 3.3) * 10)
-    action = {'id': str(PID), 'battery': str(
+    action = {'id': PID, 'battery': str(
         BL), 'mid': str(MID), 'raw': str(raw_message)}
-    key = str(PID)+str(MID)+str(CMD)+str(BID)
+    key = PID+str(MID)+str(CMD)+BID
     value = ''
 
     if CMD in _decode_value:
         value = _decode_value[CMD]
     if MID == '01':
-        action['bt'] = str(BID)
+        action['bt'] = BID
         action['value'] = str(value)
     if MID == '02':
-        action['bt'] = str(BID)
+        action['bt'] = BID
         action['value'] = str(value)
     if MID == '03':
-        action['bt'] = str(BID)
+        action['bt'] = BID
         action['value'] = str(value)
     if MID == '04':
-        action['bt'] = str(BID)
+        action['bt'] = BID
         action['value'] = str(value)
     if MID == '05':
-        action['bt'] = str(BID)
+        action['bt'] = BID
         action['value'] = str(value)
     if MID == '06':
         return
     if MID == '07':
-        action['bt'] = str(BID)
+        action['bt'] = BID
         action['value'] = str(value)
     if MID == '08':
         try:
@@ -189,7 +186,7 @@ def decodePacket(message):
             return
         action['temperature'] = str(temperature)
     if MID == '09':
-        action['bt'] = str(BID)
+        action['bt'] = BID
         action['value'] = str(value)
     if MID == '10':
         return
@@ -206,20 +203,20 @@ def decodePacket(message):
     if MID == '16':
         return
     if MID == '17':
-        action['bt'] = str(BID)
+        action['bt'] = BID
         action['value'] = str(value)
     if MID == '18':
-        action['bt'] = str(BID)
+        action['bt'] = BID
         action['value'] = str(value)
     if MID == '0B':
         return
     if MID == '0E':
         return
     if MID == '0F':
-        action['bt'] = str(BID)
+        action['bt'] = BID
         action['value'] = str(value)
     if MID == '0C':
-        action['bt'] = str(BID)
+        action['bt'] = BID
         action['value'] = str(value)
     if MID == '0D':
         return
@@ -252,7 +249,7 @@ def decodePacket(message):
         if action['id'] not in globals.KNOWN_DEVICES and not globals.INCLUDE_MODE:
             return
         globals.JEEDOM_COM.add_changes('devices::'+key, action)
-    except Exception as e:
+    except Exception:
         pass
 
     return
@@ -456,15 +453,15 @@ def shutdown():
     logging.debug("Removing PID file " + str(_pidfile))
     try:
         os.remove(_pidfile)
-    except:
+    except Exception:
         pass
     try:
         jeedom_socket.close()
-    except:
+    except Exception:
         pass
     try:
         jeedom_serial.close()
-    except:
+    except Exception:
         pass
     logging.debug("Exit 0")
     sys.stdout.flush()
