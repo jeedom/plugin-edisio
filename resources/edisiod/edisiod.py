@@ -372,12 +372,10 @@ def read_socket():
     try:
         if not JEEDOM_SOCKET_MESSAGE.empty():
             logging.debug("Message received in socket JEEDOM_SOCKET_MESSAGE")
-            message = json.loads(
-                JEEDOM_SOCKET_MESSAGE.get())
-            logging.debug("Message received in socket "+str(message))
-            logging.debug("Message apikey "+str(message['apikey']))
+            message = json.loads(JEEDOM_SOCKET_MESSAGE.get())
+            logging.debug("Message received in socket %s", message)
             if message['apikey'] != _apikey:
-                logging.error("Invalid apikey from socket : " + str(message))
+                logging.error("Invalid apikey from socket : %s", message)
                 return
             if message['cmd'] == 'add':
                 logging.debug('Add device : %s', message['device'])
