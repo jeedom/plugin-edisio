@@ -482,69 +482,78 @@ _prevMessage = ''
 _prevDatetime = datetime.datetime.utcnow()
 _timerDatetime = datetime.datetime.utcnow()
 
-parser = argparse.ArgumentParser(description='Edisio Daemon for Jeedom plugin')
-parser.add_argument("--device", help="Device", type=str)
-parser.add_argument("--socketport", help="Socketport for server", type=int)
-parser.add_argument("--loglevel", help="Log Level for the daemon", type=str)
-parser.add_argument("--callback", help="Callback", type=str)
-parser.add_argument("--apikey", help="Apikey", type=str)
-parser.add_argument("--cycle", help="Cycle to send event", type=float)
-parser.add_argument("--pid", help="Pid file", type=str)
-args = parser.parse_args()
 
-if args.device:
-    _device = args.device
-if args.socketport:
-    _socket_port = args.socketport
-if args.loglevel:
-    _log_level = args.loglevel
-if args.callback:
-    _callback = args.callback
-if args.apikey:
-    _apikey = args.apikey
-if args.pid:
-    _pidfile = args.pid
-if args.cycle:
-    _cycle = args.cycle
+def main():
+    global _device, _socket_port, _log_level, _callback, _apikey, _pidfile, _cycle
+    global jeedom_serial, jeedom_socket
 
-jeedom_utils.set_log_level(_log_level)
+    parser = argparse.ArgumentParser(description='Edisio Daemon for Jeedom plugin')
+    parser.add_argument("--device", help="Device", type=str)
+    parser.add_argument("--socketport", help="Socketport for server", type=int)
+    parser.add_argument("--loglevel", help="Log Level for the daemon", type=str)
+    parser.add_argument("--callback", help="Callback", type=str)
+    parser.add_argument("--apikey", help="Apikey", type=str)
+    parser.add_argument("--cycle", help="Cycle to send event", type=float)
+    parser.add_argument("--pid", help="Pid file", type=str)
+    args = parser.parse_args()
 
-logging.info('Start edisiod')
-logging.info('Log level : %s', _log_level)
-logging.debug('Socket port : %s', _socket_port)
-logging.debug('Socket host : %s', _socket_host)
-logging.debug('PID file : %s', _pidfile)
-logging.info('Device : %s', _device)
-logging.debug('Callback : %s', _callback)
-logging.debug('Cycle : %s', _cycle)
-logging.debug('Serial rate : %s', _serial_rate)
-logging.debug('Serial timeout : %s', _serial_timeout)
+    if args.device:
+        _device = args.device
+    if args.socketport:
+        _socket_port = args.socketport
+    if args.loglevel:
+        _log_level = args.loglevel
+    if args.callback:
+        _callback = args.callback
+    if args.apikey:
+        _apikey = args.apikey
+    if args.pid:
+        _pidfile = args.pid
+    if args.cycle:
+        _cycle = args.cycle
 
-if _device == 'auto':
-    _device = jeedom_utils.find_tty_usb('067b', '2303')
-    logging.info('Find device : %s', _device)
+    jeedom_utils.set_log_level(_log_level)
 
-if _device is None:
-    _device = jeedom_utils.find_tty_usb('0403', '6001', 'edisio')
-    logging.info('Find device : %s', _device)
+    logging.info('Start edisiod')
+    logging.info('Log level : %s', _log_level)
+    logging.debug('Socket port : %s', _socket_port)
+    logging.debug('Socket host : %s', _socket_host)
+    logging.debug('PID file : %s', _pidfile)
+    logging.info('Device : %s', _device)
+    logging.debug('Callback : %s', _callback)
+    logging.debug('Cycle : %s', _cycle)
+    logging.debug('Serial rate : %s', _serial_rate)
+    logging.debug('Serial timeout : %s', _serial_timeout)
 
-if _device is None:
-    logging.error('No device found')
-    shutdown()
+    if _device == 'auto':
+        _device = jeedom_utils.find_tty_usb('067b', '2303')
+        logging.info('Find device : %s', _device)
 
-signal.signal(signal.SIGINT, handler)
-signal.signal(signal.SIGTERM, handler)
+    if _device is None:
+        _device = jeedom_utils.find_tty_usb('0403', '6001', 'edisio')
+        logging.info('Find device : %s', _device)
 
-try:
-    jeedom_utils.write_pid(_pidfile)
-    globals.JEEDOM_COM = jeedom_com(apikey=_apikey, url=_callback, cycle=_cycle)
-    if not globals.JEEDOM_COM.test():
-        logging.error('Network communication issues. Please fixe your Jeedom network configuration.')
+    if _device is None:
+        logging.error('No device found')
         shutdown()
-    jeedom_serial = jeedom_serial(device=_device, rate=_serial_rate, timeout=_serial_timeout)
-    jeedom_socket = jeedom_socket(port=_socket_port, address=_socket_host)
-    listen()
-except Exception as e:
-    logging.error('Fatal error : %s ', e)
-    logging.debug(traceback.format_exc())
-    shutdown()
+
+    signal.signal(signal.SIGINT, handler)
+    signal.signal(signal.SIGTERM, handler)
+
+    try:
+        jeedom_utils.write_pid(_pidfile)
+        globals.JEEDOM_COM = jeedom_com(apikey=_apikey, url=_callback, cycle=_cycle)
+        if not globals.JEEDOM_COM.test():
+            logging.error('Network communication issues. Please fixe your Jeedom network configuration.')
+            shutdown()
+        jeedom_serial = jeedom_serial(device=_device, rate=_serial_rate, timeout=_serial_timeout)
+        jeedom_socket = jeedom_socket(port=_socket_port, address=_socket_host)
+        listen()
+    except Exception as e:
+        logging.error('Fatal error : %s ', e)
+        logging.debug(traceback.format_exc())
+        shutdown()
+
+
+if __name__ == '__main__':
+    main()
