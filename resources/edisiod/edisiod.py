@@ -32,6 +32,14 @@ _decode_value = {'01': 1, '02': 0, '03': 'toggle', '04': 'toggle', '05': 'toggle
                  '12': 0, '13': 0, '14': 0, '15': 0, '16': 0, '17': 0, '18': 0, '19': 0, '1A': 1, '1F': 0, '20': 0, '21': 0, 'F1': 20, 'F2': 20, 'F3': 30, 'F4': 40, 'F5': 50, 'F6': 60, 'F7': 70, 'F8': 80, 'F9': 90, 'FA': 100}
 
 
+# MID reported as a button/value ('bt' + 'value')
+_SIMPLE_VALUE_MID = {'01', '02', '03', '04', '05', '07', '09', '17', '18', '0C', '0F'}
+# MID without decoding: frames are dropped
+_IGNORED_MID = {'06', '10', '11', '12', '13', '14', '15', '16', '0B', '0D', '0E', '1B', '1E', '1F', '20', '21', '22', '23'}
+# MID 1D (door/window sensor): CMD -> state
+_STATE_BY_CMD = {'0B': '1', '0A': '2', '09': '3'}
+
+
 def TimerReset(*args, **kwargs):
     """ Global function for Timer """
     return _TimerReset(*args, **kwargs)
@@ -98,149 +106,71 @@ def decodePacket(message):
     global _prevMessage
     global _prevDatetime
     global _timerDatetime
-    global _decode_value
     unixtime_utc_check = datetime.datetime.utcnow()
-    logging.debug("decodePacket : Incoming message (" + jeedom_utils.ByteToHex(message) + ")")
+    logging.debug("decodePacket : Incoming message (%s)", jeedom_utils.ByteToHex(message))
     if not test_edisio(jeedom_utils.ByteToHex(message)):
-        logging.error("The incoming message is invalid (" + jeedom_utils.ByteToHex(message) + ")")
+        logging.error("The incoming message is invalid (%s)", jeedom_utils.ByteToHex(message))
         return
-    raw_message = jeedom_utils.ByteToHex(message)
-    raw_message = raw_message.replace(' ', '')
-    PID = str(jeedom_utils.ByteToHex(message[3]) + jeedom_utils.ByteToHex(message[4]) + jeedom_utils.ByteToHex(message[5]) + jeedom_utils.ByteToHex(message[6]))
-    BID = str(jeedom_utils.ByteToHex(message[7]))
+    raw_message = jeedom_utils.ByteToHex(message).replace(' ', '')
+    PID = (jeedom_utils.ByteToHex(message[3]) + jeedom_utils.ByteToHex(message[4]) +
+           jeedom_utils.ByteToHex(message[5]) + jeedom_utils.ByteToHex(message[6]))
+    BID = jeedom_utils.ByteToHex(message[7])
     MID = jeedom_utils.ByteToHex(message[8])
     BL = jeedom_utils.ByteToHex(message[9])
     RMAX = jeedom_utils.ByteToHex(message[10])
-    RC = jeedom_utils.ByteToHex(message[11])
     CMD = jeedom_utils.ByteToHex(message[12])
-    DATA = 'None'
     if len(message) > 16:
-        DATA = ''
-        for i in range(0, len(message) - 16):
-            DATA += jeedom_utils.ByteToHex(message[13 + i])
-    clean_message = PID + BID + str(MID) + \
-        str(RMAX) + str(CMD) + str(DATA)
+        DATA = ''.join(jeedom_utils.ByteToHex(b) for b in message[13:-3])
+    else:
+        DATA = 'None'
+    clean_message = PID + BID + MID + RMAX + CMD + DATA
 
-    if CMD in ['07'] and MID in ['01']:
-        if PID+BID in DimOff_threads:
-            if clean_message == _prevMessage and unixtime_utc_check < (_timerDatetime+datetime.timedelta(milliseconds=800)):
+    if CMD == '07' and MID == '01':
+        dimmingOff_thread = DimOff_threads.get(PID + BID)
+        if dimmingOff_thread is not None:
+            if clean_message == _prevMessage and unixtime_utc_check < (_timerDatetime + datetime.timedelta(milliseconds=800)):
                 logging.debug("Too soon to refresh timer")
             else:
                 logging.debug("Thread exists resetting")
                 _timerDatetime = unixtime_utc_check
-                dimmingOff_thread = DimOff_threads.get(PID+BID)
                 dimmingOff_thread.reset(1)
         else:
             logging.debug("Thread not exists creating")
             BLDIM = int((int(BL, 16) / 3.3) * 10)
-            dimOff = {'id': PID, 'battery': str(BLDIM), 'mid': str(MID)}
-            dimOff['bt'] = BID
-            dimOff['value'] = 'down'
-            dimmingOff = TimerReset(
-                1, function=sendDimOff, args=(PID+BID, dimOff))
-            DimOff_threads[PID+BID] = dimmingOff
+            dimOff = {'id': PID, 'battery': str(BLDIM), 'mid': MID, 'bt': BID, 'value': 'down'}
+            dimmingOff = TimerReset(1, function=sendDimOff, args=(PID + BID, dimOff))
+            DimOff_threads[PID + BID] = dimmingOff
             _timerDatetime = unixtime_utc_check
             dimmingOff.start()
-        if clean_message == _prevMessage and unixtime_utc_check < (_prevDatetime+datetime.timedelta(milliseconds=4000)):
+        if clean_message == _prevMessage and unixtime_utc_check < (_prevDatetime + datetime.timedelta(milliseconds=4000)):
             return
-    else:
-        if clean_message == _prevMessage and unixtime_utc_check < (_prevDatetime+datetime.timedelta(milliseconds=200)):
-            logging.debug("Message already decode, ignore")
-            return
+    elif clean_message == _prevMessage and unixtime_utc_check < (_prevDatetime + datetime.timedelta(milliseconds=200)):
+        logging.debug("Message already decode, ignore")
+        return
 
     _prevMessage = clean_message
     _prevDatetime = unixtime_utc_check
     BL = int((int(BL, 16) / 3.3) * 10)
-    action = {'id': PID, 'battery': str(
-        BL), 'mid': str(MID), 'raw': str(raw_message)}
-    key = PID+str(MID)+str(CMD)+BID
-    value = ''
+    action = {'id': PID, 'battery': str(BL), 'mid': MID, 'raw': raw_message}
+    key = PID + MID + CMD + BID
+    value = _decode_value.get(CMD, '')
 
-    if CMD in _decode_value:
-        value = _decode_value[CMD]
-    if MID == '01':
-        action['bt'] = BID
-        action['value'] = str(value)
-    if MID == '02':
-        action['bt'] = BID
-        action['value'] = str(value)
-    if MID == '03':
-        action['bt'] = BID
-        action['value'] = str(value)
-    if MID == '04':
-        action['bt'] = BID
-        action['value'] = str(value)
-    if MID == '05':
-        action['bt'] = BID
-        action['value'] = str(value)
-    if MID == '06':
+    if MID in _IGNORED_MID:
         return
-    if MID == '07':
+    if MID in _SIMPLE_VALUE_MID:
         action['bt'] = BID
         action['value'] = str(value)
-    if MID == '08':
+    elif MID == '08':
         try:
-            temperature = float(int(DATA[3:4]+DATA[0:2], 16)) / 100
+            temperature = float(int(DATA[3:4] + DATA[0:2], 16)) / 100
         except Exception as e:
-            logging.error("Error on temperature decode "+str(e))
+            logging.error("Error on temperature decode %s", e)
             return
         action['temperature'] = str(temperature)
-    if MID == '09':
-        action['bt'] = BID
-        action['value'] = str(value)
-    if MID == '10':
-        return
-    if MID == '11':
-        return
-    if MID == '12':
-        return
-    if MID == '13':
-        return
-    if MID == '14':
-        return
-    if MID == '15':
-        return
-    if MID == '16':
-        return
-    if MID == '17':
-        action['bt'] = BID
-        action['value'] = str(value)
-    if MID == '18':
-        action['bt'] = BID
-        action['value'] = str(value)
-    if MID == '0B':
-        return
-    if MID == '0E':
-        return
-    if MID == '0F':
-        action['bt'] = BID
-        action['value'] = str(value)
-    if MID == '0C':
-        action['bt'] = BID
-        action['value'] = str(value)
-    if MID == '0D':
-        return
-    if MID == '1B':
-        return
-    if MID == '1D':
-        if CMD == '0B':
-            action['state'] = '1'
-        if CMD == '0A':
-            action['state'] = '2'
-        if CMD == '09':
-            action['state'] = '3'
-    if MID == '1E':
-        return
-    if MID == '1F':
-        return
-    if MID == '20':
-        return
-    if MID == '21':
-        return
-    if MID == '22':
-        return
-    if MID == '23':
-        return
+    elif MID == '1D':
+        state = _STATE_BY_CMD.get(CMD)
+        if state:
+            action['state'] = state
 
     logging.debug('Decode data : %s', action)
     try:
@@ -248,7 +178,7 @@ def decodePacket(message):
             return
         if action['id'] not in globals.KNOWN_DEVICES and not globals.INCLUDE_MODE:
             return
-        globals.JEEDOM_COM.add_changes('devices::'+key, action)
+        globals.JEEDOM_COM.add_changes('devices::' + key, action)
     except Exception:
         pass
 
@@ -258,7 +188,6 @@ def decodePacket(message):
 
 
 def test_edisio(message):
-    message = message
     try:
         message = message.replace(' ', '')
     except Exception:
@@ -273,36 +202,15 @@ def test_edisio(message):
     if len(message) % 2:
         logging.debug("Error: Packet length not even")
         return False
-    if len(binascii.unhexlify(message)) < 16:
+    raw = binascii.unhexlify(message)
+    if len(raw) < 16:
         logging.debug("Error: Packet length is not valid (<16)")
         return False
-    if jeedom_utils.dec2hex(binascii.unhexlify(message)[0]) != "6C":
-        logging.debug("Error: Packet first byte is not 6C : " +
-                      str(jeedom_utils.dec2hex(binascii.unhexlify(message)[0])))
-        return False
-    if jeedom_utils.dec2hex(binascii.unhexlify(message)[1]) != "76":
-        logging.debug("Error: Packet second byte is not 76 : " +
-                      str(jeedom_utils.dec2hex(binascii.unhexlify(message)[1])))
-        return False
-    if jeedom_utils.dec2hex(binascii.unhexlify(message)[2]) != "63":
-        logging.debug("Error: Packet third byte is not 63 : " +
-                      str(jeedom_utils.dec2hex(binascii.unhexlify(message)[2])))
-        return False
-    if jeedom_utils.dec2hex(binascii.unhexlify(message)[-1]) != "0A":
-        logging.debug("Error: Packet last byte is not 0A : " +
-                      str(jeedom_utils.dec2hex(binascii.unhexlify(message)[-1])))
-        return False
-    if jeedom_utils.dec2hex(binascii.unhexlify(message)[-2]) != "0D":
-        logging.debug("Error: Packet -2 byte is not 0D : " +
-                      str(jeedom_utils.dec2hex(binascii.unhexlify(message)[-2])))
-        return False
-    if jeedom_utils.dec2hex(binascii.unhexlify(message)[-3]) != "64":
-        logging.debug("Error: Packet -3 byte is not 64 : " +
-                      str(jeedom_utils.dec2hex(binascii.unhexlify(message)[-3])))
-        return False
-    if not len(binascii.unhexlify(message)) > 1:
-        logging.debug("Error: Packet is not longer than one byte")
-        return False
+    for index, expected in ((0, "6C"), (1, "76"), (2, "63"), (-1, "0A"), (-2, "0D"), (-3, "64")):
+        actual = jeedom_utils.dec2hex(raw[index])
+        if actual != expected:
+            logging.debug("Error: Packet byte %d is not %s : %s", index, expected, actual)
+            return False
     return True
 
 # ----------------------------------------------------------------------------
