@@ -22,7 +22,7 @@ class edisio extends eqLogic {
 	public static function cronDaily() {
 		foreach (eqLogic::byType('edisio') as $eqLogic) {
 			$deviceParameter = edisio::devicesParameters($eqLogic->getConfiguration('device'));
-			if (isset($deviceParameter) && isset($deviceParameter['battery_type'])) {
+			if (isset($deviceParameter['battery_type']) && $eqLogic->getConfiguration('battery_type') != $deviceParameter['battery_type']) {
 				$eqLogic->setConfiguration('battery_type', $deviceParameter['battery_type']);
 				$eqLogic->save();
 			}
