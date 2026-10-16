@@ -316,7 +316,13 @@ class edisio extends eqLogic {
 	}
 
 	public function getImage() {
-		return 'plugins/edisio/core/config/devices/' . $this->getConfiguration('iconModel') . '.jpg';
+		$device = $this->getConfiguration('device');
+		foreach (array($this->getConfiguration('iconModel'), $device . '/' . $device) as $image) {
+			if ($image != '' && $image != '/' && file_exists(__DIR__ . '/../config/devices/' . $image . '.jpg')) {
+				return 'plugins/edisio/core/config/devices/' . $image . '.jpg';
+			}
+		}
+		return 'plugins/edisio/plugin_info/edisio_icon.png';
 	}
 
 	/*     * **********************Getteur Setteur*************************** */
