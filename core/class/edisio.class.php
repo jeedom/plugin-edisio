@@ -202,47 +202,42 @@ class edisio extends eqLogic {
 	}
 
 	/*     * *********************Methode d'instance************************* */
+	/**
+	 * Images disponibles pour un modèle, lues dans core/config/devices/<code>/
+	 * (le dossier porte le code du modèle).
+	 * Clés au format '<code>/<image sans .jpg>', comme la configuration 'iconModel'.
+	 */
 	public function getModelList($_conf = '') {
 		if ($_conf == '') {
 			$_conf = $this->getConfiguration('device');
 		}
 		$modelList = array();
-		$files = array();
-		foreach (ls(__DIR__ . '/../config/devices', '*') as $dir) {
-			if (!is_dir(__DIR__ . '/../config/devices/' . $dir)) {
-				continue;
-			}
-			$files[$dir] = ls(__DIR__ . '/../config/devices/' . $dir, $_conf . '_*.jpg', false, array('files', 'quiet'));
-			if (file_exists(__DIR__ . '/../config/devices/' . $dir . $_conf . '.jpg')) {
-				$selected = 0;
-				if ($dir . $_conf == $this->getConfiguration('iconModel')) {
-					$selected = 1;
-				}
-				$modelList[$dir . $_conf] = array(
-					'value' => __('Défaut', __FILE__),
-					'selected' => $selected,
-				);
-			}
-			if (count($files[$dir]) == 0) {
-				unset($files[$dir]);
-			}
+		if (!preg_match('/^[0-9A-Fa-f]+$/', $_conf)) {
+			return $modelList;
+		}
+		$dirPath = __DIR__ . '/../config/devices/' . $_conf;
+		if (!is_dir($dirPath)) {
+			return $modelList;
+		}
+		$currentIcon = $this->getConfiguration('iconModel');
+		if (file_exists($dirPath . '/' . $_conf . '.jpg')) {
+			$key = $_conf . '/' . $_conf;
+			$modelList[$key] = array(
+				'value' => __('Défaut', __FILE__),
+				'selected' => ($key == $currentIcon) ? 1 : 0,
+			);
 		}
 		$replace = array(
 			$_conf => '',
 			'.jpg' => '',
 			'_' => ' ',
 		);
-		foreach ($files as $dir => $images) {
-			foreach ($images as $imgname) {
-				$selected = 0;
-				if ($dir . str_replace('.jpg', '', $imgname) == $this->getConfiguration('iconModel')) {
-					$selected = 1;
-				}
-				$modelList[$dir . str_replace('.jpg', '', $imgname)] = array(
-					'value' => ucfirst(trim(str_replace(array_keys($replace), $replace, $imgname))),
-					'selected' => $selected,
-				);
-			}
+		foreach (ls($dirPath, $_conf . '_*.jpg', false, array('files', 'quiet')) as $imgname) {
+			$key = $_conf . '/' . str_replace('.jpg', '', $imgname);
+			$modelList[$key] = array(
+				'value' => ucfirst(trim(str_replace(array_keys($replace), $replace, $imgname))),
+				'selected' => ($key == $currentIcon) ? 1 : 0,
+			);
 		}
 		return $modelList;
 	}
