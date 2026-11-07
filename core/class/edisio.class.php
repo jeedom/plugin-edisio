@@ -189,7 +189,7 @@ class edisio extends eqLogic {
 		/** @var edisio */
 		foreach (self::byType('edisio') as $eqLogic) {
 			$eqLogic->allowDevice();
-			usleep(300);
+			usleep(300000);
 		}
 	}
 
