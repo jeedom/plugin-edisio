@@ -5,3 +5,5 @@ plugins
 sftp-config.json
 .project
 .vscode
+__pycache__/
+resources/python_venv/
