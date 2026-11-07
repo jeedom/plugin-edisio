@@ -43,7 +43,7 @@ if (isset($result['devices'])) {
 			$edisio = edisio::createFromDef($datas);
 			if (!is_object($edisio)) {
 				log::add('edisio', 'debug', 'Aucun équipement trouvé pour : ' . secureXSS($datas['id']));
-				die();
+				continue;
 			}
 			event::add('jeedom::alert', array(
 				'level' => 'warning',
