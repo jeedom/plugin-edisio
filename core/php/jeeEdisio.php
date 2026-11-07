@@ -56,11 +56,11 @@ if (isset($result['devices'])) {
 		if (!$edisio->getIsEnable()) {
 			continue;
 		}
-		if ($datas['mid'] == '01' || $datas['mid'] == '02' || $datas['mid'] == '03' || $datas['mid'] == '04' || $datas['mid'] == '05' || $datas['mid'] == '07' || $datas['mid'] == '09' || $datas['mid'] == '18') {
+		if (in_array($datas['mid'], array('01', '02', '03', '04', '05', '07', '09', '18'), true)) {
 			$logicalId = 'bt' . $datas['bt'];
 			$value = $datas['value'];
 			$cmdArray = array($logicalId);
-			if ($datas['mid'] == '1') {
+			if ($datas['mid'] == '01') {
 				$cmdArray = array($logicalId, $logicalId . 'long');
 			}
 			foreach ($cmdArray as $logicalIdToCheck) {
